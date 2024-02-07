@@ -19,7 +19,7 @@ class Wysiqyg
      * $wysiqyg->render("Your Text Here", "Post variable name", "/your-action-url");
      * ```
      */
-    function render(string $data = "", string $text_area_name = "default", string $action = "")
+    function render(string $data = "", string $text_area_name = "", string $action = "")
     {
 
 ?>
