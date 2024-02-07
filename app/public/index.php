@@ -8,4 +8,4 @@ $router->get('/hello', function () {
     echo 'Hello world!';
 });
 
-$router->$router->run();
+$router->run();
