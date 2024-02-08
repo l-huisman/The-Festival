@@ -292,4 +292,8 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
 
         }, null, ClassLoader::class);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e250a85 (fix)
