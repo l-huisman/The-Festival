@@ -52,8 +52,8 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
             'Symfony\\Bridge\\Twig\\' => 20,
             'Services\\' => 9,
         ),
-        'R' =>
-        array(
+        'R' => 
+        array (
             'Routers\\' => 8,
             'Repositories\\' => 13,
         ),
@@ -67,7 +67,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'M' => 
         array (
             'Models\\' => 7,
-        )
+        ),
         'E' => 
         array (
             'Endroid\\QrCode\\' => 15,
@@ -197,12 +197,12 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         array (
             0 => __DIR__ . '/../..' . '/services',
         ),
-        'Routers\\' =>
-        array(
+        'Routers\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/routers',
         ),
-        'Repositories\\' =>
-        array(
+        'Repositories\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/repositories',
         ),
         'Psr\\Log\\' => 
@@ -251,11 +251,11 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         ),
     );
 
-    public static $prefixesPsr0 = array(
-        'B' =>
-        array(
-            'Bramus' =>
-            array(
+    public static $prefixesPsr0 = array (
+        'B' => 
+        array (
+            'Bramus' => 
+            array (
                 0 => __DIR__ . '/..' . '/bramus/router/src',
             ),
         ),
@@ -289,6 +289,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
             $loader->prefixDirsPsr4 = ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09::$classMap;
+
         }, null, ClassLoader::class);
     }
 }
