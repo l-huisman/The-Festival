@@ -13,8 +13,13 @@ $router->post('/wysiwyg', function () {
 });
 
 $router->get('/', function () {
-    $wysiqyg = new Services\Wysiqyg();
-    $wysiqyg->render("echo 'Hello World!';", "content", "/wysiwyg");
+    $home = new Views\Home();
+    $home->render();
+});
+
+$router->get('/music', function () {
+    $music = new Views\Music();
+    $music->render();
 });
 
 $router->run();
