@@ -589,10 +589,14 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
 <<<<<<< HEAD
+<<<<<<< HEAD
         '©' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
 =======
         'ï¿½' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
 >>>>>>> b32fdfd (Added qr code service)
+=======
+        '©' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
+>>>>>>> db745e1 (Composer dump-autoload)
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -612,7 +616,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> db745e1 (Composer dump-autoload)
 }
 =======
 >>>>>>> 9e5a864 (fix)
@@ -621,6 +628,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
 =======
 }
 >>>>>>> e250a85 (fix)
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 }
@@ -642,3 +650,11 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
 =======
 >>>>>>> 5321a0b (fix)
 >>>>>>> 9e5a864 (fix)
+=======
+>>>>>>> 5321a0b (fix)
+=======
+=======
+}
+>>>>>>> 6fdb1a3 (Composer dump-autoload)
+>>>>>>> ca8cc00 (Composer dump-autoload)
+>>>>>>> db745e1 (Composer dump-autoload)
