@@ -94,6 +94,9 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         ),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4a60c1e (Fixed the router)
         'R' => 
         array (
             'Routers\\' => 8,
@@ -531,13 +534,17 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e250a85 (fix)
+=======
+>>>>>>> 4a60c1e (Fixed the router)
     public static $prefixesPsr0 = array (
         'B' => 
         array (
             'Bramus' => 
             array (
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     public static $prefixesPsr0 = array(
@@ -548,6 +555,8 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
 >>>>>>> b32fdfd (Added qr code service)
 =======
 >>>>>>> e250a85 (fix)
+=======
+>>>>>>> 4a60c1e (Fixed the router)
                 0 => __DIR__ . '/..' . '/bramus/router/src',
             ),
         ),
@@ -595,6 +604,9 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
             $loader->classMap = ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09::$classMap;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4a60c1e (Fixed the router)
 
         }, null, ClassLoader::class);
     }
