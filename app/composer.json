@@ -11,6 +11,12 @@
     },
     "require": {
         "bramus/router": "~1.6",
-        "firebase/php-jwt": "^6.0"
+        "firebase/php-jwt": "^6.0",
+        "endroid/qr-code-bundle": "^5.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "endroid/installer": true
+        }
     }
 }
