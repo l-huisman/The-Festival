@@ -16,6 +16,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
     );
 
     public static $prefixLengthsPsr4 = array (
+        'V' => 
+        array (
+            'Views\\' => 6,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -63,11 +67,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'M' => 
         array (
             'Models\\' => 7,
-        ),
-        'F' =>
-        array(
-            'Firebase\\JWT\\' => 13,
-        ),
+        )
         'E' => 
         array (
             'Endroid\\QrCode\\' => 15,
@@ -89,6 +89,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
     );
 
     public static $prefixDirsPsr4 = array (
+        'Views\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/views',
+        ),
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
@@ -221,10 +225,6 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         array (
             0 => __DIR__ . '/../..' . '/models',
         ),
-        'Firebase\\JWT\\' =>
-        array(
-            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
-        ),
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
@@ -279,7 +279,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        '©' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
+        '�' => __DIR__ . '/..' . '/symfony/cache/Traits/ValueWrapper.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
