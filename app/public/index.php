@@ -22,4 +22,14 @@ $router->get('/music', function () {
     $music->render();
 });
 
+$router->get('/yummy', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyOverview();
+});
+
+$router->get('/yummyDetail', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyDetail();
+});
+
 $router->run();
