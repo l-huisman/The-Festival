@@ -612,10 +612,16 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+}
+=======
+>>>>>>> 9e5a864 (fix)
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> e250a85 (fix)
+<<<<<<< HEAD
 =======
 }
 >>>>>>> 6fdb1a3 (Composer dump-autoload)
@@ -633,3 +639,6 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
     }
 }
 >>>>>>> e250a85 (fix)
+=======
+>>>>>>> 5321a0b (fix)
+>>>>>>> 9e5a864 (fix)
