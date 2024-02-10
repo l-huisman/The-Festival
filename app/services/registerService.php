@@ -2,18 +2,12 @@
 
 namespace Services;
 
-class RegisterService
-{
+class RegisterService {
     private $registerRepository;
 
     public function __construct()
     {
         $this->registerRepository = new \Repositories\RegisterRepository();
-    }
-
-    public function getUserByEmail($email)
-    {
-        return $this->registerRepository->getUserByEmail($email);
     }
 
     public function validateUser($firstName, $lastName, $email, $dateOfBirth, $address, $phoneNumber, $password, $gender)
@@ -22,11 +16,11 @@ class RegisterService
             return false;
         }
         $user = $this->registerRepository->getUserByEmail($email);
-        if (!$user) {
+        if(!$user){
             $hashedPassword = $this->hashPassword($password);
             unset($password);
             $this->registerRepository->createUser($firstName, $lastName, $email, $dateOfBirth, $address, $phoneNumber, $hashedPassword, $gender);
-        } else {
+        }else {
             //user email already exists
         }
     }
@@ -36,8 +30,10 @@ class RegisterService
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function verifyPassword($password, $hashedPassword)
+    private function verifyPassword($password, $hashedPassword)
     {
         return password_verify($password, $hashedPassword);
     }
 }
+
+?>

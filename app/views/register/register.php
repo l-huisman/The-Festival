@@ -60,8 +60,6 @@
         </div>
       </div>
     </div>
-    <p class="small">Already have an account press <a href="/register/loginView">Here</a></p>
-
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
