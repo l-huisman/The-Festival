@@ -51,5 +51,11 @@ class RegisterController
             }
         }
     }
+
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        echo '<script>window.location.href = "/";</script>';
+    }
         
 }
