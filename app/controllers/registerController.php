@@ -15,7 +15,8 @@ class RegisterController
         require_once __DIR__ . '/../views/register/register.php';
     }
 
-    public function loginView(){
+    public function loginView()
+    {
         require_once __DIR__ . '/../views/register/login.php';
     }
 
@@ -33,7 +34,6 @@ class RegisterController
 
         $this->registerService->validateUser($firstName, $lastName, $email, $dateOfBirth, $address, $phoneNumber, $password, $gender);
         echo '<script>window.location.href = "/";</script>';
-
     }
 
     public function login()
@@ -41,11 +41,11 @@ class RegisterController
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
         $user = $this->registerService->getUserByEmail($email);
-        if($user){
-            if($this->registerService->verifyPassword($password, $user['hashed_password'])){
+        if ($user) {
+            if ($this->registerService->verifyPassword($password, $user['hashed_password'])) {
                 $_SESSION['user'] = $user;
                 echo '<script>window.location.href = "/";</script>';
-            }else{
+            } else {
                 echo '<script>alert("Invalid email or password");</script>';
                 echo '<script>window.location.href = "/register/loginView";</script>';
             }
@@ -57,5 +57,4 @@ class RegisterController
         unset($_SESSION['user']);
         echo '<script>window.location.href = "/";</script>';
     }
-        
 }
