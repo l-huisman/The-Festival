@@ -10,6 +10,11 @@ class RegisterService {
         $this->registerRepository = new \Repositories\RegisterRepository();
     }
 
+    public function getUserByEmail($email)
+    {
+        return $this->registerRepository->getUserByEmail($email);
+    }
+
     public function validateUser($firstName, $lastName, $email, $dateOfBirth, $address, $phoneNumber, $password, $gender)
     {
         if (empty($firstName) || empty($lastName) || empty($email) || empty($dateOfBirth) || empty($address) || empty($phoneNumber) || empty($password) || empty($gender)) {
@@ -30,7 +35,7 @@ class RegisterService {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    private function verifyPassword($password, $hashedPassword)
+    public function verifyPassword($password, $hashedPassword)
     {
         return password_verify($password, $hashedPassword);
     }
