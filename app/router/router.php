@@ -25,5 +25,15 @@ $router->get('/music', function () {
     $music->index();
 });
 
+$router->get('/register', function () {
+    $register = new Controllers\RegisterController();
+    $register->index();
+});
+
+$router->post('/register/validateUser', function () {
+    $register = new Controllers\RegisterController();
+    $register->validateUser();
+});
+
 // Run it!
 $router->run();
