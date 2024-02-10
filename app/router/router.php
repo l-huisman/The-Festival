@@ -35,5 +35,16 @@ $router->post('/register/validateUser', function () {
     $register->validateUser();
 });
 
+$router->get('/register/loginView', function () {
+    $register = new Controllers\RegisterController();
+    $register->loginView();
+});
+
+$router->post('/register/login', function () {
+    $register = new Controllers\RegisterController();
+    $register->login();
+});
+
+
 // Run it!
 $router->run();
