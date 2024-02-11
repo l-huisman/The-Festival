@@ -4,25 +4,27 @@ namespace Models;
 
 class User
 {
-    public $id;
+    public $user_id;
+    public $first_name;
+    public $last_name;
     public $email;
+    public $date_of_birth;
+    public $address;
+    public $phone_number;
     public $password;
-    public $created_at;
-    public $updated_at;
-    public $deleted_at;
+    public $gender;
+    public $role;
 
-    public function __construct($id, $email, $password, $created_at, $updated_at, $deleted_at)
+    public function __construct($user_id, $first_name, $last_name, $email, $date_of_birth, $address, $phone_number, $password, $gender, $role)
     {
-        $this->id = $id;
+        $this->user_id = $user_id;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
         $this->email = $email;
+        $this->date_of_birth = $date_of_birth;
+        $this->address = $address;
+        $this->phone_number = $phone_number;
         $this->password = $password;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
-        $this->deleted_at = $deleted_at;
     }
 
-    public function __toString()
-    {
-        return "User: [id: $this->id, email: $this->email, password: $this->password, created_at: $this->created_at, updated_at: $this->updated_at, deleted_at: $this->deleted_at]";
-    }
 }
