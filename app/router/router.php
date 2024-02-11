@@ -25,35 +25,6 @@ $router->get('/music', function () {
     $music->index();
 });
 
-$router->get('/music/artist', function ($artist = 'Avicii') {
-    $music = new Controllers\MusicController();
-    $music->artist($artist);
-});
-
-$router->get('/register', function () {
-    $register = new Controllers\RegisterController();
-    $register->index();
-});
-
-$router->post('/register/validateUser', function () {
-    $register = new Controllers\RegisterController();
-    $register->validateUser();
-});
-
-$router->get('/register/loginView', function () {
-    $register = new Controllers\RegisterController();
-    $register->loginView();
-});
-
-$router->post('/register/login', function () {
-    $register = new Controllers\RegisterController();
-    $register->login();
-});
-
-$router->get('/register/logout', function () {
-    $register = new Controllers\RegisterController();
-    $register->logout();
-});
 
 
 // Run it!
