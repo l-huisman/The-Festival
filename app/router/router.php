@@ -16,8 +16,8 @@ $router->post('/wysiwyg', function () {
 });
 
 $router->get('/', function () {
-    $home = new Views\Home();
-    $home->render();
+    $home = new Controllers\HomeController();
+    $home->index();
 });
 
 $router->get('/music', function () {
