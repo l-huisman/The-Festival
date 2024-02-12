@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html>
-<script>
-
-
-</script>
-
 <head>
     <title>Home</title>
     <style>
@@ -146,5 +141,4 @@
                 </div>
             </div>
         </div>
-
 </html>
