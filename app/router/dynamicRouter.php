@@ -8,13 +8,6 @@ $router = new \Bramus\Router\Router();
 // Define controller namespace
 $router->setNamespace('\Controllers');
 
-/**
- * Handle dynamic routing based on the controller and action parameters.
- *
- * @param string $controller The name of the controller.
- * @param string $action The name of the function called within the router.
- * @return void
- */
 $router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
     $controller = ucfirst($controller); // Capitalize the first letter
     $controller = "\\Controllers\\{$controller}Controller"; // Append 'Controller' to the controller name and prepend the namespace
@@ -22,7 +15,12 @@ $router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
     if (class_exists($controller)) {
         $controllerInstance = new $controller();
         if ($action !== null && method_exists($controllerInstance, $action)) {
-            $controllerInstance->$action();
+            if (isset($_GET['value'])) {
+                $value = $_GET['value'];
+                $controllerInstance->$action($value);
+            } else {
+                $controllerInstance->action();
+            }
         } else if (method_exists($controllerInstance, 'index')) {
             $controllerInstance->index();
         } else {
