@@ -40,5 +40,4 @@ class RegisterService {
         return password_verify($password, $hashedPassword);
     }
 }
-
 ?>
