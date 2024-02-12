@@ -13,6 +13,13 @@ $router->get("/audio/artist", function () {
     $controller->artist(1);
 });
 
+/**
+ * Handle dynamic routing based on the controller and action parameters.
+ *
+ * @param string $controller The name of the controller.
+ * @param string $action The name of the function called within the router.
+ * @return void
+ */
 $router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
     $controller = ucfirst($controller); // Capitalize the first letter
     $controller = "\\Controllers\\{$controller}Controller"; // Append 'Controller' to the controller name and prepend the namespace
