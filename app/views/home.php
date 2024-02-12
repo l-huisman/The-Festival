@@ -6,7 +6,7 @@
         .carousel-inner img {
             object-fit: cover;
             height: 70vh;
-            object position: center;
+            object-position: cover;
             overflow: hidden;
 
 

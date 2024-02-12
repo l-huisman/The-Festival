@@ -59,5 +59,15 @@ $router->get('/register/logout', function () {
     $register->logout();
 });
 
+$router->get('/historic', function () {
+    $historic = new Controllers\HistoricController();
+    $historic->index();
+});
+
+
+
+
+
+
 // Run it!
 $router->run();
