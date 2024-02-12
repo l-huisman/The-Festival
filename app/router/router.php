@@ -25,5 +25,15 @@ $router->get('/music', function () {
     $music->index();
 });
 
+$router->get('/yummy', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyOverview();
+});
+
+$router->get('/yummy/restaurant', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyDetail();
+});
+
 // Run it!
 $router->run();
