@@ -16,8 +16,12 @@ $router->post('/wysiwyg', function () {
 });
 
 $router->get('/', function () {
+<<<<<<< HEAD
     $home = new Controllers\HomeController();
     $home->index();
+=======
+    require_once __DIR__ . '/../views/home.php';
+>>>>>>> 9c069d5 (Warning: Cannot modify header information - headers already sent)
 });
 
 $router->get('/music', function () {

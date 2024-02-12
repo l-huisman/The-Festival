@@ -54,10 +54,10 @@ $router->post('/{controller}/{action}', function ($controller, $action) {
         if (method_exists($controllerInstance, $action)) {
             $controllerInstance->$action();
         } else {
-            echo "Action {$action} not found in controller {$controller}";
+            require_once __DIR__ . '/../views/404.php';
         }
     } else {
-        echo "Controller {$controller} not found";
+        require_once __DIR__ . '/../views/404.php';
     }
 });
 
