@@ -4,15 +4,19 @@ namespace Models;
 
 class Artist
 {
-    public $id;
-    public $name;
-    public $songs;
+    private $id;
+    private $name;
+    private $description;
+    private $banner;
+    private $pictogram;
 
-    public function __construct($id, $name, $songs)
+    public function __construct($id, $name, $description, $banner = '/img/artists/hardwell/banner.png', $pictogram = '/img/artists/hardwell/pictogram.jpg')
     {
         $this->id = $id;
         $this->name = $name;
-        $this->songs = $songs;
+        $this->description = $description;
+        $this->banner = $banner;
+        $this->pictogram = $pictogram;
     }
 
     public function getId()
@@ -25,8 +29,18 @@ class Artist
         return $this->name;
     }
 
-    public function getSongs()
+    public function getDescription()
     {
-        return $this->songs;
+        return $this->description;
+    }
+
+    public function getBanner()
+    {
+        return $this->banner;
+    }
+
+    public function getPictogram()
+    {
+        return $this->pictogram;
     }
 }
