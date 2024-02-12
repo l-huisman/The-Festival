@@ -8,10 +8,6 @@ $router = new \Bramus\Router\Router();
 // Define controller namespace
 $router->setNamespace('\Controllers');
 
-$router->get('/', function () {
-    require_once __DIR__ . "/../views/home.php";
-});
-
 /**
  * Handle dynamic routing based on the controller and action parameters.
  *
