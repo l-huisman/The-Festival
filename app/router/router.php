@@ -25,7 +25,7 @@ $router->get('/music', function () {
     $music->index();
 });
 
-$router->get('/music/artist', function($artist='Avicii'){
+$router->get('/music/artist', function ($artist = 'Avicii') {
     $music = new Controllers\MusicController();
     $music->artist($artist);
 });
