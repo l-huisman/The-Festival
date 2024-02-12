@@ -4,4 +4,3 @@
         <p>Yummy detail</p>
     </div>
 </body>
-
