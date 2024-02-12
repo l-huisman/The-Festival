@@ -81,10 +81,15 @@ INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `description`, `quantity`,
 (5, 1, 'Music event Reservation', 'This is a reservation for music event 1', 1, 1);
 
 -- --------------------------------------------------------
-
 --
--- Tabelstructuur voor tabel `user`
+-- Table structure for table `song`
 --
+CREATE TABLE `song` (
+  `id` int(11) NOT NULL,
+  `artist_id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `path` varchar(255) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 --
 -- Table structure for table `song`
@@ -153,6 +158,16 @@ ALTER TABLE
   `artist`
 ADD
   PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `song`
+--
+ALTER TABLE
+  `song`
+ADD
+  PRIMARY KEY (`id`),
+ADD
+  KEY `FOREIGN` (`artist_id`);
 
 --
 -- Indexen voor tabel `shoppingcart`
