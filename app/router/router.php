@@ -24,6 +24,15 @@ $router->get('/music', function () {
     $music->index();
 });
 
+$router->get('/yummy', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyOverview();
+});
+
+$router->get('/yummy/restaurant', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyDetail();
+});
 $router->get('/register', function () {
     $register = new Controllers\RegisterController();
     $register->index();
@@ -48,7 +57,6 @@ $router->get('/register/logout', function () {
     $register = new Controllers\RegisterController();
     $register->logout();
 });
-
 
 // Run it!
 $router->run();
