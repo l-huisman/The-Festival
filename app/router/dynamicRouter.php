@@ -19,13 +19,13 @@ $router->get('/', function () {
  * @param string $action The name of the function called within the router.
  * @return void
  */
-$router->get('/{controller}/{action}', function ($controller, $action) {
+$router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
     $controller = ucfirst($controller); // Capitalize the first letter
     $controller = "\\Controllers\\{$controller}Controller"; // Append 'Controller' to the controller name and prepend the namespace
 
     if (class_exists($controller)) {
         $controllerInstance = new $controller();
-        if (method_exists($controllerInstance, $action)) {
+        if ($action !== null && method_exists($controllerInstance, $action)) {
             $controllerInstance->$action();
         } else if (method_exists($controllerInstance, 'index')) {
             $controllerInstance->index();
