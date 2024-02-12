@@ -16,7 +16,8 @@ $router->post('/wysiwyg', function () {
 });
 
 $router->get('/', function () {
-    require_once __DIR__ . '/../views/home.php';
+    $home = new Controllers\HomeController();
+    $home->index();
 });
 
 $router->get('/music', function () {
