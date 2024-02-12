@@ -30,12 +30,24 @@ class RegisterService {
         }
     }
 
+    public function verifyLogin($email, $password){
+        $user = $this->getUserByEmail($email);
+        if($user){
+            if($this->verifyPassword($password, $user['hashed_password'])){
+                $_SESSION['user'] = $user;
+                header('Location:/');
+            }else{
+                header('Location:/register/loginView?erroMessage=wrong password');
+            }
+        }
+    }
+
     private function hashPassword($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function verifyPassword($password, $hashedPassword)
+    private function verifyPassword($password, $hashedPassword)
     {
         return password_verify($password, $hashedPassword);
     }
