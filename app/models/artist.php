@@ -9,14 +9,16 @@ class Artist
     private $description;
     private $banner;
     private $pictogram;
+    private $songs;
 
-    public function __construct($id, $name, $description, $banner = '/img/artists/hardwell/banner.png', $pictogram = '/img/artists/hardwell/pictogram.jpg')
+    public function __construct($id, $name, $description, $banner, $pictogram)
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->banner = $banner;
         $this->pictogram = $pictogram;
+        $this->songs = [];
     }
 
     public function getId()
@@ -42,5 +44,21 @@ class Artist
     public function getPictogram()
     {
         return $this->pictogram;
+    }
+
+    public function getSongs()
+    {
+        return $this->songs;
+    }
+
+    public function addSong($song)
+    {
+        $this->songs[] = $song;
+    }
+
+    # to string
+    public function __toString()
+    {
+        return "<div class=container>Artist: $this->name" . " Description: $this->description" . " Banner: $this->banner" . " Pictogram: $this->pictogram</div>";
     }
 }

@@ -57,4 +57,13 @@ class MusicRepository extends Repository
         $stmt->bindParam(':song', $song);
         $stmt->execute();
     }
+
+    public function getSongsByArtistID($artist_id)
+    {
+        $sql = "SELECT * FROM song WHERE artist_id = :artist_id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':artist_id', $artist_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

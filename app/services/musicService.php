@@ -4,6 +4,7 @@ namespace Services;
 
 use Repositories\MusicRepository;
 use Models\Artist;
+use Models\Song;
 
 class MusicService
 {
@@ -19,7 +20,7 @@ class MusicService
         $data = $this->repository->getArtists();
         $artists = [];
         foreach ($data as $artist) {
-            $artists[] = new Artist($artist["id"], $artist['name'], $artist['description'], $artist['songs']);
+            $artists[] = new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner_path'], $artist['pictogram_path']);
         }
         return $artists;
     }
@@ -27,7 +28,12 @@ class MusicService
     public function getArtistById($id)
     {
         $data = $this->repository->getArtistById($id);
-        return new Artist($data["id"], $data['name'], $data['description']);
+        $artist = new Artist($data["id"], $data['name'], $data['description'], $data['banner_path'], $data['pictogram_path']);
+        $songs = $this->repository->getSongsByArtistId($id);
+        foreach ($songs as $song) {
+            $artist->addSong(new Song($song["id"], $song['name'], $song['song_path'], $song['cover_path']));
+        }
+        return $artist;
     }
 
     public function createArtist($name, $description)
