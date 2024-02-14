@@ -3,11 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Feb 12, 2024 at 11:00 AM
--- Server version: 11.2.2-MariaDB-1:11.2.2+maria~ubu2204
--- PHP Version: 8.2.15
-SET
-  SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+-- Gegenereerd op: 14 feb 2024 om 14:48
+-- Serverversie: 11.2.2-MariaDB-1:11.2.2+maria~ubu2204
+-- PHP-versie: 8.2.15
 
 START TRANSACTION;
 
@@ -40,6 +38,54 @@ CREATE TABLE `artist` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+--
+-- Tabelstructuur voor tabel `shoppingcart`
+--
+
+CREATE TABLE `shoppingcart` (
+  `id` int(11) NOT NULL,
+  `userID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `shoppingcart`
+--
+
+INSERT INTO `shoppingcart` (`id`, `userID`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `tickets`
+--
+
+CREATE TABLE `tickets` (
+  `ticketID` int(11) NOT NULL,
+  `userID` int(11) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `quantity` int(5) NOT NULL,
+  `shoppingcartID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `tickets`
+--
+
+INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `description`, `quantity`, `shoppingcartID`) VALUES
+(1, 1, 'Concert Ticket', 'Admission to the live concert event', 6, 1),
+(2, 1, 'Movie Ticket', 'Admission to the latest blockbuster movie', 2, 1),
+(3, 1, 'Sports Ticket', 'Admission to the championship game', 2, 1),
+(4, 1, 'Historical Tour', 'This is a Historical Tour around Haarlem', 2, 1),
+(5, 1, 'Music event Reservation', 'This is a reservation for music event 1', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `user`
+--
+
 --
 -- Table structure for table `song`
 --
@@ -109,6 +155,18 @@ ADD
   PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `shoppingcart`
+--
+ALTER TABLE `shoppingcart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexen voor tabel `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`ticketID`);
+
+--
 -- Indexes for table `song`
 --
 ALTER TABLE
@@ -127,7 +185,19 @@ ADD
   PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT voor een tabel `shoppingcart`
+--
+ALTER TABLE `shoppingcart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT voor een tabel `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `ticketID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT voor een tabel `user`
 --
 --
 -- AUTO_INCREMENT for table `artist`
