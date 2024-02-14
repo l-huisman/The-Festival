@@ -11,11 +11,11 @@ class User
     public $date_of_birth;
     public $address;
     public $phone_number;
-    public $password;
+    public $hashed_password;
     public $gender;
     public $role;
 
-    public function __construct($user_id, $first_name, $last_name, $email, $date_of_birth, $address, $phone_number, $password, $gender, $role)
+    public function __construct($user_id, $first_name, $last_name, $email, $date_of_birth, $address, $phone_number, $hashed_password, $gender, $role)
     {
         $this->user_id = $user_id;
         $this->first_name = $first_name;
@@ -24,7 +24,9 @@ class User
         $this->date_of_birth = $date_of_birth;
         $this->address = $address;
         $this->phone_number = $phone_number;
-        $this->password = $password;
+        $this->hashed_password = $hashed_password;
+        $this->gender = $gender;
+        $this->role = $role;
     }
 
 }

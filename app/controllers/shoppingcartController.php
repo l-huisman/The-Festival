@@ -10,13 +10,17 @@ class ShoppingcartController {
     }
 
     public function index(){
-        // unset($_SESSION['Tickets']);
+        unset($_SESSION['Tickets']);
         if (!isset($_SESSION['Tickets']) || !is_array($_SESSION['Tickets'])) {
-            $_SESSION['Tickets'] = [];
-            
-            $ticket1 = new \Models\Ticket(1,1,'Historical Tour','This is a Historical Tour around Haarlem',2);
-            $ticket2 = new \Models\Ticket(3,1,'Music event Reservation','This is a reservation for music event 1',1);
-            $ticket3 = new \Models\Ticket(5,1,'Restaurant Reservation','This is a reservation for Restaurant 1',2);
+            $_SESSION['Tickets'] = [];   
+        }
+        if(isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+
+
+            $ticket1 = new \Models\Ticket(4,1,'Historical Tour','This is a Historical Tour around Haarlem',2);
+            $ticket2 = new \Models\Ticket(5,1,'Music event Reservation','This is a reservation for music event 1',1);
+            $ticket3 = new \Models\Ticket(6,1,'Restaurant Reservation','This is a reservation for Restaurant 1',2);
         
             // Serialize the Ticket objects
             $serialized_ticket1 = serialize($ticket1);
@@ -26,9 +30,14 @@ class ShoppingcartController {
             $_SESSION['Tickets'][] = $serialized_ticket1;
             $_SESSION['Tickets'][] = $serialized_ticket2;
             $_SESSION['Tickets'][] = $serialized_ticket3;
-        }        
-    
+
+            $this->shoppingcartService->getUsersTickets($user);
+
+            
+        }
         require_once __DIR__ . '/../views/shoppingcart/index.php';
+                
+    
     }
 
     public function remove(){
