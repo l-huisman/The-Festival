@@ -18,18 +18,18 @@ class ShoppingcartController {
             $user = unserialize($_SESSION['user']);
 
 
-            $ticket1 = new \Models\Ticket(4,1,'Historical Tour','This is a Historical Tour around Haarlem',2);
-            $ticket2 = new \Models\Ticket(5,1,'Music event Reservation','This is a reservation for music event 1',1);
-            $ticket3 = new \Models\Ticket(6,1,'Restaurant Reservation','This is a reservation for Restaurant 1',2);
+            // $ticket1 = new \Models\Ticket(4,1,'Historical Tour','This is a Historical Tour around Haarlem',2);
+            // $ticket2 = new \Models\Ticket(5,1,'Music event Reservation','This is a reservation for music event 1',1);
+            // $ticket3 = new \Models\Ticket(6,1,'Restaurant Reservation','This is a reservation for Restaurant 1',2);
         
-            // Serialize the Ticket objects
-            $serialized_ticket1 = serialize($ticket1);
-            $serialized_ticket2 = serialize($ticket2);
-            $serialized_ticket3 = serialize($ticket3);
+            // // Serialize the Ticket objects
+            // $serialized_ticket1 = serialize($ticket1);
+            // $serialized_ticket2 = serialize($ticket2);
+            // $serialized_ticket3 = serialize($ticket3);
 
-            $_SESSION['Tickets'][] = $serialized_ticket1;
-            $_SESSION['Tickets'][] = $serialized_ticket2;
-            $_SESSION['Tickets'][] = $serialized_ticket3;
+            // $_SESSION['Tickets'][] = $serialized_ticket1;
+            // $_SESSION['Tickets'][] = $serialized_ticket2;
+            // $_SESSION['Tickets'][] = $serialized_ticket3;
 
             $this->shoppingcartService->getUsersTickets($user);
 
