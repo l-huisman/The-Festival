@@ -42,7 +42,7 @@ $router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
                 $value = $_GET['value'];
                 $controllerInstance->$action($value);
             } else {
-                $controllerInstance->action();
+                $controllerInstance->$action();
             }
         } else if (method_exists($controllerInstance, 'index')) {
             $controllerInstance->index();
