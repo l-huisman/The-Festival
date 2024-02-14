@@ -16,14 +16,23 @@ $router->post('/wysiwyg', function () {
 });
 
 $router->get('/', function () {
-    require_once __DIR__ . '/../views/home.php';
+    $home = new Controllers\HomeController();
+    $home->index();
 });
 
 $router->get('/music', function () {
     $music = new Controllers\MusicController();
     $music->index();
 });
+$router->get('/yummy', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyOverview();
+});
 
+$router->get('/yummy/restaurant', function () {
+    $yummy = new Controllers\YummyController();
+    $yummy->yummyDetail();
+});
 $router->get('/register', function () {
     $register = new Controllers\RegisterController();
     $register->index();
@@ -48,7 +57,6 @@ $router->get('/register/logout', function () {
     $register = new Controllers\RegisterController();
     $register->logout();
 });
-
 
 // Run it!
 $router->run();
