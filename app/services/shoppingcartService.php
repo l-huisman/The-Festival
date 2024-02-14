@@ -7,7 +7,7 @@ class ShoppingcartService{
     private $ticketRepository;
 
     public function __construct(){
-        // $this->shoppingcartRepository = new \Repositories\ShoppingcartRepository();
+        $this->shoppingcartRepository = new \Repositories\ShoppingcartRepository();
         $this->ticketRepository = new \Repositories\TicketRepository();
     }
 
@@ -17,6 +17,7 @@ class ShoppingcartService{
                 $Ticket = unserialize($Serialized_Ticket);
                 if($Ticket->id == $TicketID){
                     unset($_SESSION['Tickets'][$index]);
+                    $this->ticketRepository->removeTicket($TicketID);
                 }
             }
         }
@@ -33,20 +34,22 @@ class ShoppingcartService{
                 if($Ticket->id == $TicketID){
                     $Ticket->quantity = $Quantity;
                     $_SESSION['Tickets'][$index] = serialize($Ticket);
+                    $this->ticketRepository->updateTicketQuantity($TicketID, $Quantity);
                 }
             }
         }
     }
 
     public function getUsersTickets($user){
-        $dbtickets = $this->ticketRepository->getUsersTickets($user->user_id);
+        $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
+        $dbtickets = $this->ticketRepository->getShoppingcartTickets($shoppingcartID);
         if(isset($_SESSION['Tickets']) && isset($dbtickets)){
-            $this->mergeSessionAndDBTickets($dbtickets);
+            $this->mergeSessionAndDBTickets($dbtickets, $user);
         }
         else if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
-                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->id, $Unserialized_Ticket->quantity);
+                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity);
             }
         }
         else if(isset($dbtickets)){
@@ -54,18 +57,19 @@ class ShoppingcartService{
         }
     }
 
-    private function mergeSessionAndDBTickets($dbtickets){
+    private function mergeSessionAndDBTickets($dbtickets, $user){
         //loopthrough the tickets in the session and check if they are in the database if not add them to the database
         foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
             $Unserialized_Ticket = unserialize($Serialized_Ticket);
             $found = false;
             foreach($dbtickets as $dbTicket){
                 if($Unserialized_Ticket->id == $dbTicket->id){
+                    $Unserialized_Ticket->quantity = $dbTicket->quantity;
                     $found = true;
                 }
             }
             if(!$found){
-                // $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->id, $Unserialized_Ticket->quantity);
+                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity);
             }
         }
 
@@ -75,6 +79,7 @@ class ShoppingcartService{
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
                 if($Unserialized_Ticket->id == $dbTicket->id){
+                    $Unserialized_Ticket->quantity = $dbTicket->quantity;
                     $found = true;
                 }
             }

@@ -27,20 +27,6 @@ class RegisterRepository extends Repository{
         $stmt->bindParam(':gender', $gender);
         $stmt->execute();
     }
-
-    public function getUsersTickets($user_ID){
-        $sql = "SELECT ticketID, userID, title, description, quantity, shoppingcartID FROM ticket WHERE user_id = :user_id";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':user_id', $user_ID);
-        $stmt->execute();
-        $stmt = $stmt->fetchAll();
-        $tickets = [];
-        foreach($stmt as $ticket){
-            $tickets[] = new \Models\Ticket($ticket['ticket_id'], $ticket['user_id'], $ticket['title'], $ticket['description'], $ticket['quantity'], $ticket['shoppingcart_id']);
-        }
-        return $tickets;
-
-    }
 }
 
 ?>
