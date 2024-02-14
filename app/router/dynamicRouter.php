@@ -33,7 +33,12 @@ $router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
     if (class_exists($controller)) {
         $controllerInstance = new $controller();
         if ($action !== null && method_exists($controllerInstance, $action)) {
-            $controllerInstance->$action();
+            if (isset($_GET['value'])) {
+                $value = $_GET['value'];
+                $controllerInstance->$action($value);
+            } else {
+                $controllerInstance->action();
+            }
         } else if (method_exists($controllerInstance, 'index')) {
             $controllerInstance->index();
         } else {
