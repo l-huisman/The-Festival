@@ -21,10 +21,10 @@ require_once __DIR__ . '/../../views/elements/header.php';
             <?php }
         }  ?>
     </ul>
-    <form class="d-inline" action="shoppingcart/Share" method="POST">
+    <form class="d-inline" action="/shoppingcart/Share" method="POST">
         <button class="btn btn-primary">Share shoppingcart</button>
     </form>
-    <form class="d-inline" action="shoppingcart/pay" method="POST">
+    <form class="d-inline" action="/shoppingcart/pay" method="POST">
         <button class="btn btn-success">Pay</button>
     </form>
 </div>
@@ -48,7 +48,7 @@ quantityInputs.forEach(function(input) {
         }
 
         let form = document.createElement('form');
-        form.action = "shoppingcart/changeQuantity";
+        form.action = "/shoppingcart/changeQuantity";
         form.method = "POST";
         form.classList.add('d-inline');
 
