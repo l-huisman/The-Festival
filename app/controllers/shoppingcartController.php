@@ -40,6 +40,15 @@ class ShoppingcartController {
     
     }
 
+    public function get(){
+        $shoppingcartID = htmlspecialchars($_GET['shoppingcartID']);
+        $dbtickets = $this->shoppingcartService->getShoppingcartTickets($shoppingcartID);
+        if(isset($dbtickets)){
+            $_SESSION['Tickets'] = $dbtickets;
+        }
+        require_once __DIR__ . '/../views/shoppingcart/index.php';
+    }
+
     public function remove(){
         $ticketID = htmlspecialchars($_GET['ticketID']);
         $this->shoppingcartService->remove($ticketID);
@@ -47,8 +56,12 @@ class ShoppingcartController {
     }
 
     public function Share(){
-        $this->shoppingcartService->Share();
-        header('Location:/shoppingcart');
+        if(isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+            $this->shoppingcartService->Share($user);
+        } else {
+            header('Location:/register/loginview?errorMessage=You need to be logged in to share your shoppingcart');
+        }
     }
 
     public function changeQuantity(){

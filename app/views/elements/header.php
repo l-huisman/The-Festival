@@ -29,10 +29,10 @@
                     <a class="nav-link" href="#">CRUD</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="/register/loginview">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Shopping cart</a>
+                    <a class="nav-link" href="/shoppingcart">Shopping cart</a>
                 </li>
             </ul>
             </div>

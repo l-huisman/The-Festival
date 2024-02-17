@@ -23,8 +23,9 @@ class ShoppingcartService{
         }
     }
 
-    public function Share(){
-
+    public function Share($user){
+        $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
+        echo "<script> window.location.href = 'https://api.whatsapp.com/send?text=http://localhost/shoppingcart/get?shoppingcartID=".$shoppingcartID."';</script>";
     }
 
     public function changeQuantity($TicketID, $Quantity){
@@ -55,6 +56,15 @@ class ShoppingcartService{
         else if(isset($dbtickets)){
             $_SESSION['Tickets'] = $dbtickets;
         }
+    }
+
+    public function getShoppingcartTickets($shoppingcartID){ 
+        $tickets = $this->ticketRepository->getShoppingcartTickets($shoppingcartID);
+        $serializedTickets = [];
+        foreach($tickets as $ticket){
+            $serializedTickets[] = serialize($ticket);
+        }
+        return $serializedTickets;
     }
 
     private function mergeSessionAndDBTickets($dbtickets, $user){
