@@ -20,7 +20,7 @@ class RegisterService {
         if (empty($firstName) || empty($lastName) || empty($email) || empty($dateOfBirth) || empty($address) || empty($phoneNumber) || empty($password) || empty($gender)) {
             return false;
         }
-        $user = $this->registerRepository->getUserByEmail($email);
+        $user = $this->getUserByEmail($email);
         if(!$user){
             $hashedPassword = $this->hashPassword($password);
             unset($password);
@@ -30,12 +30,24 @@ class RegisterService {
         }
     }
 
+    public function verifyLogin($email, $password){
+        $user = $this->getUserByEmail($email);
+        if(isset($user)){
+            if($this->verifyPassword($password, $user->hashed_password)){
+                $_SESSION['user'] = serialize($user);
+                header('Location:/home');
+            }else{
+                header('Location:/register/loginView?erroMessage=wrong password');
+            }
+        }
+    }
+
     private function hashPassword($password)
     {
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function verifyPassword($password, $hashedPassword)
+    private function verifyPassword($password, $hashedPassword)
     {
         return password_verify($password, $hashedPassword);
     }
