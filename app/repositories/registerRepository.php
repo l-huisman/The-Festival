@@ -9,7 +9,9 @@ class RegisterRepository extends Repository{
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':email', $email);
         $stmt->execute();
-        return $stmt->fetch();
+        $stmt = $stmt->fetch();
+        $user = new \Models\User($stmt['user_id'], $stmt['first_name'], $stmt['last_name'], $stmt['email'], $stmt['date_of_birth'], $stmt['address'], $stmt['phone_number'], $stmt['hashed_password'], $stmt['gender'], $stmt['role']);
+        return $user;
     }
 
     public function createUser($firstName, $lastName, $email, $dateOfBirth, $address, $phoneNumber, $hashedPassword, $gender){

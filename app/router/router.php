@@ -24,7 +24,6 @@ $router->get('/music', function () {
     $music = new Controllers\MusicController();
     $music->index();
 });
-
 $router->get('/yummy', function () {
     $yummy = new Controllers\YummyController();
     $yummy->yummyOverview();
