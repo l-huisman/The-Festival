@@ -8,6 +8,11 @@ $router = new \Bramus\Router\Router();
 // Define controller namespace
 $router->setNamespace('\Controllers');
 
+$router->get("/audio/artist", function () {
+    $controller = new Controllers\MusicController();
+    $controller->artist(1);
+});
+
 /**
  * Handle dynamic routing based on the controller and action parameters.
  *
