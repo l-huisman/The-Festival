@@ -8,9 +8,10 @@ $router = new \Bramus\Router\Router();
 // Define controller namespace
 $router->setNamespace('\Controllers');
 
-$router->get("/audio/artist", function () {
-    $controller = new Controllers\MusicController();
-    $controller->artist(1);
+// Static route for the homepage
+$router->get('/', function () {
+    $controller = new \Controllers\HomeController();
+    $controller->index();
 });
 
 /**
@@ -25,16 +26,16 @@ $router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
     $controller = "\\Controllers\\{$controller}Controller"; // Append 'Controller' to the controller name and prepend the namespace
 
     $controller = explode('/', $controller);
-    if(count($controller) > 1){
+    if (count($controller) > 1) {
         //Luke je kut controller werkte niet als je naar /register/loginview ging zocht hij naar een controller genaamd register/loginviewController 
         //maar hij moest zoeken naar een controller genaamd registerController en dan de functie loginview wat hij nu doet
         $action = $controller[1];
         $action = str_replace('Controller', '', $action);
-        $controller = $controller[0].'Controller';
+        $controller = $controller[0] . 'Controller';
     } else {
         $controller = $controller[0];
     }
-    
+
     if (class_exists($controller)) {
         $controllerInstance = new $controller();
         if ($action !== null && method_exists($controllerInstance, $action)) {
