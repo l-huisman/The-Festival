@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . '/../../views/elements/header.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,3 +35,9 @@
             </div>
         </div>
     </main>
+</body>
+
+</html>
+<?php
+require_once __DIR__ . '/../../views/elements/footer.php';
+?>
