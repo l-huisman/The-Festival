@@ -5,14 +5,12 @@ namespace Models;
 class Song{
 
     public $id;
-    public $name;
     public $song;
     public $cover;
 
-    public function __construct($id, $name, $song, $cover)
+    public function __construct($id, $song, $cover)
     {
         $this->id = $id;
-        $this->name = $name;
         $this->song = $song;
         $this->cover = $cover;
     }
@@ -20,11 +18,6 @@ class Song{
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getName()
-    {
-        return $this->name;
     }
 
     public function getSong()
