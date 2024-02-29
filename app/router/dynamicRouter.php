@@ -8,9 +8,10 @@ $router = new \Bramus\Router\Router();
 // Define controller namespace
 $router->setNamespace('\Controllers');
 
-$router->get("/audio/artist", function () {
-    $controller = new Controllers\MusicController();
-    $controller->artist(1);
+// Static route for the homepage
+$router->get('/', function () {
+    $controller = new \Controllers\HomeController();
+    $controller->index();
 });
 
 /**
