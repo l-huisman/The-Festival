@@ -27,8 +27,6 @@ $router->get('/{controller}(/[a-z0-9_-]+)?', function ($controller, $action) {
 
     $controller = explode('/', $controller);
     if (count($controller) > 1) {
-        //Luke je kut controller werkte niet als je naar /register/loginview ging zocht hij naar een controller genaamd register/loginviewController 
-        //maar hij moest zoeken naar een controller genaamd registerController en dan de functie loginview wat hij nu doet
         $action = $controller[1];
         $action = str_replace('Controller', '', $action);
         $controller = $controller[0] . 'Controller';
