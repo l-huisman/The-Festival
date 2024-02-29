@@ -44,7 +44,7 @@
                     <a class="nav-link" href="/shoppingcart">Shopping cart</a>
                 </li>
                 <li class="nav-item my-auto">
-                    <a class="nav-link" href="/user/manageUser"><i class="fa-regular fa-user"></i></a>
+                    <a class="nav-link" href="/user/manageAccount"><i class="fa-regular fa-user"></i></a>
                 </li>
             </ul>
             </div>
