@@ -28,11 +28,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">CRUD</a>
                 </li>
-                <li class="nav-item">
+                <?php 
+
+                if(isset($_SESSION['user'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register/logout">Logout</a>
+                    </li>
+                <?php } else { ?>
+                    <li class="nav-item">
                     <a class="nav-link" href="/register/loginview">Login</a>
-                </li>
+                    </li>
+                <?php } ?>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="/shoppingcart">Shopping cart</a>
+                </li>
+                <li class="nav-item my-auto">
+                    <a class="nav-link" href="/user/manageUser"><i class="fa-regular fa-user"></i></a>
                 </li>
             </ul>
             </div>
