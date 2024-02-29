@@ -1,7 +1,6 @@
 <?php
-include_once __DIR__ . '/../elements/header.php';
+require_once __DIR__ . '/../../views/elements/header.php';
 ?>
-<!DOCTYPE html>
 <html>
 
 <head>
@@ -140,3 +139,6 @@ include_once __DIR__ . '/../elements/header.php';
 </body>
 
 </html>
+<?php
+require_once __DIR__ . '/../../views/elements/footer.php';
+?>
