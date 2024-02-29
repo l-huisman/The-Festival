@@ -15,6 +15,7 @@ class MusicController
 
     public function index()
     {
+        $artists = $this->service->getArtists();
         require_once __DIR__ . '/../views/music/music.php';
     }
 

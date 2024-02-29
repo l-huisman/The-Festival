@@ -64,33 +64,25 @@ require_once __DIR__ . '/../../views/elements/header.php';
         </div>
         <div class="container mt-3">
             <div class="row">
-                <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                    </svg>
-                    <h2 class="fw-normal">Heading</h2>
-                    <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-                    <p><a class="btn btn-secondary" href="#">View details »</a></p>
-                </div>
-                <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                    </svg>
-                    <h2 class="fw-normal">Heading</h2>
-                    <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-                    <p><a class="btn btn-secondary" href="#">View details »</a></p>
-                </div>
-                <div class="col-lg-4">
-                    <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
-                    </svg>
-                    <h2 class="fw-normal">Heading</h2>
-                    <p>And lastly this, the third column of representative placeholder content.</p>
-                    <p><a class="btn btn-secondary" href="#">View details »</a></p>
-                </div>
+                <?php
+                $counter = 0;
+                foreach ($artists as $artist) {
+                    if ($counter >= 3) {
+                        break;
+                    }
+                ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm d-flex flex-column align-items-center">
+                            <img src="<?= $artist->getPictogram() ?>" width="50%" height="50%" class="rounded-circle py-3" />
+                            <div class="card-body d-flex flex-column align-items-center">
+                                <p class="card-text fs-3"><?= $artist->getName() ?></p>
+                                <a href="/music/artist?id=<?= $artist->getId() ?>" class="btn btn-outline-secondary">View</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
 
             <hr class="featurette-divider">
