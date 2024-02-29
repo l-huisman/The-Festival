@@ -21,7 +21,7 @@
                 <a class="nav-link" href="">Music</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="#">History</a>
+                <a class="nav-link" href="\historic">History</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

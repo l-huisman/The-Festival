@@ -61,10 +61,16 @@ $router->get('/register/logout', function () {
 $router->get('/historic', function () {
     $historic = new Controllers\HistoricController();
     $historic->index();
+
+    
 });
 
+$router->get('/historic/detail', function () {
+    $historic = new Controllers\HistoricController();
+    $historic->historicDetail(1);
 
 
+});
 
 
 
