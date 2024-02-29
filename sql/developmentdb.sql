@@ -92,92 +92,92 @@ VALUES
   (
     1,
     1,
-    '/audio/hardwell/spaceman.mp3',
-    '/audio/hardwell/spaceman.jpg'
+    '/audio/spaceman.mp3',
+    '/audio/spaceman.jpg'
   ),
   (
     2,
     1,
-    '/audio/hardwell/apollo.mp3',
-    '/audio/hardwell/apollo.jpg'
+    '/audio/apollo.mp3',
+    '/audio/apollo.jpg'
   ),
   (
     3,
     1,
-    '/audio/hardwell/animals.mp3',
-    '/audio/hardwell/animals.jpg'
+    '/audio/animals.mp3',
+    '/audio/animals.jpg'
   ),
   (
     4,
     2,
-    '/audio/martingarrix/inthenameoflove.mp3',
-    '/audio/martingarrix/inthenameoflove.jpg'
+    '/audio/inthenameoflove.mp3',
+    '/audio/inthenameoflove.jpg'
   ),
   (
     5,
     2,
-    '/audio/martingarrix/scaredtobelonely.mp3',
-    '/audio/martingarrix/scaredtobelonely.jpg'
+    '/audio/scaredtobelonely.mp3',
+    '/audio/scaredtobelonely.jpg'
   ),
   (
     6,
     2,
-    '/audio/martingarrix/summerdays.mp3',
-    '/audio/martingarrix/summerdays.jpg'
+    '/audio/summerdays.mp3',
+    '/audio/summerdays.jpg'
   ),
   (
     7,
     3,
-    '/audio/tiesto/boom.mp3',
-    '/audio/tiesto/boom.jpg'
+    '/audio/boom.mp3',
+    '/audio/boom.jpg'
   ),
   (
     8,
     3,
-    '/audio/tiesto/secrets.mp3',
-    '/audio/tiesto/secrets.jpg'
+    '/audio/secrets.mp3',
+    '/audio/secrets.jpg'
   ),
   (
     9,
     3,
-    '/audio/tiesto/shotme.mp3',
-    '/audio/tiesto/shotme.jpg'
+    '/audio/shotme.mp3',
+    '/audio/shotme.jpg'
   ),
   (
     10,
     4,
-    '/audio/arminvanbuuren/blahblah.mp3',
-    '/audio/arminvanbuuren/blahblah.jpg'
+    '/audio/blahblah.mp3',
+    '/audio/blahblah.jpg'
   ),
   (
     11,
     4,
-    '/audio/arminvanbuuren/thisiswhatitfeelslike.mp3',
-    '/audio/arminvanbuuren/thisiswhatitfeelslike.jpg'
+    '/audio/thisiswhatitfeelslike.mp3',
+    '/audio/thisiswhatitfeelslike.jpg'
   ),
   (
     12,
     4,
-    '/audio/arminvanbuuren/nofun.mp3',
-    '/audio/arminvanbuuren/nofun.jpg'
+    '/audio/nofun.mp3',
+    '/audio/nofun.jpg'
   ),
   (
     13,
     5,
-    '/audio/davidguetta/hey.mp3',
-    '/audio/davidguetta/hey.jpg'
+    '/audio/hey.mp3',
+    '/audio/hey.jpg'
   ),
   (
     14,
     5,
-    '/audio/davidguetta/lovers.mp3',
-    '/audio/davidguetta/lovers.jpg'
+    '/audio/lovers.mp3',
+    '/audio/lovers.jpg'
   ),
   (
     15,
     5,
-    '/audio/davidguetta/whenlove.mp3',
-    '/audio/davidguetta/whenlove.jpg'
+    '/audio/whenlove.mp3',
+    '/audio/whenlove.jpg'
   );
 
 DROP TABLE IF EXISTS `tickets`;
