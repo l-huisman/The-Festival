@@ -67,9 +67,10 @@ require_once __DIR__ . '/../../views/elements/header.php';
                 <?php
                 $counter = 0;
                 foreach ($artists as $artist) {
-                    if ($counter >= 3) {
+                    if ($counter == 3) {
                         break;
                     }
+                    $counter++;
                 ?>
                     <div class="col-md-4 mb-4">
                         <div class="card shadow-sm d-flex flex-column align-items-center">
