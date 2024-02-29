@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . '/../../views/elements/header.php';
+?>
 <div class="container">
   <form class="my-3" action="/register/login" method="POST">
     <div class="row">
@@ -13,7 +16,11 @@
           <input type="password" class="form-control" name="password" id="password" placeholder="Password">
         </div>
       </div>
+      <p class="small">Don't have an account press <a href="/register">Here</a></p>
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
   </form>
 </div>
+<?php
+require_once __DIR__ . '/../../views/elements/footer.php';
+?>

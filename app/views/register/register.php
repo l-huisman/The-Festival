@@ -1,3 +1,6 @@
+<?php
+require_once __DIR__ . '/../../views/elements/header.php';
+?>
 <div class="container">
   <form class="my-3" action="/register/validateUser" method="POST">
     <div class="row">
@@ -65,3 +68,6 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
+<?php
+require_once __DIR__ . '/../../views/elements/footer.php';
+?>
