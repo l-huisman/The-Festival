@@ -13,6 +13,15 @@ class SongRepository extends Repository
         return $stmt->fetchAll();
     }
 
+    public function getSongsByArtistId($artist_id)
+    {
+        $sql = "SELECT * FROM song WHERE artist_id = :artist_id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':artist_id', $artist_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function getSongById($id)
     {
         $sql = "SELECT * FROM song WHERE id = :id";
