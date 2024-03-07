@@ -20,7 +20,7 @@ class MusicService
         $data = $this->repository->getArtists();
         $artists = [];
         foreach ($data as $artist) {
-            $artists[] = new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner_path'], $artist['pictogram_path']);
+            $artists[] = new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner'], $artist['pictogram']);
         }
         return $artists;
     }
@@ -28,10 +28,10 @@ class MusicService
     public function getArtistById($id)
     {
         $data = $this->repository->getArtistById($id);
-        $artist = new Artist($data["id"], $data['name'], $data['description'], $data['banner_path'], $data['pictogram_path']);
+        $artist = new Artist($data["id"], $data['name'], $data['description'], $data['banner'], $data['pictogram']);
         $songs = $this->repository->getSongsByArtistId($id);
         foreach ($songs as $song) {
-            $artist->addSong(new Song($song["id"], $song['name'], $song['song_path'], $song['cover_path']));
+            $artist->addSong(new Song($song["id"], $song['song'], $song['cover']));
         }
         return $artist;
     }
