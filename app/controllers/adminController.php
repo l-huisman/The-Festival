@@ -6,6 +6,16 @@ class AdminController{
     public function __construct()
     {
         $this->adminService = new \Services\AdminService();
+        if(isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+            if($user->role != "admin"){
+                header('Location:/');
+                die();
+            }  
+        }else {
+            header('Location:/');
+            die();
+        }
     }
 
     public function overviewCustomers(){

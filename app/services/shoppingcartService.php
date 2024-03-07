@@ -28,6 +28,10 @@ class ShoppingcartService{
         echo "<script> window.location.href = 'https://api.whatsapp.com/send?text=http://localhost/shoppingcart/get?shoppingcartID=".$shoppingcartID."';</script>";
     }
 
+    public function pay(){
+        header('Location:https://buy.stripe.com/cN2159cg8bpFfRu6oo');
+    }
+
     public function changeQuantity($TicketID, $Quantity){
         if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){

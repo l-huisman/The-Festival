@@ -64,6 +64,15 @@ class ShoppingcartController {
         }
     }
 
+    public function Pay(){
+        if(isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+            $this->shoppingcartService->Pay($user);
+        } else {
+            header('Location:/register/loginview?errorMessage=You need to be logged in to pay for your shoppingcart');
+        }
+    }
+
     public function changeQuantity(){
         $ticketID = htmlspecialchars($_POST['inputTicketID']);
         $quantity = htmlspecialchars($_POST['inputQuantity']);
