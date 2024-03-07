@@ -8,8 +8,12 @@ use Models\Historic;
 class HistoricService
 {
 
+    public $repository;
 
-
+    public function __construct()
+    {
+        $this->repository = new HistoricRepository();
+    }
     public function getAllHistoricEvents()
     {
         $repository = new HistoricRepository();
@@ -20,23 +24,14 @@ class HistoricService
     public function getHistoricEventById($id)
     {
         $data = $this->repository->getHistoricEventById($id);
-        return new Historic($data["id"], $data['description'], $data['name'], $data['eventDate'], $data['location'], $data['language']);
+        $event = new Historic($data["historicevent_id"], $data['name'], $data['description'], $data['path']);
+        return $event;
     }
 
-    public function createHistoricEvent($name, $description, $eventDate, $location, $language)
-    {
-        $this->repository->createHistoricEvent($name, $description, $eventDate, $location, $language);
-    }
+    
 
-    public function updateHistoricEvent($id, $name, $description, $eventDate, $location, $language)
-    {
-        $this->repository->updateHistoricEvent($id, $name, $description, $eventDate, $location, $language);
-    }
-
-    public function deleteHistoricEvent($id)
-    {
-        $this->repository->deleteHistoricEvent($id);
-    }
+   
+ 
 
 
 

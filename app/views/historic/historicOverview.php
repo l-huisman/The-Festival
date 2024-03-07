@@ -8,83 +8,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historic</title>
-    <style>
-
-body{margin-top:20px;}
-.events_area {
-    padding: 130px 0 100px;
-    ;
-}
-@media (max-width: 991px) {
-    .events_area {
-        padding: 70px 0;
-    }
-}
-.events_area .event-link {
-    color: #fdc632;
-    font-size: 13px;
-    text-transform: uppercase;
-}
-.events_area .event-link img {
-    margin-left: 5px;
-    display: inline-block;
-}
-
-.single_event {
-    margin-bottom: 30px;
-}
-.single_event .event_thumb {
-    overflow: hidden;
-}
-.single_event .event_thumb img {
-    -webkit-transition: all 0.3s ease 0s;
-    -moz-transition: all 0.3s ease 0s;
-    -o-transition: all 0.3s ease 0s;
-    transition: all 0.3s ease 0s;
-}
-.single_event .event_details {
-    background: rgba(0, 35, 71, 0.5);
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 275px;
-    padding: 30px 25px;
-    color: #ffffff;
-}
-.single_event .event_details .date {
-    color: #ffffff;
-    padding-right: 15px;
-    border-right: 2px solid #fff;
-    font-family: "Rubik", sans-serif;
-    font-size: 14px;
-}
-.single_event .event_details .date span {
-    display: block;
-    color: #fdc632;
-    font-size: 28px;
-    font-weight: 500;
-}
-.single_event .event_details .time-location {
-    padding-left: 15px;
-    font-size: 14px;
-}
-.single_event .event_details .time-location p {
-    margin-bottom: 0px;
-}
-.single_event .event_details .time-location p span {
-    color: #ffffff;
-    font-size: 13px;
-    font-weight: 500;
-}
-.single_event:hover img {
-    transform: scale(1.1);
-}
-.single_event:hover h4 a {
-    color: #fdc632;
-}
-
-
-        </style>
+    <link rel="stylesheet" href="../styles/historic.css">
 </head>
 <body>
 
@@ -123,20 +47,20 @@ echo'
             <div class="col-lg-6 col-md-6">
                 <div class="single_event position-relative">
                     <div class="event_thumb">
-                        <img src="https://www.awanderlustforlife.com/wp-content/uploads/2015/12/Haarlem_Title.jpg" alt="" />
+                        <img src="' . $h['path'] .'" class="img-fluid" alt="" />
                     </div>
                     <div class="event_details">
                         <div class="d-flex mb-4">
                             <div class="date"><span>15/18</span> Jun</div>
                             <div class="time-location">
-                                <p><span class="ti-time mr-2"></span>' . $h['eventDate'] . ' </p>
-                                <p><span class="ti-location-pin mr-2">' . $h['location'] . '</span> </p>
+                                <p><span class="ti-time mr-2"></span>' . $h['name'] . ' </p>
+                                <p><span class="ti-location-pin mr-2"></span> </p>
                             </div>
                         </div>
                         <p>
                         ' . $h['description'] . ' 
                         </p>
-                        <a href="/historic/detail?id=' . $h['id'] . '" class="btn btn-primary rounded-0 mt-3">View Details</a>
+                        <a href="/historic/detail?id=' . $h['historicevent_id'] . '" class="btn btn-primary rounded-0 mt-3">View Details</a>
                     </div>
                 </div>
             </div>

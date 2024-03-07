@@ -4,22 +4,19 @@ namespace Models;
 class Historic
 {
     private $id;
-    private $description;
     private $name;
-    private $eventDate;
-    private $location;
-    private $language;
+    private $description;
+    
+    private $path;
+    
 
-    public function __construct($id, $description, $name, $eventDate, $location, $language)
+    public function __construct($id, $name, $description, $path)
     {
         $this->id = $id;
-        $this->description = $description;
         $this->name = $name;
-        $this->eventDate = $eventDate;
-        $this->location = $location;
-        $this->language = $language;
+        $this->description = $description;
+        $this->path = $path;
     }
-
 
     public function getId()
     {
@@ -40,28 +37,9 @@ class Historic
 
    
 
-    public function getEventDate()
+    public function getPath()
     {
-        return $this->eventDate;
+        return $this->path;
     }
-
   
-
-    public function getLocation()
-    {
-        return $this->location;
-    }
-
- 
-
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    public function __toString()
-    {
-        return "<div class=container>Historic event: $this->name" . " Description: $this->description" . " Location: $this->location" . " Language: $this->language</div>";
-    }
-   
 }

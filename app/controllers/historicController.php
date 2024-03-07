@@ -21,9 +21,9 @@ class HistoricController{
 
         require __DIR__ . '/../views/historic/historicOverview.php';
     }
-    public function historicDetail($historicId)
+    public function historicDetail($historicevent_id)
     {
-        $historic_current = $this->historicService->getHistoricEventById($historicId);
+        $event = $this->historicService->getHistoricEventById($historicevent_id);
         require __DIR__ . '/../views/historic/historicDetail.php';
     }
 }

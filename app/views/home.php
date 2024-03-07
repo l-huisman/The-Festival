@@ -132,7 +132,7 @@ require_once __DIR__ . '/../views/elements/header.php';
                         <a href="#" class="buttons">Read more ></a>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4">
+                <div class="col-sm-12 col-md-4" id= "displayDiv">
                     <img src="https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg"
                         alt="1">
                     <h2 class="mt-3 mb-3">History</h2>
@@ -145,6 +145,26 @@ require_once __DIR__ . '/../views/elements/header.php';
                 </div>
             </div>
         </div>
+
+
+        <form id="editorForm" method="post" action="save_content.php">
+    <textarea id="editableDiv" name="content" style="display:none;"></textarea>
+    <div id="displayDiv" contenteditable="true">Click here to edit</div>
+    <button type="submit">Save</button>
+</form>
+
+<script>
+    tinymce.init({
+        selector: '#displayDiv',
+    });
+
+    // Set the content of the hidden textarea before submitting the form
+    document.getElementById('editorForm').addEventListener('submit', function() {
+        document.getElementById('editableDiv').value = tinymce.get('displayDiv').getContent();
+    });
+</script>
+
+
 </html>
 
 <?php

@@ -6,7 +6,7 @@ class HistoricRepository extends Repository
 {
     public function getAllHistoricEvents()
     {
-        $stmt = $this->connection->prepare("SELECT * FROM historicEvent");
+        $stmt = $this->connection->prepare("SELECT historicevent_id, name, description, path FROM historicevent");
         
         $stmt->execute();
       
@@ -14,11 +14,11 @@ class HistoricRepository extends Repository
         return $stmt->fetchAll();
     }
 
-    public function getHistoricEventById($id)
+    public function getHistoricEventById($historicevent_id)
     {
-        $sql = "SELECT * FROM historicEvent WHERE id = :id";
+        $sql = "SELECT * FROM historicevent WHERE historicevent_id = :historicevent_id";
         $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':historicevent_id', $historicevent_id);
         $stmt->execute();
         return $stmt->fetch();
     }
