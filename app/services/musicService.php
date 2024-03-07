@@ -25,7 +25,6 @@ class MusicService
         foreach ($data as $artist) {
             $songs = $this->getSongsByArtistId($artist["id"]);
             $artists[] = new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner'], $artist['pictogram'], $songs);
-            $artists[] = $artist;
         }
         return $artists;
     }
