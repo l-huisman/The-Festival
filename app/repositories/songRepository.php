@@ -31,23 +31,21 @@ class SongRepository extends Repository
         return $stmt->fetch();
     }
 
-    public function createSong($artist_id, $name, $song, $cover)
+    public function createSong($artist_id, $song, $cover)
     {
-        $sql = "INSERT INTO song (artist_id, name, song, cover) VALUES(:artist_id, :name, :song, :cover)";
+        $sql = "INSERT INTO song (artist_id, song, cover) VALUES(:artist_id, :name, :song, :cover)";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':artist_id', $artist_id);
-        $stmt->bindParam(':name', $name);
         $stmt->bindParam(':song', $song);
         $stmt->bindParam(':cover', $cover);
         $stmt->execute();
     }
 
-    public function updateSong($id, $name, $song, $cover)
+    public function updateSong($id, $song, $cover)
     {
-        $sql = "UPDATE song SET name = :name, song = :song, cover = :cover WHERE id = :id";
+        $sql = "UPDATE song SET song = :song, cover = :cover WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':name', $name);
         $stmt->bindParam(':song', $song);
         $stmt->bindParam(':cover', $cover);
         $stmt->execute();
