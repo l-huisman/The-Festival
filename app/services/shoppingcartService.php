@@ -1,6 +1,10 @@
 <?php 
-
 namespace Services;
+
+//require_once '../vendor/autoload.php';
+require_once '../vendor/stripe/stripe-php/init.php';
+
+
 
 class ShoppingcartService{
     private $shoppingcartRepository;
@@ -29,7 +33,31 @@ class ShoppingcartService{
     }
 
     public function pay(){
-        header('Location:https://buy.stripe.com/cN2159cg8bpFfRu6oo');
+
+        $stripe = new \Stripe\StripeClient('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');
+
+
+        \Stripe\Stripe::setApiKey('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');
+        // $stripe = new \Stripe\StripeClient('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');
+
+        $checkout_session = $stripe->checkout->sessions->create([
+            'line_items' => [[
+              'price_data' => [
+                'currency' => 'usd',
+                'product_data' => [
+                  'name' => 'T-shirt',
+                ],
+                'unit_amount' => 4545,
+              ],
+              'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => 'http://localhost:4242/success',
+            'cancel_url' => 'http://localhost:4242/cancel',
+          ]);
+          header("HTTP/1.1 303 See Other");
+            header("Location: " . $checkout_session->url);
+        // header('Location:https://buy.stripe.com/cN2159cg8bpFfRu6oo');
     }
 
     public function changeQuantity($TicketID, $Quantity){
