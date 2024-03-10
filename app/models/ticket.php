@@ -9,17 +9,19 @@ class Ticket
     public $title;
     public $description;
     public $quantity;
+    public $price;
     public $shoppingcart_id;
 
     //make the shoppingcart_id null if it is not passed
     
-    public function __construct($id, $user_id, $title, $description, $quantity, $shoppingcart_id = null)
+    public function __construct($id, $user_id, $title, $description, $quantity, $price, $shoppingcart_id = null)
     {
         $this->id = $id;
         $this->user_id = $user_id;
         $this->title = $title;
         $this->description = $description;
         $this->quantity = $quantity;
+        $this->price = $price;
         $this->shoppingcart_id = $shoppingcart_id;
     }
 

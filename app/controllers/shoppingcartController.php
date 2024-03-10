@@ -65,9 +65,27 @@ class ShoppingcartController {
     }
 
     public function Pay(){
+
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
-            $this->shoppingcartService->Pay($user);
+
+
+            // Initialize an empty array to store input values
+            // $inputValues = [];
+            $totalPrice = 0;
+
+            // Loop through all POST data
+            foreach ($_POST as $key => $value) {
+                // Check if first part starts with "PriceLabel"
+                if (substr($key, 0, 10) === 'PriceLabel') {
+                    // For non-array inputs, directly store the value
+                    // $inputValues[$key] = $value;
+                    $totalPrice += $value;
+                }
+            }
+
+
+            $this->shoppingcartService->Pay($user, $totalPrice);
         } else {
             header('Location:/register/loginview?errorMessage=You need to be logged in to pay for your shoppingcart');
         }

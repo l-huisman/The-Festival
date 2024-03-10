@@ -32,31 +32,32 @@ class ShoppingcartService{
         echo "<script> window.location.href = 'https://api.whatsapp.com/send?text=http://localhost/shoppingcart/get?shoppingcartID=".$shoppingcartID."';</script>";
     }
 
-    public function pay(){
+    public function pay($user, $totalPrice){
+
+        $totalCents = $totalPrice * 100;
 
         $stripe = new \Stripe\StripeClient('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');
 
-
         \Stripe\Stripe::setApiKey('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');
-        // $stripe = new \Stripe\StripeClient('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');
 
         $checkout_session = $stripe->checkout->sessions->create([
             'line_items' => [[
               'price_data' => [
-                'currency' => 'usd',
+                'currency' => 'eur',
                 'product_data' => [
-                  'name' => 'T-shirt',
+                  'name' => 'Haarlem Festival Tickets',
                 ],
-                'unit_amount' => 4545,
+                'unit_amount' => $totalCents,
               ],
               'quantity' => 1,
             ]],
+            'payment_method_types' => ['card', 'ideal'],
             'mode' => 'payment',
             'success_url' => 'http://localhost:4242/success',
             'cancel_url' => 'http://localhost:4242/cancel',
-          ]);
-          header("HTTP/1.1 303 See Other");
-            header("Location: " . $checkout_session->url);
+        ]);
+        header("HTTP/1.1 303 See Other");
+        header("Location: " . $checkout_session->url);
         // header('Location:https://buy.stripe.com/cN2159cg8bpFfRu6oo');
     }
 

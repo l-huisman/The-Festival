@@ -3,29 +3,32 @@ require_once __DIR__ . '/../../views/elements/header.php';
 ?>
 <div class="container">
     <h2 class="mt-5">Shopping Cart</h2>
-    <ul class="list-group">
-        <?php if(isset($_SESSION['Tickets'])){
-            foreach($_SESSION['Tickets'] as $index => $Serialized_ticket) { 
-                $Ticket = unserialize($Serialized_ticket); 
-                $inputName = "quantity".$index;?>
-                <li class="list-group-item mb-2 border d-flex justify-content-between">
-                    <span><?= $Ticket->title ?> | <?= $Ticket->description; ?></span> 
-                    <span>
-                        Quantity: 
-                        <input type="hidden" id="ticket<?=$index;?>" value="<?=$Ticket->id?>">
-                        <input class="p-1 border rounded me-2" min="1" max="20" width="100" type="number" id="<?=$inputName;?>" name="<?=$inputName;?>" value="<?= $Ticket->quantity; ?>">
-                        <a href="shoppingcart/remove?ticketID=<?=$Ticket->id?>" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
-                    </span>
-                    
-                </li>
-            <?php }
-        }  ?>
-    </ul>
-    <form class="d-inline" action="/shoppingcart/Share" method="POST">
-        <button class="btn btn-primary">Share shoppingcart</button>
-    </form>
-    <form class="d-inline" action="/shoppingcart/pay" method="POST">
-        <button class="btn btn-success">Pay</button>
+    <form action="/shoppingcart/pay" method="POST">
+
+        <ul class="list-group">
+            <?php if(isset($_SESSION['Tickets'])){
+                foreach($_SESSION['Tickets'] as $index => $Serialized_ticket) { 
+                    $Ticket = unserialize($Serialized_ticket); 
+                    $inputName = "quantity".$index;?>
+                    <li class="list-group-item mb-2 border d-flex justify-content-between">
+                        <span class="w-50"><?= $Ticket->title ?> | <?= $Ticket->description; ?></span> 
+                        <span>&euro;<input type="text" class="border-none" id="priceLabel<?=$index;?>" name="PriceLabel<?=$index;?>" readonly value="<?=$Ticket->price * $Ticket->quantity;?>"></span>
+
+                        <span>
+                            Quantity: 
+                            <input type="hidden" id="ticket<?=$index;?>" value="<?=$Ticket->id?>">
+                            <input type="hidden" id="ticketPrice<?=$index;?>" value="<?=$Ticket->price?>">
+                            <input class="p-1 border rounded me-2" min="1" max="20" width="100" type="number" id="<?=$inputName;?>" name="<?=$inputName;?>" value="<?= $Ticket->quantity; ?>">
+                            <a href="shoppingcart/remove?ticketID=<?=$Ticket->id?>" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        </span>
+                        
+                    </li>
+                <?php }
+            }  ?>
+        </ul>
+    
+        <button class="d-inline btn btn-success">Pay</button>
+        <a href="/shoppingcart/Share" class="d-inline btn btn-primary">Share shoppingcart</a>
     </form>
 </div>
 <?php 
@@ -41,6 +44,10 @@ quantityInputs.forEach(function(input) {
     input.addEventListener("change", () => {
         var index = input.id.replace('quantity', '');
         var ticketID = document.getElementById('ticket' + index).value;
+        var ticketPrice = document.getElementById('ticketPrice' + index).value;
+
+        document.getElementById('priceLabel' + index).value = ticketPrice * input.value;
+
         
         var existingForm = input.nextElementSibling;
         if (existingForm && existingForm.tagName === 'FORM') {
