@@ -26,4 +26,11 @@ class CustomController
         $this->wysiwygService->updateCustomPage('Custom Page', $content, $id);
         header('Location: /custom/show?id=' . $id);
     }
+
+    public function delete()
+    {
+        $id = $_POST['id'];
+        $this->wysiwygService->deleteCustomPage($id);
+        header('Location: /');
+    }
 }

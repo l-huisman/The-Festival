@@ -28,7 +28,7 @@ class WysiwygService
         $id = $this->wysiwygRepository->createCustomPage($name, $content);
         // A custom page was created on id $data so we can return it
         if ($id) {
-            return $this->getCustomPage($id);
+            header('Location: /custom/show?id=' . $id);
         }
         return null;
     }
