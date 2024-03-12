@@ -12,43 +12,70 @@ require_once __DIR__ . '/../../views/elements/header.php';
 </head>
 <body>
 
+<?php
+$hourMin = array(); // Initialize the array outside the loop to store unique values
+$dayofWeek = array();
+
+
+foreach ($tour as $t) {
+    $time = new DateTime($t->getTime());
+    $hourAndMinutes = $time->format('H:i');
+    $dayOfWeekString = $time->format('l');
+
+
+    // Check if the value already exists in the array
+    if (!in_array($hourAndMinutes, $hourMin)) {
+        $hourMin[] = $hourAndMinutes; // Add unique value to the array
+        
+    }
+
+    if (!in_array($dayOfWeekString, $dayofWeek)) {
+        $dayofWeek[] = $dayOfWeekString; // Add unique value to the array
+    }
+}
+    sort($hourMin);
+    sort($dayofWeek); // Sort the array (optional, if you want the times to be in ascending order
+// Now $hourMin contains unique times from the tour dates
+?>
+
+
+
+
+
 <h1 class="display-5 fw-bold"><?= $event->getName(); ?></h1>
 <h1 class="display-5 fw-bold"><?= $event->getDescription(); ?></h1>
+<h1 class="display-5 fw-bold"><? foreach($tour as $t) echo $t->getSeats() ?></h1>
+
 
 
 
 <div class="container w-20 mt-5">
   <!-- Dropdowns -->
   <div class="form-group">
-    <label for="dropdown1">Welke dag:</label>
-    <select class="form-control" id="dropdown1" onchange="checkDropdowns()">
+  
+      <select class="form-control" id="dropdown1" onchange="checkDropdowns()">
       <option value="">Kies dag</option>
-      <option value="option1">Donderdag</option>
-      <option value="option2">Vrijdag</option>
-      <option value="option3">Zaterdag</option>
-    
+      <?php foreach($tour as $t): ?>
+        <option value=""><?php echo $t->getSeats(); ?></option>
+      <?php endforeach; ?>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="dropdown2">Tijd:</label>
-    <select class="form-control" id="dropdown2" onchange="checkDropdowns()">
+  <select class="form-control" id="dropdown1" onchange="checkDropdowns()">
       <option value="">Kies tijd</option>
-      <option value="optionA">10:00</option>
-      <option value="optionB">13:00</option>
-        <option value="optionC">16:00</option>
-      
+      <?php foreach($hourMin as $hm): ?>
+        <option value=""><?php echo $hm?></option>
+      <?php endforeach; ?>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="dropdown3">Taal:</label>
-    <select class="form-control" id="dropdown3" onchange="checkDropdowns()">
-      <option value="">Kies taal</option>
-      <option value="itemX">Chinees</option>
-      <option value="itemY">Engels</option>
-      <option value="itemZ">Nederlands</option>
-      
+   <select class="form-control" id="dropdown1" onchange="checkDropdowns()">
+      <option value="">Kies datum</option>
+      <?php foreach($dayofWeek as $dow): ?>
+        <option value=""><?php echo $dow?></option>
+      <?php endforeach; ?>
     </select>
   </div>
 

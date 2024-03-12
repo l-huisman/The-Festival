@@ -3,7 +3,6 @@
 namespace Services;
 
 use Repositories\TourRepository;
-use Models\Historic;
 use Models\Tour;
 
 class TourService
@@ -19,8 +18,8 @@ class TourService
     {
         $data = $this->repository->getAllTours();
         $tours = [];
-        foreach ($data as $tours) {
-            $tours[] = new Tour($tours["tour_id"], $tours['date'], $tours['start_location'], $tours['price'], $tours['seats'], $tours['time']);
+        foreach ($data as $tour) {
+            $tours[] = new Tour($tour["tour_id"], $tour['start_location'], $tour['price'], $tour['seats'], $tour['time']);
         }
         return $tours;
     }
