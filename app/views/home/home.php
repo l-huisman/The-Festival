@@ -12,5 +12,4 @@
     </div>
 </body>
 
-<button id="button0a1b">Get TinyMCE Content</button>
 </html>
