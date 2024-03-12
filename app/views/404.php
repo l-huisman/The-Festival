@@ -17,7 +17,7 @@
                     <div class="error-details">
                         Sorry, an error has occurred, the requested page was not found!
                     </div>
-                    <div class="error-actions">
+                    <div class="error-actions pt-2">
                         <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Take Me Home </a>
                     </div>
                 </div>
