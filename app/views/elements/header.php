@@ -26,7 +26,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">CRUD</a>
+                    <a class="nav-link" href="/admin/loginPage">AdminLogin</a>
                 </li>
                 <?php 
 

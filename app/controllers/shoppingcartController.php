@@ -97,4 +97,8 @@ class ShoppingcartController {
         $this->shoppingcartService->changeQuantity($ticketID, $quantity);
         header('Location:/shoppingcart');
     }
+
+    public function cancel(){
+        $this->shoppingcartService->cancel();
+    }
 }

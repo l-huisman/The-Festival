@@ -84,4 +84,8 @@ class AdminController{
         }
         
     }
+
+    public function loginPage(){
+        require __DIR__ . '/../views/admin/loginPage.php';
+    }
 }

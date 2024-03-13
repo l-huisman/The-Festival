@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
                     $inputName = "quantity".$index;?>
                     <li class="list-group-item mb-2 border d-flex justify-content-between">
                         <span class="w-50"><?= $Ticket->title ?> | <?= $Ticket->description; ?></span> 
-                        <span>&euro;<input type="text" class="border-none" id="priceLabel<?=$index;?>" name="PriceLabel<?=$index;?>" readonly value="<?=$Ticket->price * $Ticket->quantity;?>"></span>
+                        <span>&euro;<input type="text" class="border-0" id="priceLabel<?=$index;?>" name="PriceLabel<?=$index;?>" readonly value="<?=$Ticket->price * $Ticket->quantity;?>"></span>
 
                         <span>
                             Quantity: 

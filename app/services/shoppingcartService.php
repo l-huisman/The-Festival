@@ -51,15 +51,32 @@ class ShoppingcartService{
               ],
               'quantity' => 1,
             ]],
-            'payment_method_types' => ['card', 'ideal'],
+            'payment_method_types' => ['ideal', 'card'],
             'mode' => 'payment',
             'success_url' => 'http://localhost:4242/success',
-            'cancel_url' => 'http://localhost:4242/cancel',
+            'cancel_url' => 'http://localhost/shoppingcart/cancel',
         ]);
         header("HTTP/1.1 303 See Other");
         header("Location: " . $checkout_session->url);
         // header('Location:https://buy.stripe.com/cN2159cg8bpFfRu6oo');
     }
+
+    public function cancel(){
+        $stripe = new \Stripe\StripeClient('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');
+
+        \Stripe\Stripe::setApiKey('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');
+
+        $checkout_session = $stripe->checkout->sessions->create([
+            'mode' => 'setup',
+            'currency' => 'eur',
+            'success_url' => 'http://localhost:4242/success',
+            'cancel_url' => 'http://localhost/shoppingcart',
+        ]);
+        header("HTTP/1.1 303 See Other");
+        header("Location: " . $checkout_session->url);
+    }
+
+    
 
     public function changeQuantity($TicketID, $Quantity){
         if(isset($_SESSION['Tickets'])){
