@@ -14,6 +14,11 @@ $router->get('/', function () {
     $controller->index();
 });
 
+
+
+
+
+
 /**
  * Handle dynamic routing based on the controller and action parameters.
  *
