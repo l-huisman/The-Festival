@@ -50,6 +50,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
             'Symfony\\Bundle\\TwigBundle\\' => 26,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bridge\\Twig\\' => 20,
+            'Stripe\\' => 7,
             'Services\\' => 9,
         ),
         'R' => 
@@ -196,6 +197,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'Symfony\\Bridge\\Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/twig-bridge',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
         'Services\\' => 
         array (

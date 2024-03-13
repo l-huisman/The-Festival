@@ -26,7 +26,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">CRUD</a>
+                    <a class="nav-link" href="/admin/loginPage">AdminLogin</a>
                 </li>
                 <?php 
 
@@ -42,6 +42,9 @@
                 
                 <li class="nav-item">
                     <a class="nav-link" href="/shoppingcart">Shopping cart</a>
+                </li>
+                <li class="nav-item my-auto">
+                    <a class="nav-link" href="/admin/overviewCustomers">Admin</a>
                 </li>
                 <li class="nav-item my-auto">
                     <a class="nav-link" href="/user/manageAccount"><i class="fa-regular fa-user"></i></a>

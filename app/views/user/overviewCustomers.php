@@ -31,8 +31,8 @@ require_once __DIR__ . '/../../views/elements/header.php';
                     <td><?= $user->email; ?></td>
                     <td><?= $user->role; ?></td>
                     <td><?= $user->gender; ?></td>
-                    <td><a href="/user/editUserView?user_id=<?= $user->user_id; ?>" class="btn btn-primary">Edit</a></td>
-                    <td><a href="/user/deleteUser?user_id=<?= $user->user_id; ?>" class="btn btn-danger">Delete</a></td>
+                    <td><a href="/admin/editUserView?user_id=<?= $user->user_id; ?>" class="btn btn-primary">Edit</a></td>
+                    <td><a href="/admin/deleteUser?user_id=<?= $user->user_id; ?>" class="btn btn-danger">Delete</a></td>
                 </tr>
             <?php } ?>
         </tbody>
