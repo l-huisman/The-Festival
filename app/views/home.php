@@ -1,25 +1,16 @@
 <?php
-<<<<<<< HEAD
-require_once __DIR__ . '/../views/elements/header.php';
-=======
 require_once __DIR__ . '/elements/header.php';
->>>>>>> development
 ?>
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Home</title>
     <style>
         .carousel-inner img {
             object-fit: cover;
             height: 70vh;
-<<<<<<< HEAD
-            object-position: cover;
-=======
             position: center;
->>>>>>> development
             overflow: hidden;
         }
 
@@ -128,14 +119,8 @@ require_once __DIR__ . '/elements/header.php';
                         <a href="#" class="buttons">Read more ></a>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <div class="col-sm-12 col-md-4" id= "displayDiv">
-                    <img src="https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg"
-                        alt="1">
-=======
                 <div class="col-sm-12 col-md-4">
                     <img src="https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg" alt="1">
->>>>>>> development
                     <h2 class="mt-3 mb-3">History</h2>
                     <p class="me-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet
                         tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.
@@ -146,45 +131,9 @@ require_once __DIR__ . '/elements/header.php';
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
-
-        <form id="editorForm" method="post" action="save_content.php">
-        <textarea id="editableDiv" name="content" style="display:none;"></textarea>
-        <div id="displayDiv" contenteditable="true">Click here to edit</div>
-        <button type="submit">Save</button>
-    </form>
-</div>
-
-<script>
-    tinymce.init({
-        selector: '#displayDiv',
-        plugins: 'autolink lists link image charmap print preview anchor',
-        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        menubar: false,
-        images_upload_url: 'your_upload_endpoint', // Replace with your server-side image upload endpoint
-        images_upload_handler: function (blobInfo, success, failure) {
-            // Implement your server-side image upload handling here
-            // Call success() with the image URL on success or failure() on failure
-        }
-    });
-
-    // Optionally, you can handle the form submission to save the edited content
-    document.getElementById('editorForm').addEventListener('submit', function(event) {
-        var editedContent = tinymce.get('displayDiv').getContent();
-        document.querySelector('#editableDiv').value = editedContent;
-    });
-</script>
-
-</html>
-
-<?php
-require_once __DIR__ . '/../views/elements/footer.php';
-?>
-=======
         <?php
         if (isset($_SESSION['user']) and $_SESSION['user']['role'] == 'admin') {
             require_once __DIR__ . '/../views/wysiwyg/index.php';
         }
         require_once __DIR__ . '/elements/footer.php';
         ?>
->>>>>>> development
