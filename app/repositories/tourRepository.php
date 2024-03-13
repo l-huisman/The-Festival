@@ -24,14 +24,20 @@ class TourRepository extends Repository
         return $stmt->fetch();
     }
 
-    public function getTourIDbyDate($time)
+
+    
+
+    public function getTourByGuideAndDate($time, $name)
     {
-        $sql = "SELECT tour_id, start_location, price, seats, time FROM tour WHERE time = :time";
+        $sql = "SELECT t.tour_id, start_location, price, seats, time, g.name, g.language FROM tour AS t INNER JOIN guide AS g WHERE time = :time AND g.name = :guide_name";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':time', $time);
+        $stmt->bindParam(':guide_name', $name);
         $stmt->execute();
         return $stmt->fetch();
     }
+
+
 
  
 

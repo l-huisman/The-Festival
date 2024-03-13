@@ -39,40 +39,29 @@ require_once __DIR__ . '/../../views/elements/header.php';
   <div class="events_area">
     <div class="container">
     <div class="row">
-<? foreach($historic as $h){
-   
-echo'
-
-      
-            <div class="col-lg-6 col-md-6">
-                <div class="single_event position-relative">
-                    <div class="event_thumb">
-                        <img src="' . $h['path'] .'" class="img-fluid" alt="" />
-                    </div>
-                    <div class="event_details">
-                        <div class="d-flex mb-4">
-                            <div class="date"><span>15/18</span> Jun</div>
-                            <div class="time-location">
-                                <p><span class="ti-time mr-2"></span>' . $h['name'] . ' </p>
-                                <p><span class="ti-location-pin mr-2"></span> </p>
-                            </div>
+    <div class="row">
+    <?php foreach ($historic as $h): ?>
+        <div class="col-lg-6 col-md-6">
+            <div class="single_event position-relative">
+                <div class="event_thumb">
+                    <img src="<?= $h['path'] ?>" class="img-fluid" alt="" />
+                </div>
+                <div class="event_details">
+                    <div class="d-flex mb-4">
+                        <div class="date"><span>15/18</span> Jun</div>
+                        <div class="time-location">
+                            <p><span class="ti-time mr-2"></span><?= $h['name'] ?> </p>
+                            <p><span class="ti-location-pin mr-2"></span> </p>
                         </div>
-                        <p>
-                        ' . $h['description'] . ' 
-                        </p>
-                        <a href="/historic/detail?id=' . $h['historicevent_id'] . '" class="btn btn-primary rounded-0 mt-3">View Details</a>
                     </div>
+                    <p><?= $h['description'] ?></p>
+                    <a href="/historic/historicdetail?id=<?= $h['historicevent_id'] ?>" class="btn btn-primary rounded-0 mt-3">View Details</a>
                 </div>
             </div>
-           
-           
-        
-  
-';
-}
-?>
-    </div>
+        </div>
+    <?php endforeach; ?>
 </div>
+
 </div>
 </body>
 </html>

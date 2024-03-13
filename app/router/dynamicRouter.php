@@ -14,12 +14,7 @@ $router->get('/', function () {
     $controller->index();
 });
 
-$router->get('/historic/detail', function () {
-    $historic = new Controllers\HistoricController();
-    $historic->historicDetail(1);
 
-
-});
 
 
 

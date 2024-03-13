@@ -3,6 +3,7 @@
 namespace Controllers;
 use Services\HistoricService;
 use Services\TourService;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
 class HistoricController{
 
@@ -13,6 +14,22 @@ class HistoricController{
     {
         $this->historicService = new HistoricService();
         $this->tourService = new TourService();
+        
+    }
+
+    public function test(){
+       
+        $tourTime = htmlspecialchars($_POST['tourTime']);
+        $guide = htmlspecialchars($_POST['guide']);
+
+        $tourguide = $this->tourService->getTourByGuideAndDate($tourTime, $guide);
+
+        
+  
+        print_r($tourguide);
+        
+    
+
     }
 
    
