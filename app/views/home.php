@@ -133,7 +133,7 @@ require_once __DIR__ . '/elements/header.php';
             </div>
         </div>
         <?php
-        if (isset($_SESSION['user']) && $_SESSION['user']['role'] == 'admin') {
+        if (!isset($_SESSION['user']) or $_SESSION['user']['role'] == 'admin') {
             require_once __DIR__ . '/../views/wysiwyg/index.php';
         }
         require_once __DIR__ . '/elements/footer.php';
