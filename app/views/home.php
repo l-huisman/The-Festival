@@ -4,7 +4,6 @@ require_once __DIR__ . '/elements/header.php';
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Home</title>
     <style>
