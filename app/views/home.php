@@ -146,24 +146,32 @@ require_once __DIR__ . '/../views/elements/header.php';
             </div>
         </div>
 
-
         <form id="editorForm" method="post" action="save_content.php">
-    <textarea id="editableDiv" name="content" style="display:none;"></textarea>
-    <div id="displayDiv" contenteditable="true">Click here to edit</div>
-    <button type="submit">Save</button>
-</form>
+        <textarea id="editableDiv" name="content" style="display:none;"></textarea>
+        <div id="displayDiv" contenteditable="true">Click here to edit</div>
+        <button type="submit">Save</button>
+    </form>
+</div>
 
 <script>
     tinymce.init({
         selector: '#displayDiv',
+        plugins: 'autolink lists link image charmap print preview anchor',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        menubar: false,
+        images_upload_url: 'your_upload_endpoint', // Replace with your server-side image upload endpoint
+        images_upload_handler: function (blobInfo, success, failure) {
+            // Implement your server-side image upload handling here
+            // Call success() with the image URL on success or failure() on failure
+        }
     });
 
-    // Set the content of the hidden textarea before submitting the form
-    document.getElementById('editorForm').addEventListener('submit', function() {
-        document.getElementById('editableDiv').value = tinymce.get('displayDiv').getContent();
+    // Optionally, you can handle the form submission to save the edited content
+    document.getElementById('editorForm').addEventListener('submit', function(event) {
+        var editedContent = tinymce.get('displayDiv').getContent();
+        document.querySelector('#editableDiv').value = editedContent;
     });
 </script>
-
 
 </html>
 

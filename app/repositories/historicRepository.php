@@ -6,7 +6,7 @@ class HistoricRepository extends Repository
 {
     public function getAllHistoricEvents()
     {
-        $stmt = $this->connection->prepare("SELECT historicevent_id, name, description, path FROM historicevent");
+        $stmt = $this->connection->prepare("SELECT historicevent_id, name, description, path, location FROM historicevent");
         
         $stmt->execute();
       

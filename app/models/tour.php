@@ -13,15 +13,25 @@ class Tour
 
     private $time;
 
+    private $name;
 
-    public function __construct($tour_id, $start_location, $price, $seats, $time)
+    private $language;
+
+
+
+
+    public function __construct($tour_id, $start_location, $price, $seats, $time, $name, $language)
     {
         $this->tour_id = $tour_id;
         $this->start_location = $start_location;
         $this->price = $price;
         $this->seats = $seats;
         $this->time = $time;
+        $this->name = $name;
+        $this->language = $language;
     }
+
+    
   public function getTour()
     {
         return $this->tour_id;
@@ -39,9 +49,20 @@ class Tour
     {
         return $this->seats;
     }
-    public function getTime()
+   public function getTime()
     {
         return $this->time;
     }
+
+    public function getGuideName()
+    {
+        return $this->name;
+    }
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+
 
 }

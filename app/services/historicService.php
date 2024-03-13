@@ -16,15 +16,15 @@ class HistoricService
     }
     public function getAllHistoricEvents()
     {
-        $repository = new HistoricRepository();
-        $historic = $repository->getAllHistoricEvents();
+        
+        $historic = $this->repository->getAllHistoricEvents();
         return $historic;
     }
 
     public function getHistoricEventById($id)
     {
         $data = $this->repository->getHistoricEventById($id);
-        $event = new Historic($data["historicevent_id"], $data['name'], $data['description'], $data['path']);
+        $event = new Historic($data["historicevent_id"], $data['name'], $data['description'], $data['path'] , $data['location']);
         return $event;
     }
 

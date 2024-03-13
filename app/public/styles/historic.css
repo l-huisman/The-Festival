@@ -36,7 +36,7 @@ body{margin-top:20px;
     transition: all 0.3s ease 0s;
 }
 .single_event .event_details {
-    background: rgba(0, 35, 71, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0px;
     right: 0px;

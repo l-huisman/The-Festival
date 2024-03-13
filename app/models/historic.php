@@ -8,14 +8,17 @@ class Historic
     private $description;
     
     private $path;
+
+    private $location;
     
 
-    public function __construct($id, $name, $description, $path)
+    public function __construct($id, $name, $description, $path, $location)
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->path = $path;
+        $this->location = $location;
     }
 
     public function getId()
@@ -40,6 +43,11 @@ class Historic
     public function getPath()
     {
         return $this->path;
+    }
+
+    public function getLocation()
+    {
+        return $this->location;
     }
   
 }
