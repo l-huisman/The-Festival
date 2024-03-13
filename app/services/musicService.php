@@ -2,58 +2,94 @@
 
 namespace Services;
 
-use Repositories\MusicRepository;
+use Repositories\ArtistRepository;
+use Repositories\SongRepository;
 use Models\Artist;
 use Models\Song;
 
 class MusicService
 {
-    public $repository;
+    private $artistRepository;
+    private $songRepository;
 
     public function __construct()
     {
-        $this->repository = new MusicRepository();
+        $this->artistRepository = new ArtistRepository();
+        $this->songRepository = new SongRepository();
     }
 
     public function getArtists()
     {
-        $data = $this->repository->getArtists();
+        $data = $this->artistRepository->getArtists();
         $artists = [];
         foreach ($data as $artist) {
-            $artists[] = new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner'], $artist['pictogram']);
+            $songs = $this->getSongsByArtistId($artist["id"]);
+            $artists[] = new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner'], $artist['pictogram'], $songs);
         }
         return $artists;
     }
 
     public function getArtistById($id)
     {
-        $data = $this->repository->getArtistById($id);
-        $artist = new Artist($data["id"], $data['name'], $data['description'], $data['banner'], $data['pictogram']);
-        $songs = $this->repository->getSongsByArtistId($id);
-        foreach ($songs as $song) {
-            $artist->addSong(new Song($song["id"], $song['song'], $song['cover']));
-        }
+        $data = $this->artistRepository->getArtistById($id);
+        $songs = $this->getSongsByArtistId($data["id"]);
+        $artist = new Artist($data["id"], $data['name'], $data['description'], $data['banner'], $data['pictogram'], $songs);
         return $artist;
     }
 
-    public function createArtist($name, $description)
+    public function createArtist($name, $description, $banner, $pictogram)
     {
-        $this->repository->createArtist($name, $description);
+        $this->artistRepository->createArtist($name, $description, $banner, $pictogram);
     }
 
-    public function updateArtist($id, $name, $description)
+    public function updateArtist($id, $name, $description, $banner, $pictogram)
     {
-        $this->repository->updateArtist($id, $name, $description);
+        $this->artistRepository->updateArtist($id, $name, $description, $banner, $pictogram);
     }
 
     public function deleteArtist($id)
     {
-        $this->repository->deleteArtist($id);
+        $this->artistRepository->deleteArtist($id);
     }
 
-    public function addSong($artist_id, $name, $song)
+    public function getSongs($artist_id)
     {
+        $data = $this->songRepository->getSongs($artist_id);
+        $songs = [];
+        foreach ($data as $song) {
+            $songs[] = new Song($song["id"], $song['song'], $song['cover']);
+        }
+        return $songs;
+    }
 
-        $this->repository->addSong($artist_id, $name, $song);
+    public function getSongsByArtistID($artist_id)
+    {
+        $data = $this->songRepository->getSongsByArtistId($artist_id);
+        $songs = [];
+        foreach ($data as $song) {
+            $songs[] = new Song($song["id"], $song['song'], $song['cover']);
+        }
+        return $songs;
+    }
+
+    public function getSongById($id)
+    {
+        $data = $this->songRepository->getSongById($id);
+        return new Song($data["id"], $data['song'], $data['cover']);
+    }
+
+    public function createSong($artist_id, $song, $cover)
+    {
+        $this->songRepository->createSong($artist_id, $song, $cover);
+    }
+
+    public function updateSong($id, $song, $cover)
+    {
+        $this->songRepository->updateSong($id, $song, $cover);
+    }
+
+    public function deleteSong($id)
+    {
+        $this->songRepository->deleteSong($id);
     }
 }

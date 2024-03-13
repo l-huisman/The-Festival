@@ -2,7 +2,7 @@
 
 namespace Repositories;
 
-class MusicRepository extends Repository
+class ArtistRepository extends Repository
 {
     public function getArtists()
     {
@@ -21,22 +21,26 @@ class MusicRepository extends Repository
         return $stmt->fetch();
     }
 
-    public function createArtist($name, $description)
+    public function createArtist($name, $description, $banner, $pictogram)
     {
-        $sql = "INSERT INTO artist (name, description) VALUES(:name, :description)";
+        $sql = "INSERT INTO artist (name, description, banner, pictogram) VALUES(:name, :description, :banner, :pictogram)";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':banner', $banner);
+        $stmt->bindParam(':pictogram', $pictogram);
         $stmt->execute();
     }
 
-    public function updateArtist($id, $name, $description)
+    public function updateArtist($id, $name, $description, $banner, $pictogram)
     {
-        $sql = "UPDATE artist SET name = :name, description = :description WHERE id = :id";
+        $sql = "UPDATE artist SET name = :name, description = :description, banner = :banner, pictogram = :pictogram WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':banner', $banner);
+        $stmt->bindParam(':pictogram', $pictogram);
         $stmt->execute();
     }
 
@@ -46,24 +50,5 @@ class MusicRepository extends Repository
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-    }
-
-    public function addSong($artist_id, $name, $song)
-    {
-        $sql = "INSERT INTO song (artist_id, name, song) VALUES(:artist_id,:name,:song)";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':artist_id', $artist_id);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':song', $song);
-        $stmt->execute();
-    }
-
-    public function getSongsByArtistID($artist_id)
-    {
-        $sql = "SELECT * FROM song WHERE artist_id = :artist_id";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':artist_id', $artist_id);
-        $stmt->execute();
-        return $stmt->fetchAll();
     }
 }
