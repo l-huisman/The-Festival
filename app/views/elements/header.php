@@ -28,9 +28,6 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin/loginPage">AdminLogin</a>
-                </li>
                 <?php 
 
                 if(isset($_SESSION['user'])) { ?>
@@ -47,7 +44,7 @@
                     <a class="nav-link" href="/shoppingcart">Shopping cart</a>
                 </li>
                 <li class="nav-item my-auto">
-                    <a class="nav-link" href="/admin/overviewCustomers">Admin</a>
+                    <a class="nav-link" href="/admin/loginPage">Admin</a>
                 </li>
                 <li class="nav-item my-auto">
                     <a class="nav-link" href="/user/manageAccount"><i class="fa-regular fa-user"></i></a>
@@ -73,7 +70,7 @@
                         <span class="nav_logo-name">Home</span> 
                     </a>
                     <div class="nav_list"> 
-                        <a href="/admin/overviewCustomers" class="nav_link active"> 
+                        <a href="/admin/overviewUsers" class="nav_link active"> 
                             <span class="nav_name">Users</span> 
                         </a> 
                         <a href="#" class="nav_link active"> 

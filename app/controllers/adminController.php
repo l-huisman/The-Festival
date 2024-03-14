@@ -52,7 +52,7 @@ class AdminController{
             if($user->role == 'admin'){
                 $user_id = htmlspecialchars($_GET['user_id']);
                 $this->adminService->deleteUser($user_id);
-                header('Location:/admin/overviewCustomers');
+                header('Location:/admin/overviewUsers');
             }
             else {
                 header('Location:/');
@@ -83,7 +83,7 @@ class AdminController{
                 $user_id = htmlspecialchars($_POST['user_id']);
                 $this->adminService->validateUserAccount($newFirstName, $newLastName, $newDateOfBirth, $newAddress, $newPhoneNumber, $newRole, $user_id);
 
-                header('Location:/admin/overviewCustomers');
+                header('Location:/admin/overviewUsers');
             }
             else {
                 header('Location:/');
