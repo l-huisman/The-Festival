@@ -3,14 +3,14 @@ namespace Repositories;
 
 class TicketRepository extends Repository{
     public function getShoppingcartTickets($shoppingcartID){
-        $sql = "SELECT ticketID, userID, title, description, quantity, price, shoppingcartID FROM tickets WHERE shoppingcartID = :shoppingcartID";
+        $sql = "SELECT ticketID, userID, title, datetime, location, description, quantity, price, shoppingcartID FROM tickets WHERE shoppingcartID = :shoppingcartID";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':shoppingcartID', $shoppingcartID);
         $stmt->execute();
         $stmt = $stmt->fetchAll();
         $tickets = [];
         foreach($stmt as $ticket){
-            $tickets[] = new \Models\Ticket($ticket['ticketID'], $ticket['userID'], $ticket['title'], $ticket['description'], $ticket['quantity'], $ticket['price'], $ticket['shoppingcartID']);
+            $tickets[] = new \Models\Ticket($ticket['ticketID'], $ticket['userID'], $ticket['title'], $ticket['datetime'], $ticket['location'], $ticket['description'], $ticket['quantity'], $ticket['price'], $ticket['shoppingcartID']);
         }
         return $tickets; 
     }

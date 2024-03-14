@@ -6,24 +6,35 @@ class AdminController{
     public function __construct()
     {
         $this->adminService = new \Services\AdminService();
+
+        $url = explode('/', $_SERVER['REQUEST_URI']);
+        $method = $_SERVER['REQUEST_METHOD'];
+        
+        if($url[2] === 'loginPage' || $url[2] === 'login' && $method == 'POST'){
+            return;
+        }
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
             if($user->role != "admin"){
                 header('Location:/');
-                die();
             }  
         }else {
             header('Location:/');
-            die();
         }
     }
 
-    public function overviewCustomers(){
+    public function login(){
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $this->adminService->verifyAdminLogin($email, $password);
+    }
+
+    public function overviewUsers(){
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
             if($user->role == "admin"){
                 $users = $this->adminService->getAllUsers();
-                require_once __DIR__ . '/../views/user/overviewCustomers.php';
+                require_once __DIR__ . '/../views/user/overviewUsers.php';
             }
             else {
                 header('Location:/');

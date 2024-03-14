@@ -23,6 +23,19 @@ class AdminRepository extends Repository{
         $stmt->execute();
     }
 
+    public function getUserByEmail($email){
+        $sql = "SELECT user_id, first_name, last_name, email, date_of_birth, address, phone_number, hashed_password, gender, role FROM user WHERE email = :email";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $stmt = $stmt->fetch();
+        if($stmt){
+            $user = new \Models\User($stmt['user_id'], $stmt['first_name'], $stmt['last_name'], $stmt['email'], $stmt['date_of_birth'], $stmt['address'], $stmt['phone_number'], $stmt['hashed_password'], $stmt['gender'], $stmt['role']);
+            return $user;
+        }
+        return null;
+    }
+
     public function getUserById($id){
         $sql = "SELECT user_id, first_name, last_name, email, date_of_birth, address, phone_number, hashed_password, gender, role FROM user WHERE user_id = :id";
         $stmt = $this->connection->prepare($sql);
