@@ -25,4 +25,25 @@ class AdminService{
     public function validateUserAccount($newFirstName, $newLastName, $newDateOfBirth, $newAddress, $newPhoneNumber, $newRole, $user_id){
         $this->adminRepositoy->editUserAccount($newFirstName, $newLastName, $newDateOfBirth, $newAddress, $newPhoneNumber, $newRole, $user_id);
     }
+
+    public function verifyAdminLogin($email, $password){
+        $user = $this->adminRepositoy->getUserByEmail($email);
+        if(isset($user) && $user->role == "admin"){
+            if($this->verifyPassword($password, $user->hashed_password)){
+                $_SESSION['user'] = serialize($user);
+                header('Location:/home');
+                die();
+            }else{
+                header('Location:/admin/loginPage?errorMessage=wrong password');
+                die();
+            }
+        }
+        header('Location:/admin/loginPage?errorMessage=admin user does not exist');
+        die();
+    }
+
+    private function verifyPassword($password, $hashedPassword)
+    {
+        return password_verify($password, $hashedPassword);
+    }
 }

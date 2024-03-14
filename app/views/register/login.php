@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/../../views/elements/header.php';
-?>
+
+if(isset($_GET['errorMessage'])){
+  $errorMessage = htmlspecialchars($_GET['errorMessage']); ?>
+  <script>alert("<?=$errorMessage;?>");</script>
+<?php } ?>
+
 <div class="container">
   <form class="my-3" action="/register/login" method="POST">
     <div class="row">

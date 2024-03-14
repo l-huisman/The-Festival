@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../views/elements/header.php';
 ?>
 <div class="container">
-    <h1>Overview Customers</h1>
+    <h1>Overview Users</h1>
     <table class="table">
         <thead>
             <tr>

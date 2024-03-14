@@ -75,17 +75,23 @@ CREATE TABLE `tickets` (
   `ticketID` int(11) NOT NULL,
   `userID` int(11) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
+  `datetime` datetime NOT NULL,
+  `location` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `quantity` int(5) NOT NULL,
+  `price` float NOT NULL,
   `shoppingcartID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `description`, `quantity`, `shoppingcartID`) VALUES
-(1, 1, ' Concert Ticket ', ' Admission to the live concert event ', 6, 1),
-(2, 1, ' Movie Ticket ', ' Admission to the latest blockbuster movie ', 2, 1),
-(3, 1, ' Sports Ticket ', ' Admission to the championship game ', 2, 1),
-(4, 1, ' Historical Tour ', ' This is a Historical Tour around Haarlem ', 2, 1),
-(5, 1, ' Music event Reservation ', ' This is a reservation for music event 1 ', 1, 1);
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `description`, `quantity`, `price`, `shoppingcartID`) VALUES
+(1, 1, ' Concert Ticket ', '0000-00-00 00:00:00', '', ' Admission to the live concert event ', 1, 23.5, 1),
+(2, 1, ' Movie Ticket ', '0000-00-00 00:00:00', '', ' Admission to the latest blockbuster movie ', 2, 25, 1),
+(3, 1, ' Sports Ticket ', '0000-00-00 00:00:00', '', ' Admission to the championship game ', 1, 20, 1),
+(4, 1, ' Historical Tour ', '0000-00-00 00:00:00', '', ' This is a Historical Tour around Haarlem ', 1, 23.5, 1);
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
@@ -96,12 +102,16 @@ CREATE TABLE `user` (
   `address` varchar(255) DEFAULT NULL,
   `phone_number` varchar(20) DEFAULT NULL,
   `hashed_password` varchar(255) DEFAULT NULL,
-  `gender` enum(' male',' female',' other') DEFAULT NULL,
+  `gender` varchar(255) DEFAULT NULL,
   `role` varchar(30) NOT NULL DEFAULT ' user '
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `user`
+--
+
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `email`, `date_of_birth`, `address`, `phone_number`, `hashed_password`, `gender`, `role`) VALUES
-(1, ' Thijs ', ' Moerland ', ' Moerland8 @gmail.com ', '0000-00-00', ' Söderblomstraat ', ' + 31681340798 ', ' $ 2y $ 10 $ g0Utg1sdjjKnHemh85vCAeb0l7CaydEbcxByRDvJ8b72bmbNcCoG2 ', ' male', ' admin ');
+(1, ' Thijs', ' Moerland ', 'Moerland8@gmail.com', '2001-09-05', 'Söderblomstraat', '31681340798 ', '$2y$10$dDdt7stAhaCM2Kl2l738tOFL5yxpSfiqvIiHzYYKy7E3f01PkKL56', 'male', 'admin');
 
 CREATE TABLE `venue` (
   `id` int(11) NOT NULL,
