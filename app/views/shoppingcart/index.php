@@ -29,6 +29,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
     
         <button class="d-inline btn btn-success">Pay</button>
         <a href="/shoppingcart/Share" class="d-inline btn btn-primary">Share shoppingcart</a>
+        <a href="/shoppingcart/agendaView" class="d-inline btn btn-info">Agenda view</a>
     </form>
 </div>
 <?php 

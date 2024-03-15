@@ -148,4 +148,26 @@ class ShoppingcartService{
             }
         }
     }
+
+
+    public function getTicketsByDateAndUser($date){
+        if(isset($_SESSION['user'])){
+            $user = unserialize($_SESSION['user']);
+            $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
+            $tickets = $this->ticketRepository->getTicketsByDateAndUser($date, $user->user_id, $shoppingcartID);
+            return $tickets;
+        }else if(isset($_SESSION['Tickets'])){
+            $tickets = array();
+            foreach($_SESSION['Tickets'] as $index => $Serialized_ticket){
+                $Ticket = unserialize($Serialized_ticket);
+                if($Ticket->date == $date){
+                    $tickets[] = $Ticket;
+                }
+            }
+            return $tickets;
+        }
+        else {
+            return null;
+        }
+    }
 }

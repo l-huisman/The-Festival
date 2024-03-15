@@ -9,10 +9,13 @@ class TicketRepository extends Repository{
         $stmt->execute();
         $stmt = $stmt->fetchAll();
         $tickets = [];
-        foreach($stmt as $ticket){
-            $tickets[] = new \Models\Ticket($ticket['ticketID'], $ticket['userID'], $ticket['title'], $ticket['datetime'], $ticket['location'], $ticket['description'], $ticket['quantity'], $ticket['price'], $ticket['shoppingcartID']);
+        if($stmt){
+            foreach($stmt as $ticket){
+                $tickets[] = new \Models\Ticket($ticket['ticketID'], $ticket['userID'], $ticket['title'], $ticket['datetime'], $ticket['location'], $ticket['description'], $ticket['quantity'], $ticket['price'], $ticket['shoppingcartID']);
+            }
+            return $tickets; 
         }
-        return $tickets; 
+        return null;
     }
 
     public function addTicket($user_ID, $title, $description, $quantity){
@@ -38,6 +41,26 @@ class TicketRepository extends Repository{
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':ticket_id', $ticketID);
         $stmt->execute();
+    }
+
+    public function getTicketsByDateAndUser($date, $user_ID, $shoppingcartID){ //here
+        $date = $date . '%';
+        $sql = "SELECT ticketID, userID, title, datetime, location, description, quantity, price, shoppingcartID FROM tickets WHERE datetime like :date AND userID = :user_id AND shoppingcartID = :shoppingcartID";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':user_id', $user_ID);
+        $stmt->bindParam(':shoppingcartID', $shoppingcartID);
+        $stmt->execute();
+        $stmt = $stmt->fetchAll();
+        $tickets = [];
+        if($stmt){
+            foreach($stmt as $ticket){
+                $tickets[] = new \Models\Ticket($ticket['ticketID'], $ticket['userID'], $ticket['title'], $ticket['datetime'], $ticket['location'], $ticket['description'], $ticket['quantity'], $ticket['price'], $ticket['shoppingcartID']);
+            }
+            return $tickets;
+        }
+        return null;
+        
     }
 }
 
