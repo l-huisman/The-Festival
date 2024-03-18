@@ -89,7 +89,7 @@ class ShoppingcartController {
         $calendar = '<div style="col-11">' . $calendar . '</div>';
         
         $calendar .= '<style type="text/css">table tbody tr td, table tbody tr th { text-align: center; }</style>';
-        
+
         require_once __DIR__ . '/../views/shoppingcart/agendaview.php';
     }
 
@@ -131,13 +131,13 @@ class ShoppingcartController {
                 if(date('Y-m-d') == $date){
                     $calendar .= "<td class='day text-success' rel='$date'><b>$currentDay </b><br>";
                     foreach($Tickets as $Ticket){
-                        $calendar .= "<small>Start Time:".$Ticket->getTime()."</small><br>";
+                        $calendar .= "<small>Start Time:".$Ticket->getTime()."</small><a href='/shoppingcart/remove?ticketID=$Ticket->id' class='btn btn-danger'><i class='fa-solid fa-trash-can'></i></a><br>";
                     }
                     $calendar .= "</td>";
                 } else {
                     $calendar .= "<td class='day' rel='$date'>$currentDay<br>";
                     foreach($Tickets as $Ticket){
-                        $calendar .= "<small>Start Time:".$Ticket->getTime()."</small><br>";
+                        $calendar .= "<small>Start Time:".$Ticket->getTime()."</small><a href='/shoppingcart/remove?ticketID=$Ticket->id' class='btn btn-danger'><i class='fa-solid fa-trash-can'></i></a><br>";
                     }
                     $calendar .= "</td>";
                 }
