@@ -7,12 +7,16 @@ require_once __DIR__ . '/../../views/elements/header.php';
 
         <ul class="list-group">
             <?php if(isset($_SESSION['Tickets'])){
+                $totalPrice = 0;
                 foreach($_SESSION['Tickets'] as $index => $Serialized_ticket) { 
                     $Ticket = unserialize($Serialized_ticket); 
-                    $inputName = "quantity".$index;?>
+                    $inputName = "quantity".$index;
+                    $itemPrice = $Ticket->price * $Ticket->quantity;
+                    $totalPrice += $itemPrice;
+                    ?>
                     <li class="list-group-item mb-2 border d-flex justify-content-between">
                         <span class="w-50"><?= $Ticket->title ?> | <?= $Ticket->description; ?></span> 
-                        <span>&euro;<input type="text" class="border-0" id="priceLabel<?=$index;?>" name="PriceLabel<?=$index;?>" readonly value="<?=$Ticket->price * $Ticket->quantity;?>"></span>
+                        <span>&euro;<input type="text" class="border-0" id="priceLabel<?=$index;?>" name="PriceLabel<?=$index;?>" readonly value="<?=$itemPrice;?>"></span>
 
                         <span>
                             Quantity: 
@@ -26,6 +30,10 @@ require_once __DIR__ . '/../../views/elements/header.php';
                 <?php }
             }  ?>
         </ul>
+        
+        <div class="mt-3">
+            Total Price: &euro;<input type="text" class="border-0" id="totalPrice" name="totalPrice" readonly value="<?=$totalPrice;?>">
+        </div>
     
         <button class="d-inline btn btn-success">Pay</button>
         <a href="/shoppingcart/Share" class="d-inline btn btn-primary">Share shoppingcart</a>
@@ -38,6 +46,7 @@ require_once __DIR__ . '/../../views/elements/footer.php';
 <script>
 // Select all inputs whose ID starts with "quantity"
 var quantityInputs = document.querySelectorAll('input[id^="quantity"]');
+var totalPriceInput = document.getElementById('totalPrice');
 
 var quantities = [];
 
@@ -49,7 +58,6 @@ quantityInputs.forEach(function(input) {
 
         document.getElementById('priceLabel' + index).value = ticketPrice * input.value;
 
-        
         var existingForm = input.nextElementSibling;
         if (existingForm && existingForm.tagName === 'FORM') {
             existingForm.parentNode.removeChild(existingForm);
@@ -78,8 +86,16 @@ quantityInputs.forEach(function(input) {
         form.append(inputTicketID);
         form.append(button);
 
-
         input.parentNode.insertBefore(form, input.nextSibling);
+
+        // Update total price
+        var newTotalPrice = 0;
+        quantityInputs.forEach(function(input) {
+            var index = input.id.replace('quantity', '');
+            var ticketPrice = document.getElementById('ticketPrice' + index).value;
+            newTotalPrice += ticketPrice * input.value;
+        });
+        totalPriceInput.value = newTotalPrice;
     }, false)
     quantities.push(input.value);
 });
