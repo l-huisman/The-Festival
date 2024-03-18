@@ -89,6 +89,7 @@ class ShoppingcartController {
         $calendar = '<div style="col-11">' . $calendar . '</div>';
         
         $calendar .= '<style type="text/css">table tbody tr td, table tbody tr th { text-align: center; }</style>';
+        
         require_once __DIR__ . '/../views/shoppingcart/agendaview.php';
     }
 
@@ -125,7 +126,7 @@ class ShoppingcartController {
             $date = "$year-$month-$currentDayRel";
     
             $Tickets = $this->shoppingcartService->getTicketsByDateAndUser($date);
-            
+
             if($Tickets){
                 if(date('Y-m-d') == $date){
                     $calendar .= "<td class='day text-success' rel='$date'><b>$currentDay </b><br>";

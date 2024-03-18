@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
 <div class="container">
 
     <div class="page-header">
-        <h1>PHP Calendar</h1>
+        <h1>Calendar view</h1>
     </div>
 
     <?php print $calendar; ?>
