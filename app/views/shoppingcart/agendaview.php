@@ -8,13 +8,15 @@ require_once __DIR__ . '/../../views/elements/header.php';
 
 <div class="container">
 
-				<div class="page-header">
-					<h1>PHP Calendar</h1>
-				</div>
+    <div class="page-header">
+        <h1>PHP Calendar</h1>
+    </div>
 
-				<?php print $calendar; ?>
+    <?php print $calendar; ?>
 
-			</div>
+    <a href="shoppingcart/index" class="btn btn-info">List view</a>
+
+</div>
 
 
 

@@ -16,21 +16,6 @@ class ShoppingcartController {
         }
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
-
-
-            // $ticket1 = new \Models\Ticket(4,1,'Historical Tour','This is a Historical Tour around Haarlem',2);
-            // $ticket2 = new \Models\Ticket(5,1,'Music event Reservation','This is a reservation for music event 1',1);
-            // $ticket3 = new \Models\Ticket(6,1,'Restaurant Reservation','This is a reservation for Restaurant 1',2);
-        
-            // // Serialize the Ticket objects
-            // $serialized_ticket1 = serialize($ticket1);
-            // $serialized_ticket2 = serialize($ticket2);
-            // $serialized_ticket3 = serialize($ticket3);
-
-            // $_SESSION['Tickets'][] = $serialized_ticket1;
-            // $_SESSION['Tickets'][] = $serialized_ticket2;
-            // $_SESSION['Tickets'][] = $serialized_ticket3;
-
             $this->shoppingcartService->getUsersTickets($user);
 
             
@@ -65,26 +50,14 @@ class ShoppingcartController {
     }
 
     public function Pay(){
-
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
-
-
-            // Initialize an empty array to store input values
-            // $inputValues = [];
             $totalPrice = 0;
-
-            // Loop through all POST data
             foreach ($_POST as $key => $value) {
-                // Check if first part starts with "PriceLabel"
                 if (substr($key, 0, 10) === 'PriceLabel') {
-                    // For non-array inputs, directly store the value
-                    // $inputValues[$key] = $value;
                     $totalPrice += $value;
                 }
             }
-
-
             $this->shoppingcartService->Pay($user, $totalPrice);
         } else {
             header('Location:/register/loginview?errorMessage=You need to be logged in to pay for your shoppingcart');
@@ -103,7 +76,15 @@ class ShoppingcartController {
     }
 
     public function agendaView(){
-        $calendar = $this->build_calendar(3, 2024);
+        if(isset($_POST['SelectedMonth'])){
+            $SelectedMonth = htmlspecialchars($_POST['SelectedMonth']);
+            $year = date('Y', strtotime($SelectedMonth));
+            $month = date('m', strtotime($SelectedMonth));
+        } else {
+            $month = date('m');
+            $year = date('Y');
+        }
+        $calendar = $this->build_calendar($month, $year);
     
         $calendar = '<div style="col-11">' . $calendar . '</div>';
         
@@ -117,16 +98,17 @@ class ShoppingcartController {
         $numberDays = date('t',$firstDayOfMonth);
         $dateComponents = getdate($firstDayOfMonth);
     
-        
+        if(strlen($month) < 2){
+            $month = '0'.$month;
+        }
     
-        $monthName = $dateComponents['month'];
         $dayOfWeek = $dateComponents['wday'];
         $calendar = "<table class='calendar table table-condensed table-bordered'>";
         $calendar .= "<tr>";
         foreach($daysOfWeek as $day) {
             $calendar .= "<th class=''>$day</th>";
         }
-        $calendar .= "<caption>$monthName $year</caption>";
+        $calendar .= "<caption><form method='POST' action='/shoppingcart/agendaView'><input type='month' name='SelectedMonth' value='$year-$month'><input type='submit' value='Go' class='btn btn-primary'></form></caption>";
         
         $currentDay = 1;
         $calendar .= "</tr><tr>";
@@ -143,16 +125,20 @@ class ShoppingcartController {
             $date = "$year-$month-$currentDayRel";
     
             $Tickets = $this->shoppingcartService->getTicketsByDateAndUser($date);
+            
             if($Tickets){
                 if(date('Y-m-d') == $date){
-                $calendar .= "<td class='day text-success' rel='$date'>
-                                <b>$currentDay </b><br> <small>
-                                Ticket Amount:".count($Tickets).
-                                "</small> </td>";
+                    $calendar .= "<td class='day text-success' rel='$date'><b>$currentDay </b><br>";
+                    foreach($Tickets as $Ticket){
+                        $calendar .= "<small>Start Time:".$Ticket->getTime()."</small><br>";
+                    }
+                    $calendar .= "</td>";
                 } else {
-                    $calendar .= "<td class='day' rel='$date'>$currentDay<br> <small>Ticket Amount:"
-                    .count($Tickets).
-                    "</small> </td>";
+                    $calendar .= "<td class='day' rel='$date'>$currentDay<br>";
+                    foreach($Tickets as $Ticket){
+                        $calendar .= "<small>Start Time:".$Ticket->getTime()."</small><br>";
+                    }
+                    $calendar .= "</td>";
                 }
             } else {
                 if(date('Y-m-d') == $date){

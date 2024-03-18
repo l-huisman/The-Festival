@@ -43,9 +43,9 @@ class TicketRepository extends Repository{
         $stmt->execute();
     }
 
-    public function getTicketsByDateAndUser($date, $user_ID, $shoppingcartID){ //here
+    public function getTicketsByDateAndUser($date, $user_ID, $shoppingcartID){
         $date = $date . '%';
-        $sql = "SELECT ticketID, userID, title, datetime, location, description, quantity, price, shoppingcartID FROM tickets WHERE datetime like :date AND userID = :user_id AND shoppingcartID = :shoppingcartID";
+        $sql = "SELECT ticketID, userID, title, datetime, location, description, quantity, price, shoppingcartID FROM tickets WHERE datetime like :date AND userID = :user_id AND shoppingcartID = :shoppingcartID ORDER BY datetime ASC";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':date', $date);
         $stmt->bindParam(':user_id', $user_ID);
