@@ -18,13 +18,17 @@ class TicketRepository extends Repository{
         return null;
     }
 
-    public function addTicket($user_ID, $title, $description, $quantity){
-        $sql = "INSERT INTO tickets (userID, title, description, quantity) VALUES (:user_id, :title, :description, :quantity)";
+    public function addTicket($user_ID, $title, $datetime, $location, $description, $quantity, $price, $shoppingcartID){
+        $sql = "INSERT INTO tickets (userID, title, datetime, location, description, quantity, price, shoppingcartID) VALUES (:user_id, :title, :datetime, :location, :description, :quantity, :price, :shoppingcartID)";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':user_id', $user_ID);
         $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':datetime', $datetime);
+        $stmt->bindParam(':location', $location);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':quantity', $quantity);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':shoppingcartID', $shoppingcartID);
         $stmt->execute();
     }
 

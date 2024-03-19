@@ -10,9 +10,12 @@ class ShoppingcartService{
     private $shoppingcartRepository;
     private $ticketRepository;
 
+    private $orderRepository;
+
     public function __construct(){
         $this->shoppingcartRepository = new \Repositories\ShoppingcartRepository();
         $this->ticketRepository = new \Repositories\TicketRepository();
+        $this->orderRepository = new \Repositories\OrderRepository();
     }
 
     public function remove($TicketID){
@@ -53,7 +56,7 @@ class ShoppingcartService{
             ]],
             'payment_method_types' => ['ideal', 'card'],
             'mode' => 'payment',
-            'success_url' => 'http://localhost:4242/success',
+            'success_url' => 'http://localhost/shoppingcart/processOrder',
             'cancel_url' => 'http://localhost/shoppingcart/cancel',
         ]);
         header("HTTP/1.1 303 See Other");
@@ -69,7 +72,7 @@ class ShoppingcartService{
         $checkout_session = $stripe->checkout->sessions->create([
             'mode' => 'setup',
             'currency' => 'eur',
-            'success_url' => 'http://localhost:4242/success',
+            'success_url' => 'http://localhost/shoppingcart/processOrder',
             'cancel_url' => 'http://localhost/shoppingcart',
         ]);
         header("HTTP/1.1 303 See Other");
@@ -100,7 +103,8 @@ class ShoppingcartService{
         else if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
-                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity);
+
+                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
             }
         }
         else if(isset($dbtickets)){
@@ -119,6 +123,7 @@ class ShoppingcartService{
 
     private function mergeSessionAndDBTickets($dbtickets, $user){
         //loopthrough the tickets in the session and check if they are in the database if not add them to the database
+        $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
         foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
             $Unserialized_Ticket = unserialize($Serialized_Ticket);
             $found = false;
@@ -129,7 +134,7 @@ class ShoppingcartService{
                 }
             }
             if(!$found){
-                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity);
+                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
             }
         }
 
@@ -170,4 +175,46 @@ class ShoppingcartService{
             return null;
         }
     }
+
+    public function processOrder($user){
+        $Tickets = null;
+        if(!isset($_SESSION['Tickets'])){
+            $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
+            $Tickets = $this->ticketRepository->getShoppingcartTickets($shoppingcartID);
+        }
+        else{
+            foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
+                $Tickets[] = unserialize($Serialized_Ticket);
+            }
+        }
+
+        if(isset($Tickets)){
+            $totalPrice = $this->calculateTotalPrice($Tickets);
+            $orderID = $this->orderRepository->createOrderAndReturnID($user->user_id, $totalPrice);
+        }else{
+            header('Location:/shoppingcart');
+            die();
+        }
+        if(isset($orderID)){
+            $this->orderRepository->createOrderItems($orderID, $Tickets);
+        }
+        foreach($Tickets as $Ticket){
+            $this->ticketRepository->removeTicket($Ticket->id);
+        }
+        header('Location:/shoppingcart/exportOrderInformation?orderID='.$orderID);
+    }
+
+    public function exportOrderInformation($orderID){
+        $order = $this->orderRepository->getOrder($orderID);
+        $orderItems = $this->orderRepository->getOrderItems($orderID);
+    }
+
+    private function calculateTotalPrice($Tickets){
+        $totalPrice = 0;
+        foreach($Tickets as $Ticket){
+            $totalPrice += $Ticket->price * $Ticket->quantity;
+        }
+        return $totalPrice;
+    }
+
 }
