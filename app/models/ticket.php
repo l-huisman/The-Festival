@@ -33,4 +33,12 @@ class Ticket
     {
         return "Ticket: [id: $this->id, user_id: $this->user_id, title: $this->title, description: $this->description]";
     }
+
+    public function getTime(){
+        return date('H:i', strtotime($this->datetime));
+    }
+
+    public function getDate(){
+        return date('Y-m-d', strtotime($this->datetime));
+    }
 }

@@ -16,21 +16,6 @@ class ShoppingcartController {
         }
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
-
-
-            // $ticket1 = new \Models\Ticket(4,1,'Historical Tour','This is a Historical Tour around Haarlem',2);
-            // $ticket2 = new \Models\Ticket(5,1,'Music event Reservation','This is a reservation for music event 1',1);
-            // $ticket3 = new \Models\Ticket(6,1,'Restaurant Reservation','This is a reservation for Restaurant 1',2);
-        
-            // // Serialize the Ticket objects
-            // $serialized_ticket1 = serialize($ticket1);
-            // $serialized_ticket2 = serialize($ticket2);
-            // $serialized_ticket3 = serialize($ticket3);
-
-            // $_SESSION['Tickets'][] = $serialized_ticket1;
-            // $_SESSION['Tickets'][] = $serialized_ticket2;
-            // $_SESSION['Tickets'][] = $serialized_ticket3;
-
             $this->shoppingcartService->getUsersTickets($user);
 
             
@@ -65,26 +50,9 @@ class ShoppingcartController {
     }
 
     public function Pay(){
-
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
-
-
-            // Initialize an empty array to store input values
-            // $inputValues = [];
-            $totalPrice = 0;
-
-            // Loop through all POST data
-            foreach ($_POST as $key => $value) {
-                // Check if first part starts with "PriceLabel"
-                if (substr($key, 0, 10) === 'PriceLabel') {
-                    // For non-array inputs, directly store the value
-                    // $inputValues[$key] = $value;
-                    $totalPrice += $value;
-                }
-            }
-
-
+            $totalPrice = htmlspecialchars($_POST['totalPrice']);
             $this->shoppingcartService->Pay($user, $totalPrice);
         } else {
             header('Location:/register/loginview?errorMessage=You need to be logged in to pay for your shoppingcart');
@@ -95,10 +63,122 @@ class ShoppingcartController {
         $ticketID = htmlspecialchars($_POST['inputTicketID']);
         $quantity = htmlspecialchars($_POST['inputQuantity']);
         $this->shoppingcartService->changeQuantity($ticketID, $quantity);
-        header('Location:/shoppingcart');
+
+        if(isset($_POST['orgin'])){
+            header('Location:/shoppingcart/agendaView');
+        } else {
+            header('Location:/shoppingcart');
+        }
     }
 
     public function cancel(){
         $this->shoppingcartService->cancel();
+    }
+
+    public function agendaView(){
+        if(isset($_POST['SelectedMonth'])){
+            $SelectedMonth = htmlspecialchars($_POST['SelectedMonth']);
+            $year = date('Y', strtotime($SelectedMonth));
+            $month = date('m', strtotime($SelectedMonth));
+        } else {
+            $month = date('m');
+            $year = date('Y');
+        }
+        $calendar = $this->build_calendar($month, $year);
+    
+        $calendar = '<div style="col-12">' . $calendar . '</div>';
+        
+        $calendar .= '<style type="text/css">table tbody tr td, table tbody tr th { text-align: center; }</style>';
+
+        require_once __DIR__ . '/../views/shoppingcart/agendaview.php';
+    }
+
+    function build_calendar($month, $year) {
+        $daysOfWeek = array('SU','MO','TU','WE','TH','FR','SA');
+        $firstDayOfMonth = mktime(0,0,0,$month,1,$year);
+        $numberDays = date('t',$firstDayOfMonth);
+        $dateComponents = getdate($firstDayOfMonth);
+        if(strlen($month) < 2){
+            $month = '0'.$month;
+        }
+        $dayOfWeek = $dateComponents['wday'];
+        $calendar = "<table class='calendar table table-condensed table-bordered'>";
+        $calendar .= "<tr>";
+        foreach($daysOfWeek as $day) {
+            $calendar .= "<th class=''>$day</th>";
+        }
+        $calendar .= "<caption><form method='POST' action='/shoppingcart/agendaView'><input type='month' name='SelectedMonth' value='$year-$month'><input type='submit' value='Go' class='btn btn-primary'></form></caption>";
+        $currentDay = 1;
+        $calendar .= "</tr><tbody><form method='POST' action='/shoppingcart/pay'><tr>";
+        if ($dayOfWeek > 0) {
+            $calendar .= "<td colspan='$dayOfWeek'>&nbsp;</td>";
+        }
+        $month = str_pad($month, 2, "0", STR_PAD_LEFT);
+        $totalPrice = 0.0;
+        while($currentDay <= $numberDays){
+            if($dayOfWeek == 7){
+                $dayOfWeek = 0;
+                $calendar .= "</tr><tr>";
+            }
+            $currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
+            $date = "$year-$month-$currentDayRel";
+            $Tickets = $this->shoppingcartService->getTicketsByDateAndUser($date);
+            if(isset($Tickets)){
+                foreach($Tickets as $ticket){
+                    $totalPrice += $ticket->quantity * $ticket->price;
+                }
+            }
+            
+            $calendar = $this->addTicketsToCalendar($Tickets, $calendar, $date, $currentDay);
+            $currentDay++;
+            $dayOfWeek++;
+        }
+        if($dayOfWeek != 7){
+            $remainingDays = 7 - $dayOfWeek;
+            $calendar .= "<td colspan='$remainingDays'>&nbsp;</td>";
+        }
+        
+        $calendar .= "</tbody></tr>";
+        $calendar .= "</table>
+
+        <div class='mt-3'>
+            Total Price: &euro;<input type='text' class='border-0' id='totalPrice' name='totalPrice' readonly value='$totalPrice'>
+        </div>
+        
+        <input type='submit' class='btn btn-success' value='Pay'><a href='/shoppingcart/index' class='btn btn-info'>List view</a></form>";
+        return $calendar;
+    }
+
+    public function addTicketsToCalendar($Tickets, $calendar, $date, $currentDay){
+        if($Tickets){
+            if(date('Y-m-d') == $date){
+                $calendar .= "<td class='day text-success' rel='$date'><b>$currentDay </b><br>";
+                foreach($Tickets as $Ticket){
+                    $calendar .= "<small>$Ticket->title: ".$Ticket->getTime()."</small>
+                    <input type='hidden' id='quantity' value='$Ticket->quantity'>
+                    <a href='/shoppingcart/remove?ticketID=$Ticket->id' class='del btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
+                    <span data-bs-toggle='modal' data-bs-target='#exampleModal' class='edit btn btn-warning'><i class='fa-solid fa-pen'></i></span> 
+                    <br>";
+                }
+                $calendar .= "<hr></td>";
+            } else {
+                $calendar .= "<td class='day' rel='$date'>$currentDay<br>";
+                foreach($Tickets as $Ticket){
+                    $calendar .= "<small>$Ticket->title: ".$Ticket->getTime()."</small>
+                    <input type='hidden' id='quantity' value='$Ticket->quantity'>
+                    <a href='/shoppingcart/remove?ticketID=$Ticket->id' class='del btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
+                    <span data-bs-toggle='modal' data-bs-target='#exampleModal' class='edit btn btn-warning'><i class='fa-solid fa-pen'></i></span>
+                    <br>";
+                }
+                $calendar .= "<hr></td>";
+            }
+        } else {
+            if(date('Y-m-d') == $date){
+                $calendar .= "<td class='day text-success' rel='$date'><b>$currentDay</b></td>";
+            } else {
+                $calendar .= "<td class='day' rel='$date'>$currentDay</td>";
+            }
+        }
+        return $calendar;
     }
 }
