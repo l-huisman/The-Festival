@@ -57,13 +57,6 @@ class ShoppingcartController {
         }
     }
 
-    function filterCustomerData(&$str) {
-        $str = preg_replace("/\t/", "\\t", $str);
-        $str = preg_replace("/\r?\n/", "\\n", $str);
-        if (strstr($str, '"'))
-            $str = '"' . str_replace('"', '""', $str) . '"';
-    }
-
     public function test(){
 
         $customers_data = array(
@@ -239,7 +232,7 @@ class ShoppingcartController {
                 foreach($Tickets as $Ticket){
                     $calendar .= "<small>$Ticket->title: ".$Ticket->getTime()."</small>
                     <input type='hidden' id='quantity' value='$Ticket->quantity'>
-                    <a href='/shoppingcart/remove?ticketID=$Ticket->id' class='del btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
+                    <a href='/shoppingcart/remove?ticketID=$Ticket->ticketID' class='del btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
                     <span data-bs-toggle='modal' data-bs-target='#exampleModal' class='edit btn btn-warning'><i class='fa-solid fa-pen'></i></span> 
                     <br>";
                 }
@@ -249,7 +242,7 @@ class ShoppingcartController {
                 foreach($Tickets as $Ticket){
                     $calendar .= "<small>$Ticket->title: ".$Ticket->getTime()."</small>
                     <input type='hidden' id='quantity' value='$Ticket->quantity'>
-                    <a href='/shoppingcart/remove?ticketID=$Ticket->id' class='del btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
+                    <a href='/shoppingcart/remove?ticketID=$Ticket->ticketID' class='del btn btn-danger'><i class='fa-solid fa-trash-can'></i></a>
                     <span data-bs-toggle='modal' data-bs-target='#exampleModal' class='edit btn btn-warning'><i class='fa-solid fa-pen'></i></span>
                     <br>";
                 }
