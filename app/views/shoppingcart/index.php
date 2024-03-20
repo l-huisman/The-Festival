@@ -20,10 +20,10 @@ require_once __DIR__ . '/../../views/elements/header.php';
 
                         <span>
                             Quantity: 
-                            <input type="hidden" id="ticket<?=$index;?>" value="<?=$Ticket->id?>">
+                            <input type="hidden" id="ticket<?=$index;?>" value="<?=$Ticket->ticketID?>">
                             <input type="hidden" id="ticketPrice<?=$index;?>" value="<?=$Ticket->price?>">
                             <input class="p-1 border rounded me-2" min="1" max="20" width="100" type="number" id="<?=$inputName;?>" name="<?=$inputName;?>" value="<?= $Ticket->quantity; ?>">
-                            <a href="/shoppingcart/remove?ticketID=<?=$Ticket->id?>" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                            <a href="/shoppingcart/remove?ticketID=<?=$Ticket->ticketID?>" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
                         </span>
                         
                     </li>

@@ -64,7 +64,18 @@ class TicketRepository extends Repository{
             return $tickets;
         }
         return null;
-        
+    }
+
+    public function getTicketByID($ticketID){
+        $sql = "SELECT ticketID, userID, title, datetime, location, description, quantity, price, shoppingcartID FROM tickets WHERE ticketID = :ticketID";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':ticketID', $ticketID);
+        $stmt->execute();
+        $stmt = $stmt->fetch();
+        if($stmt){
+            return new \Models\Ticket($stmt['ticketID'], $stmt['userID'], $stmt['title'], $stmt['datetime'], $stmt['location'], $stmt['description'], $stmt['quantity'], $stmt['price'], $stmt['shoppingcartID']);
+        }
+        return null;
     }
 }
 
