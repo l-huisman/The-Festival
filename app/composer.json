@@ -12,7 +12,8 @@
     "require": {
         "bramus/router": "~1.6",
         "firebase/php-jwt": "^6.0",
-        "endroid/qr-code-bundle": "^5.0"
+        "endroid/qr-code-bundle": "^5.0",
+        "phpmailer/phpmailer": "^6.9"
     },
     "config": {
         "allow-plugins": {

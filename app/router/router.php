@@ -24,15 +24,6 @@ $router->get('/music', function () {
     $music = new Controllers\MusicController();
     $music->index();
 });
-$router->get('/yummy', function () {
-    $yummy = new Controllers\YummyController();
-    $yummy->yummyOverview();
-});
-
-$router->get('/yummy/restaurant', function () {
-    $yummy = new Controllers\YummyController();
-    $yummy->yummyDetail();
-});
 $router->get('/register', function () {
     $register = new Controllers\RegisterController();
     $register->index();

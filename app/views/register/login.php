@@ -17,6 +17,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
         </div>
       </div>
       <p class="small">Don't have an account press <a href="/register">Here</a></p>
+      <p class="small"><a href="/resetPassword">Forgot password?</a></p>
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
   </form>
