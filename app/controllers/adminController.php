@@ -6,6 +6,9 @@ use Services\AdminService;
 use Services\MusicService;
 use Services\VenueService;
 
+use Models\Artist;
+use Models\Venue;
+
 class AdminController
 {
     private $adminService;
@@ -71,7 +74,6 @@ class AdminController
         }
     }
 
-
     public function deleteUser()
     {
         $user_id = htmlspecialchars($_GET['user_id']);
@@ -103,5 +105,89 @@ class AdminController
     public function loginPage()
     {
         require __DIR__ . '/../views/admin/loginPage.php';
+    }
+
+    public function createArtist()
+    {
+        try {
+            // Get the data from the form
+            $artist_name = htmlspecialchars($_POST['name']);
+            $artist_description = htmlspecialchars($_POST['description']);
+            $artist_banner = "/img/artists/" . $artist_name . "/banner.jpg";
+            $artist_pictogram = "/img/artists/" . $artist_name . "/pictogram.jpg";
+            $this->musicService->createArtist($artist_name, $artist_description, $artist_banner, $artist_pictogram);
+        } catch (\Exception $e) {
+        }
+        header('Location:/admin/music?id=1');
+    }
+
+    public function updateArtist()
+    {
+        try {
+            // Get the data from the form
+            $artist_id = htmlspecialchars($_POST['id']);
+            $artist_name = htmlspecialchars($_POST['name']);
+            $artist_description = htmlspecialchars($_POST['description']);
+            $artist_banner = "/img/artists/" . $artist_name . "/banner.jpg";
+            $artist_pictogram = "/img/artists/" . $artist_name . "/pictogram.jpg";
+
+            // Get the current data of the artist
+            $artist = $this->musicService->getArtistById($artist_id);
+
+            // If the artist name has changed, update the artist's folder name
+            if ($artist->getName() != $artist_name) {
+                $old_folder = __DIR__ . "/../public/img/artists/" . $artist->getName();
+                $new_folder = __DIR__ . "/../public/img/artists/" . $artist_name;
+                rename($old_folder, $new_folder);
+            }
+
+            // Update the artist's data
+            $this->musicService->updateArtist($artist_id, $artist_name, $artist_description, $artist_banner, $artist_pictogram);
+        } catch (\Exception $e) {
+        }
+        header('Location:/admin/music?id=1');
+    }
+
+    public function deleteArtist()
+    {
+        try {
+            $artist_id = htmlspecialchars($_GET['id']);
+            $this->musicService->deleteArtist($artist_id);
+        } catch (\Exception $e) {
+        }
+        header('Location:/admin/music?id=1');
+    }
+
+    public function createVenue()
+    {
+        try {
+            $venue_name = htmlspecialchars($_POST['name']);
+            $venue_location = htmlspecialchars($_POST['address']);
+            $this->venueService->createVenue($venue_name, $venue_location);
+        } catch (\Exception $e) {
+        }
+        header('Location:/admin/music?id=3');
+    }
+
+    public function updateVenue()
+    {
+        try {
+            $venue_id = htmlspecialchars($_POST['id']);
+            $venue_name = htmlspecialchars($_POST['name']);
+            $venue_location = htmlspecialchars($_POST['address']);
+            $this->venueService->updateVenue($venue_id, $venue_name, $venue_location);
+        } catch (\Exception $e) {
+        }
+        header('Location:/admin/music?id=3');
+    }
+
+    public function deleteVenue()
+    {
+        try {
+            $venue_id = htmlspecialchars($_GET['id']);
+            $this->venueService->deleteVenue($venue_id);
+        } catch (\Exception $e) {
+        }
+        header('Location:/admin/music?id=3');
     }
 }
