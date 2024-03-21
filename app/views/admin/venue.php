@@ -6,11 +6,16 @@ require_once __DIR__ . '/../elements/header.php';
     td {
         vertical-align: middle;
     }
+
+    input[type="text"] {
+        width: 100%;
+        border: none;
+    }
 </style>
 
 <div class="container mt-2">
     <h2>Venues</h2>
-    <p>Press on the fields to change the values within</p>
+    <p>Press on the fields to change the values within and press edit to update the fields</p>
     <table class="table">
         <thead>
             <tr>
@@ -22,12 +27,15 @@ require_once __DIR__ . '/../elements/header.php';
         <tbody>
             <?php foreach ($venues as $venue) { ?>
                 <tr>
-                    <td contenteditable="true"><?php echo $venue->getName(); ?></td>
-                    <td contenteditable="true"><?php echo $venue->getAddress(); ?></td>
-                    <td>
-                        <a href="/admin/updateVenue?id=<?php echo $venue->getId(); ?>" class="btn btn-primary">Edit</a>
-                        <a href="/admin/deleteVenue?id=<?php echo $venue->getId(); ?>" class="btn btn-danger">Delete</a>
-                    </td>
+                    <form action="/admin/updateVenue" method="post">
+                        <td><input type="text" name="name" value="<?php echo $venue->getName(); ?>"></td>
+                        <td><input type="text" name="address" value="<?php echo $venue->getAddress(); ?>"></td>
+                        <td>
+                            <input type="hidden" name="id" value="<?php echo $venue->getId(); ?>">
+                            <input class="btn btn-primary" type="submit" value="Edit">
+                            <input class="btn btn-danger" type="submit" formaction="/admin/deleteVenue" value="Delete" onclick="return confirm('Are you sure you want to delete this venue?')">
+                        </td>
+                    </form>
                 </tr>
             <?php } ?>
             <tr>
