@@ -151,7 +151,7 @@ class AdminController
     public function deleteArtist()
     {
         try {
-            $artist_id = htmlspecialchars($_GET['id']);
+            $artist_id = htmlspecialchars($_POST['id']);
             $this->musicService->deleteArtist($artist_id);
         } catch (\Exception $e) {
         }
@@ -184,7 +184,7 @@ class AdminController
     public function deleteVenue()
     {
         try {
-            $venue_id = htmlspecialchars($_GET['id']);
+            $venue_id = htmlspecialchars($_POST['id']);
             $this->venueService->deleteVenue($venue_id);
         } catch (\Exception $e) {
         }
