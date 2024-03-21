@@ -13,6 +13,14 @@ class WysiwygRepository extends Repository
         return $stmt;
     }
 
+    public function getAllCustomPages()
+    {
+        $stmt = $this->connection->prepare("SELECT id, name, content FROM wysiwyg");
+        $stmt->execute();
+        
+        return $stmt->fetchAll();
+    }
+
     public function createCustomPage($name, $content)
     {
         $sql = "INSERT INTO wysiwyg (name, content) VALUES (:name, :content)";

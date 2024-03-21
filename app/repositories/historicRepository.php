@@ -10,7 +10,6 @@ class HistoricRepository extends Repository
         
         $stmt->execute();
       
-       
         return $stmt->fetchAll();
     }
 
@@ -42,7 +41,7 @@ class HistoricRepository extends Repository
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':name', $name);
-        $stmt->bindParam('', $description);
+        $stmt->bindParam(':description', $description);
         $stmt->bindParam(':eventDate', $eventDate);
         $stmt->bindParam(':location', $location);
         $stmt->bindParam(':language', $language);
@@ -52,7 +51,7 @@ class HistoricRepository extends Repository
 
     public function deleteHistoricEvent($id)
     {
-        $sql = "DELETE FROM historicEvent WHERE id = :id";
+        $sql = "DELETE FROM historicevent WHERE historicevent_id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

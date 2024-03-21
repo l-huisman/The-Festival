@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../elements/header.php';
+require_once __DIR__ . '/../../elements/header.php';
 ?>
 
 <body>
@@ -9,10 +9,10 @@ require_once __DIR__ . '/../elements/header.php';
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-8">
-                            <h2>CustomePages  <b>editmenu</b></h2>
+                            <h2>Historyevents <b>overview</b></h2>
                         </div>
                         <div class="col-sm-4">
-                        <form method = "POST" action = "/custom/create">
+                        <form method = "POST" action = "">
                 
                 <div class="mb-3">
                     <label for="nameInput" class="form-label">Name</label>
@@ -27,32 +27,42 @@ require_once __DIR__ . '/../elements/header.php';
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-
-                            <th>Actions</th>
+                            <th>Description</th>
+                            <th>Address</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($allCustomPages as $custom) { ?>
+                        <?php foreach ($historic_overview as $overview): ?>
+                            
                             <tr>
                                 <td>
-                                    <?php echo $custom->getId(); ?>
+                                    <?php echo $overview->getId(); ?>
                                 </td>
                                 <td>
-                                    <?php echo $custom->getName(); ?>
+                                    <?php echo $overview->getName(); ?>
                                 </td>
                                 <td>
-                                    <a href='/custom/show?id=<?php echo $custom->getId(); ?>'
+                                    <?php echo $overview->getDescription(); ?>
+                                </td>
+                                <td>
+                                    <?php echo $overview->getLocation(); ?>
+                                </td>
+
+                                <td>
+                                    <a href='/historic/editHistoricEvent?id=<?php echo $overview->getId(); ?>'
                                         class='btn btn-primary'>edit</a>
-                                        <a href='/custom/delete?id=<?php echo $custom->getId(); ?>' class='btn btn-danger' onclick="return confirmDelete('<?php echo $custom->getName(); ?>')">delete</a>                                </td>
+                                        <a href='/historic/deleteHistoricEvent?id=<?php echo $overview->getId(); ?>' class='btn btn-danger' onclick="return confirmDelete('<?php echo $overview->getName(); ?>')">delete</a>                                </td>
                             </tr>
-                        <?php } ?>
+                        <?php endforeach; ?>
                     </tbody>
 
                 </table>
             </div>
         </div>
     </div>
+
+
 </body>
 <script>
     function confirmDelete(pageName) {
@@ -60,5 +70,5 @@ require_once __DIR__ . '/../elements/header.php';
     }
 </script>
 <?php
-require_once __DIR__ . '/../elements/footer.php';
+require_once __DIR__ . '/../../elements/footer.php';
 ?>
