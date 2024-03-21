@@ -51,20 +51,9 @@ class AdminController
 
     public function deleteUser()
     {
-        if (isset($_SESSION['user'])) {
-            $user = unserialize($_SESSION['user']);
-            if ($user->role == 'admin') {
-                $user_id = htmlspecialchars($_GET['user_id']);
-                $this->adminService->deleteUser($user_id);
-                header('Location:/admin/overviewUsers');
-            } else {
-                header('Location:/');
-                die();
-            }
-        } else {
-            header('Location:/');
-            die();
-        }
+        $user_id = htmlspecialchars($_GET['user_id']);
+        $this->adminService->deleteUser($user_id);
+        header('Location:/admin/overviewUsers');
     }
 
     public function editUserView()
@@ -76,27 +65,16 @@ class AdminController
 
     public function validateUserAccount()
     {
-        if (isset($_SESSION['user'])) {
-            $user = unserialize($_SESSION['user']);
-            if ($user->role == 'admin') {
-                $newFirstName = htmlspecialchars($_POST['newFirstName']);
-                $newLastName = htmlspecialchars($_POST['newLastName']);
-                $newDateOfBirth = htmlspecialchars($_POST['newDateOfBirth']);
-                $newAddress = htmlspecialchars($_POST['newAddress']);
-                $newPhoneNumber = htmlspecialchars($_POST['newPhoneNumber']);
-                $newRole = htmlspecialchars($_POST['newRole']);
-                $user_id = htmlspecialchars($_POST['user_id']);
-                $this->adminService->validateUserAccount($newFirstName, $newLastName, $newDateOfBirth, $newAddress, $newPhoneNumber, $newRole, $user_id);
 
-                header('Location:/admin/overviewUsers');
-            } else {
-                header('Location:/');
-                die();
-            }
-        } else {
-            header('Location:/');
-            die();
-        }
+        $newFirstName = htmlspecialchars($_POST['newFirstName']);
+        $newLastName = htmlspecialchars($_POST['newLastName']);
+        $newDateOfBirth = htmlspecialchars($_POST['newDateOfBirth']);
+        $newAddress = htmlspecialchars($_POST['newAddress']);
+        $newPhoneNumber = htmlspecialchars($_POST['newPhoneNumber']);
+        $newRole = htmlspecialchars($_POST['newRole']);
+        $user_id = htmlspecialchars($_POST['user_id']);
+        $this->adminService->validateUserAccount($newFirstName, $newLastName, $newDateOfBirth, $newAddress, $newPhoneNumber, $newRole, $user_id);
+        header('Location:/admin/overviewUsers');
     }
 
     public function loginPage()
