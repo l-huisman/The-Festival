@@ -30,6 +30,13 @@ class RegisterRepository extends Repository{
         $stmt->bindParam(':hashed_password', $hashedPassword);
         $stmt->bindParam(':gender', $gender);
         $stmt->execute();
+        
+        $last_id = $this->connection->lastInsertId();
+        $sql = "INSERT INTO shoppingcart (userID) VALUES (:user_id)";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':user_id', $last_id);
+        $stmt->execute();
+
     }
 }
 
