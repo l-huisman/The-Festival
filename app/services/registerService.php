@@ -36,10 +36,14 @@ class RegisterService {
             if($this->verifyPassword($password, $user->hashed_password)){
                 $_SESSION['user'] = serialize($user);
                 header('Location:/home');
+                die();
             }else{
-                header('Location:/register/loginView?erroMessage=wrong password');
+                header('Location:/register/loginView?errorMessage=wrong password');
+                die();
             }
         }
+        header('Location:/register/loginView?errorMessage=user does not exist');
+        die();
     }
 
     private function hashPassword($password)

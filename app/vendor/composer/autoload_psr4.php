@@ -32,6 +32,7 @@ return array(
     'Symfony\\Bundle\\TwigBundle\\' => array($vendorDir . '/symfony/twig-bundle'),
     'Symfony\\Bundle\\FrameworkBundle\\' => array($vendorDir . '/symfony/framework-bundle'),
     'Symfony\\Bridge\\Twig\\' => array($vendorDir . '/symfony/twig-bridge'),
+    'Stripe\\' => array($vendorDir . '/stripe/stripe-php/lib'),
     'Services\\' => array($baseDir . '/services'),
     'Routers\\' => array($baseDir . '/routers'),
     'Repositories\\' => array($baseDir . '/repositories'),

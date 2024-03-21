@@ -11,14 +11,14 @@ class Artist
     private $pictogram;
     private $songs;
 
-    public function __construct($id, $name, $description, $banner, $pictogram)
+    public function __construct($id, $name, $description, $banner, $pictogram, $songs = [])
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->banner = $banner;
         $this->pictogram = $pictogram;
-        $this->songs = [];
+        $this->songs = $songs;
     }
 
     public function getId()

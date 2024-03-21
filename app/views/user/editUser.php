@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
 <div class="container">
 
     <h1>Change User Account</h1>
-    <form action="/user/validateUserAccount" method="POST">
+    <form action="/admin/validateUserAccount" method="POST">
 
         <table class="table">
             <thead>

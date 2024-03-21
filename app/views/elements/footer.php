@@ -20,13 +20,13 @@
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
-                        <use xlink:href="#twitter"></use>
+                        <use xlink:href="https://twitter.com/gemeentehaarlem"></use>
                     </svg></a></li>
             <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
-                        <use xlink:href="#instagram"></use>
+                        <use xlink:href="https://www.instagram.com/gemeentehaarlem"></use>
                     </svg></a></li>
             <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24">
-                        <use xlink:href="#facebook"></use>
+                        <use xlink:href="https://www.facebook.com/Haarlemmarketing"></use>
                     </svg></a></li>
         </ul>
     </footer>
