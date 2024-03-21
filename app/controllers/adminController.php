@@ -113,8 +113,8 @@ class AdminController
             // Get the data from the form
             $artist_name = htmlspecialchars($_POST['name']);
             $artist_description = htmlspecialchars($_POST['description']);
-            $artist_banner = "/img/artists/" . $artist_name . "/banner.jpg";
-            $artist_pictogram = "/img/artists/" . $artist_name . "/pictogram.jpg";
+            $artist_banner = "/img/artists/" . $this->transformName($artist_name) . "/banner.jpg";
+            $artist_pictogram = "/img/artists/" . $this->transformName($artist_name) . "/pictogram.jpg";
             $this->musicService->createArtist($artist_name, $artist_description, $artist_banner, $artist_pictogram);
         } catch (\Exception $e) {
         }
@@ -128,16 +128,16 @@ class AdminController
             $artist_id = htmlspecialchars($_POST['id']);
             $artist_name = htmlspecialchars($_POST['name']);
             $artist_description = htmlspecialchars($_POST['description']);
-            $artist_banner = "/img/artists/" . $artist_name . "/banner.jpg";
-            $artist_pictogram = "/img/artists/" . $artist_name . "/pictogram.jpg";
+            $artist_banner = "/img/artists/" . $this->transformName($artist_name) . "/banner.jpg";
+            $artist_pictogram = "/img/artists/" . $this->transformName($artist_name) . "/pictogram.jpg";
 
             // Get the current data of the artist
             $artist = $this->musicService->getArtistById($artist_id);
 
             // If the artist name has changed, update the artist's folder name
-            if ($artist->getName() != $artist_name) {
-                $old_folder = __DIR__ . "/../public/img/artists/" . $artist->getName();
-                $new_folder = __DIR__ . "/../public/img/artists/" . $artist_name;
+            if ($this->transformName($artist->getName()) != $this->transformName($artist_name)) {
+                $old_folder = __DIR__ . "/../public/img/artists/" . $this->transformName($artist->getName());
+                $new_folder = __DIR__ . "/../public/img/artists/" . $this->transformName($artist_name);
                 rename($old_folder, $new_folder);
             }
 
@@ -148,8 +148,14 @@ class AdminController
         header('Location:/admin/music?id=1');
     }
 
+    public function transformName($name)
+    {
+        return str_replace(' ', '', strtolower($name));
+    }
+
     public function deleteArtist()
     {
+        print_r($_POST);
         try {
             $artist_id = htmlspecialchars($_POST['id']);
             $this->musicService->deleteArtist($artist_id);

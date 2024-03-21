@@ -5,10 +5,17 @@ require_once __DIR__ . '/../elements/header.php';
 <style>
     td {
         vertical-align: middle;
+        width: auto;
     }
 
     input[type="text"] {
+        height: 100%;
+        border: none;
+    }
+
+    textarea {
         width: 100%;
+        height: 100%;
         border: none;
     }
 </style>
@@ -30,8 +37,10 @@ require_once __DIR__ . '/../elements/header.php';
             <?php foreach ($artists as $artist) { ?>
                 <tr>
                     <form action="/admin/updateArtist" method="post">
-                        <td><input type="text" name="name" value=<?php echo $artist->getName(); ?>></td>
-                        <td><input type="text" name="description" value=<?php echo $artist->getDescription(); ?>></td>
+                        <td><input type="text" name="name" value="<?php echo $artist->getName(); ?>"></td>
+                        <td>
+                            <textarea id="description" name="description"><?php echo $artist->getDescription(); ?></textarea>
+                        </td>
                         <td>
                             <form action="upload.php" method="post" enctype="multipart/form-data">
                                 <label for="banner">
@@ -51,16 +60,22 @@ require_once __DIR__ . '/../elements/header.php';
                             </form>
                         </td>
                         <td>
-                            <input type="hidden" name="id" value=<?php echo $artist->getId(); ?>>
-                            <a href="/admin/admin/updateArtist" class="btn btn-primary">Edit</a>
-                            <a href="/admin/admin/deleteArtist" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this artist?')">Delete</a>
+                            <input type="hidden" name="id" value="<?php echo $artist->getId(); ?>">
+                            <input class="btn btn-primary" type="submit" value="Edit">
+                            <input class="btn btn-danger" type="submit" formaction="/admin/deleteArtist" value="Delete" onclick="return confirm('Are you sure you want to delete this artist?')">
                         </td>
                     </form>
                 </tr>
             <?php } ?>
+            <tr>
+                <form action="/admin/createArtist" method="post">
+                    <td><input type="text" name="name" placeholder="Enter artist name"></td>
+                    <td><input type="text" name="description" placeholder="Enter artist description"></td>
+                    <td>Available after creation</td>
+                    <td>Available after creation</td>
+                    <td><input class="btn btn-success" type="submit" value="Create"></td>
+                </form>
+            </tr>
         </tbody>
     </table>
-    <form action="/admin/artist/create" method="post">
-        <button type="submit" class="btn btn-success">Create</button>
-    </form>
 </div>
