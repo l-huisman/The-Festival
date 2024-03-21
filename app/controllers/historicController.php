@@ -21,17 +21,7 @@ class HistoricController{
        
         $tourTime = htmlspecialchars($_POST['tourTime']);
         $guide = htmlspecialchars($_POST['guide']);
-
-        var_dump($tourTime);
-        var_dump($guide);
         $tourguide = $this->tourService->getTourbyGuideNameAndTime($guide, $tourTime);
-
-        
-  
-        print_r($tourguide);
-        
-    
-
     }   
 
    
