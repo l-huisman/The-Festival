@@ -6,6 +6,7 @@ class Restaurant{
     private $restaurant_id;
     private $name;
     private $cuisine;
+    private $header_image;
     
     public function getRestaurant_id(){
         return $this->restaurant_id;
@@ -15,5 +16,8 @@ class Restaurant{
     }
     public function getCuisine(){
         return $this->cuisine;
+    }
+    public function getImage(){
+        return $this->header_image;
     }
 }
