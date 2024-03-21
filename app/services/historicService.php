@@ -38,6 +38,11 @@ class HistoricService
        return $this->repository->deleteHistoricEvent($id);
     }
 
+    public function UpdateHistoricEvent($id, $name, $description, $path, $location)
+    {
+        return $this->repository->updateHistoricEvent($id, $name, $description, $path, $location);
+    }
+
 
 
 
