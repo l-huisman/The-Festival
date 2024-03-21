@@ -126,6 +126,148 @@ CREATE TABLE `wysiwyg` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+
+
+
+--
+-- Table structure for table `guide`
+--
+
+CREATE TABLE `guide` (
+  `guide_id` int(20) NOT NULL,
+  `tour_id` int(20) NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `language` enum('Dutch','French','Chinese','English') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `guide`
+--
+
+INSERT INTO `guide` (`guide_id`, `tour_id`, `name`, `language`) VALUES
+(1, 1, 'Jan-Willem', 'Dutch'),
+(2, 1, 'Frederic', 'English'),
+(3, 2, 'Jan-Willem', 'Dutch'),
+(4, 2, 'Frederic', 'English'),
+(5, 3, 'Jan-Willem', 'Dutch'),
+(6, 3, 'Frederic', 'English'),
+(7, 4, 'Annet', 'Dutch'),
+(8, 4, 'Williams', 'English'),
+(9, 5, 'Annet', 'Dutch'),
+(10, 5, 'Williams', 'English'),
+(11, 5, 'Kim', 'Chinese');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `historicevent`
+--
+
+CREATE TABLE `historicevent` (
+  `historicevent_id` int(30) NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `location` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `historicevent`
+--
+
+INSERT INTO `historicevent` (`historicevent_id`, `name`, `description`, `path`, `location`) VALUES
+(1, 'St.Bavo Kerk\r\n', 'De Grote of St.-Bavokerk werd voor het laatst gerestaureerd in 1980-1985. Het is een laat-gotische kruisbasiliek met slanke kruistoren (gerestaureerd 1964-1969).\r\n\r\nMiddenbeuk en koor zijn gedekt door houten gewelven (16de eeuw).\r\n\r\n\r\n\r\n', '/img/historicevents/bavokerk.jpg', 'Grote Markt 22, 2021 RD Haarlem'),
+(2, 'Grote Markt', 'De Hallen Haarlem toont regelmatig solopresentaties van internationaal spraakmakende kunstenaars die nog niet eerder in Nederland hebben geëxposeerd.\r\n', '/img/historicevents/grotemarkt.jpg', 'Grote Markt,\r\n2011 RD Haarlem\r\n'),
+(3, 'De Hallen', 'Hal is een tentoonstellingscomplex van het Frans Hals Museum aan de Grote Markt van Haarlem waar moderne en hedendaagse kunst tentoongesteld wordt in wisselende presentaties.', '/img/historicevents/dehallen.jpeg', 'Grote Markt 16, 2011 RD Haarlem'),
+(4, 'Proveniershof', 'Het Proveniershof is een hofje in Haarlem, gelegen aan de Grote Houtstraat 140, de drukste winkelstraat van Haarlem.', '/img/historicevents/proveniershof.jpg', 'Grote Houtstraat 142D, 2011 SV Haarlem'),
+(5, 'Jopenkerk', 'Het verhaal achter Jopen begint in de veertiende eeuw als Haarlem uitgroeit tot een van de belangrijkste brouwerssteden van Nederland. Brouwerijen draaien op volle toeren en het gerstenat wordt in ‘Jopen’ (vaten van 112 liter) over het Spaarne vervoerd. ', '/img/historicevents/jopenkerk.jpg', 'Gedempte Voldersgracht 2, 2011 WD Haarlem');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `home`
+--
+
+CREATE TABLE `home` (
+  `home_id` int(20) NOT NULL,
+  `img_id` int(20) NOT NULL,
+  `about` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `home`
+--
+
+INSERT INTO `home` (`home_id`, `img_id`, `about`) VALUES
+(1, 1, 'loreisan duasidb nasudiyseb t ruiaewy bfsudiba siudn asdusajnd uiasndausidn asuidn vasdasd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE `images` (
+  `img_id` int(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`img_id`, `name`, `path`) VALUES
+(1, 'Bavokerk', '/img/historicevents/bavokerk.jpg');
+
+--
+-- Table structure for table `tour`
+--
+
+CREATE TABLE `tour` (
+  `tour_id` int(20) NOT NULL,
+  `start_location` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `price` float NOT NULL,
+  `seats` int(20) NOT NULL,
+  `time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tour`
+--
+
+INSERT INTO `tour` (`tour_id`, `start_location`, `price`, `seats`, `time`) VALUES
+(1, 'Bavo Church', 17.5, 12, '2024-07-25 10:00:00'),
+(2, 'Bavo Church', 17.5, 12, '2024-07-25 13:00:00'),
+(3, 'Bavo Church', 17.5, 12, '2024-07-25 16:00:00'),
+(4, 'Bavo Church', 17.5, 12, '2024-07-26 10:00:00'),
+(5, 'Bavo Church', 17.5, 12, '2024-07-26 13:00:00'),
+(6, 'Bavo Church', 17.5, 12, '2024-07-26 16:00:00'),
+(7, 'Bavo Church', 17.5, 12, '2024-07-27 10:00:00'),
+(8, 'Bavo Church', 17.5, 12, '2024-07-27 13:00:00'),
+(9, 'Bavo Church', 17.5, 12, '2024-07-27 16:00:00'),
+(10, 'Bavo Church', 17.5, 12, '2024-07-28 10:00:00'),
+(11, 'Bavo Church', 17.5, 12, '2024-07-28 13:00:00'),
+(12, 'Bavo Church', 17.5, 12, '2024-07-28 16:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `wysiwyg`
+--
+
+INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
+(1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\n<h1>Welcome dsdsdsdsdto this custom made page!</h1>\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\n<p>That is if you are logged in as an administrator!</p>\n<p>&nbsp;</p>\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\n</div>'),
+(2, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
+(3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Loremdsdsds ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
+(4, 'Yummie', '<div class=\"col-sm-12 col-md-4\">\r\n                    <img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n                    <h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n                    <p class=\"me-4\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet\r\n                        tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.\r\n                    </p>\r\n                    <div class=\"custom-link\">\r\n                        <a href=\"#\" class=\"buttons\">Read more ></a>\r\n                    </div>\r\n                </div>'),
+(7, 'sds', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
+(8, 'df', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>');
+
+--
+
+
+
 ALTER TABLE `artist`
   ADD PRIMARY KEY (`id`);
 
@@ -192,6 +334,29 @@ ALTER TABLE `music_event`
 ALTER TABLE `song`
   ADD CONSTRAINT `FOREIGN` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+--
+
+-- Indexes for table `home`
+--
+ALTER TABLE `home`
+  ADD PRIMARY KEY (`home_id`);
+
+--
+-- Indexes for table `images`
+--
+ALTER TABLE `images`
+  ADD PRIMARY KEY (`img_id`);
+
+  ALTER TABLE `home`
+  MODIFY `home_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `images`
+--
+ALTER TABLE `images`
+  MODIFY `img_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

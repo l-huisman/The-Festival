@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/elements/header.php';
-?>
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,9 +51,7 @@ require_once __DIR__ . '/elements/header.php';
             }
         }
     </style>
-
 </head>
-
 <body>
     <div id="carouselExampleCaptions" class="carousel slider" data-bs-ride="true" style="margin: 50px 320px 100px 320px;">
         <div class="carousel-indicators">
@@ -92,24 +90,22 @@ require_once __DIR__ . '/elements/header.php';
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
-
-
     </div>
 
     <div class="container w-100">
         <div class="row container-custom justify-content-center">
+            
             <div class='d-flex align-items column-gap-1'>
-                <div class="col-sm-12 col-md-4">
-                    <img src="https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp" alt="1">
-                    <h2 class="mt-3 mb-3">Food</h2>
-                    <p class="me-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet
-                        tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.
-                    </p>
-                    <div class="custom-link">
-                        <a href="#" class="buttons">Read more ></a>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
+
+           <? 
+               foreach($contentarray as $content) {
+
+                echo $content;
+
+               }
+              ?>
+
+                <!-- <div class="col-sm-12 col-md-4">
                     <img src="https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg" alt="1">
                     <h2 class="mt-3 mb-3">Jazz</h2>
                     <p class="me-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet
@@ -118,7 +114,7 @@ require_once __DIR__ . '/elements/header.php';
                     <div class="custom-link">
                         <a href="#" class="buttons">Read more ></a>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-12 col-md-4">
                     <img src="https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg" alt="1">
                     <h2 class="mt-3 mb-3">History</h2>
@@ -132,8 +128,6 @@ require_once __DIR__ . '/elements/header.php';
             </div>
         </div>
         <?php
-        if (isset($_SESSION['user']) and $_SESSION['user']['role'] == 'admin') {
-            require_once __DIR__ . '/../views/wysiwyg/index.php';
-        }
+        
         require_once __DIR__ . '/elements/footer.php';
         ?>

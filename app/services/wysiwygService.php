@@ -23,6 +23,26 @@ class WysiwygService
         return $this->createCustomPage('Custom Page', '<div class="container d-flex flex-column align-items-center"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>');
     }
 
+    public function getCustomContent($id)
+    {
+        $data = $this->wysiwygRepository->getCustomPage($id);
+        if ($data) {
+            return $data['content'];
+        }
+        return "";
+        
+    }
+
+    public function getAllCustomPages()
+    {
+       $data = $this->wysiwygRepository->getAllCustomPages();
+       $allcustompages = [];
+         foreach ($data as $custompage) {
+              $allcustompages[] = new CustomPage($custompage['id'], $custompage['name'], $custompage['content']);
+         }
+       return $allcustompages;
+    }
+
     public function createCustomPage($name, $content)
     {
         $id = $this->wysiwygRepository->createCustomPage($name, $content);
