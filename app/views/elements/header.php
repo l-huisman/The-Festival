@@ -73,8 +73,8 @@
                         <a href="/admin/overviewUsers" class="nav_link active"> 
                             <span class="nav_name">Users</span> 
                         </a> 
-                        <a href="#" class="nav_link active"> 
-                            <span class="nav_name">other</span> 
+                        <a href="/admin/music" class="nav_link active"> 
+                            <span class="nav_name">Music</span> 
                         </a> 
                         <a href="#" class="nav_link active">
                             <span class="nav_name">other</span> 
