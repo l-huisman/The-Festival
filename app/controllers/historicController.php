@@ -48,8 +48,9 @@ class HistoricController{
         require __DIR__ . '/../views/admin/history/historyeventsOverview.php';
     }
 
-    public function editHistoricEvent($historicevent_id)
+    public function editHistoricEvent()
     {
+        $historicevent_id = htmlspecialchars($_GET['id']);
         $event = $this->historicService->getHistoricEventById($historicevent_id);
         require __DIR__ . '/../views/admin/history/editHistoricEvent.php';
     }
@@ -58,6 +59,18 @@ class HistoricController{
     {
         $this->historicService->deleteHistoricEvent($historicevent_id);
         header("Location: /historic/historyOverview");
+    }
+
+    public function updateHistoricEvent()
+    {   
+        $historicevent_id = htmlspecialchars($_POST['historicevent_id']);
+        $name = htmlspecialchars($_POST['name']);
+        $description = htmlspecialchars($_POST['description']);
+        $path = htmlspecialchars($_POST['path']);
+        $location = htmlspecialchars($_POST['location']);
+        $this->historicService->UpdateHistoricEvent($historicevent_id, $name, $description, $path, $location);
+        header("Location: /historic/historyOverview");
+
     }
     public function historicDetail($historicevent_id)
     {
