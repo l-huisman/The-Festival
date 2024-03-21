@@ -51,23 +51,24 @@ class AdminController
 
     public function music($id)
     {
-        $table_data = [];
         switch ($id) {
             case 1:
-                $table_data = $this->musicService->getArtists();
+                $artists = $this->musicService->getArtists();
+                require_once __DIR__ . '/../views/admin/artist.php';
                 break;
             case 2:
                 // TODO: Implement getEvents() method in MusicService
                 // $table_data = $this->musicService->getEvents();
+                require_once __DIR__ . '/../views/admin/event.php';
                 break;
             case 3:
-                $table_data = $this->venueService->getVenues();
+                $venues = $this->venueService->getVenues();
+                require_once __DIR__ . '/../views/admin/venue.php';
                 break;
             default:
                 header('Location:/');
                 die;
         }
-        require_once __DIR__ . '/../views/admin/music.php';
     }
 
 
