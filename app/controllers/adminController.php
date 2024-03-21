@@ -20,7 +20,7 @@ class AdminController
 
     public function is_admin()
     {
-        if (!isset($_SESSION['user']) || unserialize($_SESSION['user'])->role == "admin") {
+        if (!isset($_SESSION['user']) || unserialize($_SESSION['user'])->role != "admin") {
             header('Location:/');
             die();
         }
@@ -41,8 +41,8 @@ class AdminController
 
     public function music()
     {
-        $music = $this->adminService->getAllMusic();
-        require_once __DIR__ . '/../views/music/music.php';
+        // $music = $this->adminService->getAllMusic();
+        // require_once __DIR__ . '/../views/music/music.php';
     }
 
 
