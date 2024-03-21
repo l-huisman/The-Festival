@@ -10,7 +10,6 @@ class HistoricRepository extends Repository
         
         $stmt->execute();
       
-       
         return $stmt->fetchAll();
     }
 
@@ -24,35 +23,22 @@ class HistoricRepository extends Repository
     }
 
 
-    public function createHistoricEvent($name, $description, $eventDate, $location, $language)
+    public function updateHistoricEvent($id, $name, $description, $path, $location)
     {
-        $sql = "INSERT INTO historicEvent (name, description, eventDate, location, language) VALUES(:name, :description, :eventDate, :location, :language)";
+
+        $sql = "UPDATE historicevent SET name = :name, description = :description, path = :path, location = :location WHERE historicevent_id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':eventDate', $eventDate);
+        $stmt->bindParam(':path', $path);
         $stmt->bindParam(':location', $location);
-        $stmt->bindParam(':language', $language);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
 
-    public function updateHistoricEvent($id, $name, $description, $eventDate, $location, $language)
-    {
-        $sql = "UPDATE historicEvent SET name = :name, description = :description, eventDate = :eventDate, location = :location, language = :language WHERE id = :id";  
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam('', $description);
-        $stmt->bindParam(':eventDate', $eventDate);
-        $stmt->bindParam(':location', $location);
-        $stmt->bindParam(':language', $language);
-        $stmt->execute(); 
-    
-}
-
     public function deleteHistoricEvent($id)
     {
-        $sql = "DELETE FROM historicEvent WHERE id = :id";
+        $sql = "DELETE FROM historicevent WHERE historicevent_id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

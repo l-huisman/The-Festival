@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   tinymce.init({
-    selector: '#default-editor',
+    selector: 'textarea#default-editor',
+    plugins: 'image',
+  toolbar: 'image',
+  
   });
 });
 

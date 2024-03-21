@@ -5,6 +5,7 @@ namespace Services;
 use Repositories\TourRepository;
 use Models\Tour;
 
+
 class TourService
 {
 
@@ -17,25 +18,43 @@ class TourService
     public function getAllTours()
     {
         $data = $this->repository->getAllTours();
-        
-        foreach ($data as $tour) {
-            $tours[] = new Tour($tour["tour_id"], $tour['start_location'], $tour['price'], $tour['seats'], $tour['time'], $tour['name'], $tour['language']);
+        $tours = [];
+       
+       foreach ($data as $tour) {
+           
+            $tours[] = new Tour($tour["tour_id"], $tour['start_location'], $tour['price'], $tour['seats'], $tour['time'], $tour['name'], $tour['language']); 
+            
         }
+        
         return $tours;
     }
 
-    public function getTourByGuideAndDate($time, $guide_name)
+    public function getDatebyGuide()
     {
-        return $this->repository->getTourByGuideAndDate($time, $guide_name);
-    }  
+        $data = $this->repository->getAllTours();
+        
+        $tourmap = [];
+       foreach ($data as $tour) {
+            $tourmap[$tour["name"]][] = $tour["time"];
+           
+        }
+      
+        return $tourmap;
+    }
 
-    
+    public function getTourByGuideNameAndTime($name, $time)
+    {
+        $data = $this->repository->getTourbyGuideNameAndTime($name, $time);
+        $tour = new Tour($data["tour_id"], $data['start_location'], $data['price'], $data['seats'], $data['time'], $data['name'], $data['language']);
+        return $tour;
+    }
 
  
-
     
 
    
+ 
+
  
 
 
