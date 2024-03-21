@@ -3,13 +3,20 @@
 namespace Controllers;
 
 use Services\AdminService;
+use Services\MusicService;
+use Services\VenueService;
 
 class AdminController
 {
     private $adminService;
+    private $musicService;
+    private $venueService;
+
     public function __construct()
     {
         $this->adminService = new AdminService();
+        $this->musicService = new MusicService();
+        $this->venueService = new VenueService();
 
         $url = explode('/', $_SERVER['REQUEST_URI']);
         $method = $_SERVER['REQUEST_METHOD'];
@@ -42,8 +49,24 @@ class AdminController
         require_once __DIR__ . '/../views/user/overviewUsers.php';
     }
 
-    public function music()
+    public function music($id)
     {
+        $table_data = [];
+        switch ($id) {
+            case 1:
+                $table_data = $this->musicService->getArtists();
+                break;
+            case 2:
+                // TODO: Implement getEvents() method in MusicService
+                // $table_data = $this->musicService->getEvents();
+                break;
+            case 3:
+                $table_data = $this->venueService->getVenues();
+                break;
+            default:
+                header('Location:/');
+                die;
+        }
         require_once __DIR__ . '/../views/admin/music.php';
     }
 
