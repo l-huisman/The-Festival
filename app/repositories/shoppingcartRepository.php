@@ -8,7 +8,11 @@ class ShoppingcartRepository extends Repository{
         $stmt->bindParam(':user_id', $user_ID);
         $stmt->execute();
         $stmt = $stmt->fetch();
-        return $stmt['id'];
+        if($stmt){
+            return $stmt['id'];
+        }else{
+            return null;
+        }
     }
 }
 
