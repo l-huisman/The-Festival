@@ -44,8 +44,7 @@ class AdminController
 
     public function music()
     {
-        // $music = $this->adminService->getAllMusic();
-        // require_once __DIR__ . '/../views/music/music.php';
+        require_once __DIR__ . '/../views/admin/music.php';
     }
 
 
