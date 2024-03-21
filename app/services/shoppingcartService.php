@@ -10,16 +10,19 @@ class ShoppingcartService{
     private $shoppingcartRepository;
     private $ticketRepository;
 
+    private $orderRepository;
+
     public function __construct(){
         $this->shoppingcartRepository = new \Repositories\ShoppingcartRepository();
         $this->ticketRepository = new \Repositories\TicketRepository();
+        $this->orderRepository = new \Repositories\OrderRepository();
     }
 
     public function remove($TicketID){
         if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Ticket = unserialize($Serialized_Ticket);
-                if($Ticket->id == $TicketID){
+                if($Ticket->ticketID == $TicketID){
                     unset($_SESSION['Tickets'][$index]);
                     $this->ticketRepository->removeTicket($TicketID);
                 }
@@ -53,7 +56,7 @@ class ShoppingcartService{
             ]],
             'payment_method_types' => ['ideal', 'card'],
             'mode' => 'payment',
-            'success_url' => 'http://localhost:4242/success',
+            'success_url' => 'http://localhost/shoppingcart/processOrder',
             'cancel_url' => 'http://localhost/shoppingcart/cancel',
         ]);
         header("HTTP/1.1 303 See Other");
@@ -69,7 +72,7 @@ class ShoppingcartService{
         $checkout_session = $stripe->checkout->sessions->create([
             'mode' => 'setup',
             'currency' => 'eur',
-            'success_url' => 'http://localhost:4242/success',
+            'success_url' => 'http://localhost/shoppingcart/processOrder',
             'cancel_url' => 'http://localhost/shoppingcart',
         ]);
         header("HTTP/1.1 303 See Other");
@@ -82,7 +85,7 @@ class ShoppingcartService{
         if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Ticket = unserialize($Serialized_Ticket);
-                if($Ticket->id == $TicketID){
+                if($Ticket->ticketID == $TicketID){
                     $Ticket->quantity = $Quantity;
                     $_SESSION['Tickets'][$index] = serialize($Ticket);
                     $this->ticketRepository->updateTicketQuantity($TicketID, $Quantity);
@@ -100,7 +103,8 @@ class ShoppingcartService{
         else if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
-                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity);
+
+                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
             }
         }
         else if(isset($dbtickets)){
@@ -119,17 +123,18 @@ class ShoppingcartService{
 
     private function mergeSessionAndDBTickets($dbtickets, $user){
         //loopthrough the tickets in the session and check if they are in the database if not add them to the database
+        $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
         foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
             $Unserialized_Ticket = unserialize($Serialized_Ticket);
             $found = false;
             foreach($dbtickets as $dbTicket){
-                if($Unserialized_Ticket->id == $dbTicket->id){
+                if($Unserialized_Ticket->ticketID == $dbTicket->ticketID){
                     $Unserialized_Ticket->quantity = $dbTicket->quantity;
                     $found = true;
                 }
             }
             if(!$found){
-                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity);
+                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
             }
         }
 
@@ -138,7 +143,7 @@ class ShoppingcartService{
             $found = false;
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
-                if($Unserialized_Ticket->id == $dbTicket->id){
+                if($Unserialized_Ticket->ticketID == $dbTicket->ticketID){
                     $Unserialized_Ticket->quantity = $dbTicket->quantity;
                     $found = true;
                 }
@@ -170,4 +175,117 @@ class ShoppingcartService{
             return null;
         }
     }
+
+    public function processOrder($user){
+        $Tickets = array();
+        if(!isset($_SESSION['Tickets'])){
+            $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
+            $Tickets = $this->ticketRepository->getShoppingcartTickets($shoppingcartID);
+        }
+        else{
+            foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
+                $Tickets[] = unserialize($Serialized_Ticket);
+            }
+        }
+
+        if(isset($Tickets)){
+            $totalPrice = $this->calculateTotalPrice($Tickets);
+            $orderID = $this->orderRepository->createOrderAndReturnID($user->user_id, $totalPrice);
+        }else{
+            header('Location:/shoppingcart');
+            die();
+        }
+        if(isset($orderID)){
+            $this->orderRepository->createOrderItems($orderID, $Tickets);
+        }
+        header('Location:/shoppingcart/exportOrderInformation?orderID='.$orderID);
+    }
+
+    public function exportOrderInformation($orderID){
+        $order = $this->orderRepository->getOrderByID($orderID);
+        $orderItems = $this->orderRepository->getOrderItemsByOrderID($orderID);
+        $Tickets = array();
+        foreach($orderItems as $orderItem){
+            $Tickets[] = $this->ticketRepository->getTicketByID($orderItem->ticketID);
+        }
+
+        // delete the tickets
+        foreach($Tickets as $Ticket){
+            $this->ticketRepository->removeTicket($Ticket->ticketID);
+            //remove tickets from session
+            if(isset($_SESSION['Tickets'])){
+                foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
+                    $Unserialized_Ticket = unserialize($Serialized_Ticket);
+                    if($Unserialized_Ticket->ticketID == $Ticket->ticketID){
+                        unset($_SESSION['Tickets'][$index]);
+                    }
+                }
+            }
+
+        }
+
+        // change the Order variablie into an array
+        $order = array(
+            'OrderID' => $order->orderID,
+            'UserID' => $order->userID,
+            'OrderDateTime' => $order->orderDateTime,
+            'TotalPrice' => $order->totalPrice
+        );
+
+        $orderData = array();
+        foreach($Tickets as $Ticket){
+            $orderData[] = array(
+                'TicketID' => $Ticket->ticketID,
+                'Title' => $Ticket->title,
+                'startDate' => $Ticket->datetime,
+                'Location' => $Ticket->location,
+                'Description' => $Ticket->description,
+                'Quantity' => $Ticket->quantity,
+                'Price' => $Ticket->price
+            );
+        }
+
+        // File Name & Content Header For Download
+        $file_name = "customers_data.xls";
+        header("Content-Disposition: attachment; filename=\"$file_name\"");
+        header("Content-Type: application/vnd.ms-excel");
+
+        //To define column name in first row.
+        $column_names = false;
+        // run loop through each row in $customers_data
+        foreach ($orderData as $row) {
+            if (!$column_names) {
+
+                //echo order data
+                echo implode("\t", array_keys($order)) . "\n";
+                echo implode("\t", array_values($order)) . "\n";
+                
+                echo "\n";
+
+                echo implode("\t", array_keys($row)) . "\n";
+                $column_names = true;
+            }
+            // The array_walk() function runs each array element in a user-defined function.
+            array_walk($row, array($this, 'filterCustomerData'));
+            echo implode("\t", array_values($row)) . "\n";
+        }
+        exit;
+        header('Location:/');
+    }
+
+    function filterCustomerData(&$str) {
+        $str = preg_replace("/\t/", "\\t", $str);
+        $str = preg_replace("/\r?\n/", "\\n", $str);
+        if (strstr($str, '"'))
+            $str = '"' . str_replace('"', '""', $str) . '"';
+    }
+
+    private function calculateTotalPrice($Tickets){
+        $totalPrice = 0;
+        foreach($Tickets as $Ticket){
+            $totalPrice += $Ticket->price * $Ticket->quantity;
+        }
+        return $totalPrice;
+    }
+
 }

@@ -18,13 +18,17 @@ class TicketRepository extends Repository{
         return null;
     }
 
-    public function addTicket($user_ID, $title, $description, $quantity){
-        $sql = "INSERT INTO tickets (userID, title, description, quantity) VALUES (:user_id, :title, :description, :quantity)";
+    public function addTicket($user_ID, $title, $datetime, $location, $description, $quantity, $price, $shoppingcartID){
+        $sql = "INSERT INTO tickets (userID, title, datetime, location, description, quantity, price, shoppingcartID) VALUES (:user_id, :title, :datetime, :location, :description, :quantity, :price, :shoppingcartID)";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':user_id', $user_ID);
         $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':datetime', $datetime);
+        $stmt->bindParam(':location', $location);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':quantity', $quantity);
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':shoppingcartID', $shoppingcartID);
         $stmt->execute();
     }
 
@@ -60,7 +64,18 @@ class TicketRepository extends Repository{
             return $tickets;
         }
         return null;
-        
+    }
+
+    public function getTicketByID($ticketID){
+        $sql = "SELECT ticketID, userID, title, datetime, location, description, quantity, price, shoppingcartID FROM tickets WHERE ticketID = :ticketID";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':ticketID', $ticketID);
+        $stmt->execute();
+        $stmt = $stmt->fetch();
+        if($stmt){
+            return new \Models\Ticket($stmt['ticketID'], $stmt['userID'], $stmt['title'], $stmt['datetime'], $stmt['location'], $stmt['description'], $stmt['quantity'], $stmt['price'], $stmt['shoppingcartID']);
+        }
+        return null;
     }
 }
 

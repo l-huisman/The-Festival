@@ -4,28 +4,28 @@ namespace Models;
 
 class Ticket
 {
-    public $id;
-    public $user_id;
+    public $ticketID;
+    public $userID;
     public $title;
     public $datetime;
     public $location;
     public $description;
     public $quantity;
     public $price;
-    public $shoppingcart_id;
+    public $shoppingcartID;
 
     //make the shoppingcart_id null if it is not passed
-    public function __construct($id, $user_id, $title, $datetime, $location, $description, $quantity, $price, $shoppingcart_id = null)
+    public function __construct($ticketID, $userID, $title, $datetime, $location, $description, $quantity, $price, $shoppingcartID = null)
     {
-        $this->id = $id;
-        $this->user_id = $user_id;
+        $this->ticketID = $ticketID;
+        $this->userID = $userID;
         $this->title = $title;
         $this->datetime = $datetime;
         $this->location = $location;
         $this->description = $description;
         $this->quantity = $quantity;
         $this->price = $price;
-        $this->shoppingcart_id = $shoppingcart_id;
+        $this->shoppingcartID = $shoppingcartID;
     }
 
 
