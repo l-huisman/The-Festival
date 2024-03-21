@@ -72,15 +72,12 @@ require_once __DIR__ . '/../../views/elements/header.php';
     </div>
   </div>
 
-<?php var_dump($tourdate); ?>
-
   <script>
     function checkDropdowns() {
     var guideDropdown = document.getElementById('dropdown1');
     var timeDropdown = document.getElementById('dropdown2');
    var timetable = <?php echo json_encode($tourdate); ?>;
    var guideTime = [];
-    console.log(timetable); // For debugging purposes
     if (guideDropdown.value !== '') {
 
     timeDropdown.disabled = false;

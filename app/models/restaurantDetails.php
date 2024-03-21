@@ -13,6 +13,9 @@ class RestaurantDetails{
     private $website;
     private $phonenumber;
     private $total_seats;
+    private $header_image;
+    private $restaurant_image;
+    private $menu_image;
     private $streetname;
     private $postalcode;
     private $city;
@@ -48,6 +51,15 @@ class RestaurantDetails{
     public function getTotal_seats(){
         return $this->total_seats;
     }
+    public function getHeader_image(){
+        return $this->header_image;
+    }
+    public function getRestaurant_image(){
+        return $this->restaurant_image;
+    }
+    public function getMenu_image(){
+        return $this->menu_image;
+    }
     public function getStreetname(){
         return $this->streetname;
     }
@@ -60,4 +72,27 @@ class RestaurantDetails{
     public function getHousenumber(){
         return $this->housenumber;
     }
+
+    // public function __construct($restaurant_id, $name, $description, $price, $price_kids, $star_rating, $cuisine, $website, $phonenumber, $total_seats, $header_image, $restaurant_image, $menu_image, $streetname, $postalcode, $city, $housenumber)
+    // {
+    //     $this->restaurant_id = $restaurant_id;
+    //     $this->name = $name;
+    //     $this->description = $description;
+    //     $this->price = $price;
+    //     $this->price_kids = $price_kids;
+    //     $this->star_rating = $star_rating;
+    //     $this->cuisine = $cuisine;
+    //     $this->website = $website;
+    //     $this->phonenumber = $phonenumber;
+    //     $this->total_seats = $total_seats;
+    //     $this->header_image = $header_image;
+    //     $this->restaurant_image = $restaurant_image;
+    //     $this->menu_image = $menu_image;
+    //     $this->streetname = $streetname;
+    //     $this->postalcode = $postalcode;
+    //     $this->city = $city;
+    //     $this->housenumber = $housenumber;
+    // }
+
+
 }

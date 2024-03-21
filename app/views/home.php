@@ -99,22 +99,9 @@ require_once __DIR__ . '/elements/header.php';
 
            <? 
                foreach($contentarray as $content) {
-
                 echo $content;
-
                }
               ?>
-
-                <!-- <div class="col-sm-12 col-md-4">
-                    <img src="https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg" alt="1">
-                    <h2 class="mt-3 mb-3">Jazz</h2>
-                    <p class="me-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet
-                        tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.
-                    </p>
-                    <div class="custom-link">
-                        <a href="#" class="buttons">Read more ></a>
-                    </div>
-                </div> -->
                 <div class="col-sm-12 col-md-4">
                     <img src="https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg" alt="1">
                     <h2 class="mt-3 mb-3">History</h2>

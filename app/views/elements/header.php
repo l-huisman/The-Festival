@@ -33,6 +33,9 @@
                 <li class="nav-item">
                 <a class="nav-link" href="/historic">History</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/contact">Info</a>
+                </li>
             </ul>
             <ul class="navbar-nav">
                 <?php 
