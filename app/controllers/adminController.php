@@ -2,16 +2,19 @@
 
 namespace Controllers;
 
+use Services\AdminService;
+
 class AdminController
 {
     private $adminService;
     public function __construct()
     {
-        $this->adminService = new \Services\AdminService();
+        $this->adminService = new AdminService();
 
         $url = explode('/', $_SERVER['REQUEST_URI']);
         $method = $_SERVER['REQUEST_METHOD'];
 
+        // You can do this without being admin user
         if ($url[2] === 'loginPage' || $url[2] === 'login' && $method == 'POST') {
             return;
         }
