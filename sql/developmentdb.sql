@@ -11,6 +11,157 @@ DROP DATABASE IF EXISTS `developmentdb`;
 CREATE DATABASE IF NOT EXISTS `developmentdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `developmentdb`;
 
+
+
+DROP TABLE IF EXISTS `Restaurant`;
+
+CREATE TABLE `Restaurant` (
+  `restaurant_id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `description` text NOT NULL,
+  `price` float NOT NULL,
+  `price_kids` float NOT NULL,
+  `star_rating` int(11) NOT NULL,
+  `cuisine` varchar(128) NOT NULL,
+  `website` varchar(320) NOT NULL,
+  `phonenumber` varchar(15) NOT NULL,
+  `total_seats` int(11) NOT NULL,
+  `header_image` varchar(255) DEFAULT NULL,
+  `restaurant_image` varchar(255) NOT NULL,
+  `menu_image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `Restaurant` (`restaurant_id`, `name`, `description`, `price`, `price_kids`, `star_rating`, `cuisine`, `website`, `phonenumber`, `total_seats`, `header_image`, `restaurant_image`, `menu_image`) VALUES
+(1, 'Urban Frenchy Bistro Toujours', 'For a cozy and beautiful dinner, Toujours is the place to be. It’s located is the center of Haarlem, right across from the Grote kerk. It’s a french restaurant with two open kitchens and a cozy styled interior. ', 35, 17.5, 4, 'French', 'https://restauranttoujours.nl/', '023 5321699', 48, '\\img\\restaurants\\toujours\\header_toujours.jpg', '\\img\\restaurants\\toujours\\restaurant_toujours.jpg', '\\img\\restaurants\\toujours\\menu_toujours.jpg'),
+(2, 'Fris', 'Fris a modern french restaurant in the city center of Haarlem, by Rick May.  the restaurant has a relaxed atmosphere with high quality dishes, made with fresh seasonal products. Fris received in 2022 a Michelin star. ', 45, 22.5, 4, 'French', 'https://www.restaurantfris.nl/', '023 5310717', 45, '\\img\\restaurants\\fris\\header_fris.jpg', '\\img\\restaurants\\fris\\restaurant_fris.jpg', '\\img\\restaurants\\fris\\menu_fris.jpg'),
+(3, 'Specktakel', 'Specktakel is a unique world restaurant centrally located in the heart of Haarlem. With a special covered courtyard and a terrace with a view of the historic Vleeshal and the centuries-old Bavo church.', 35, 17.5, 3, 'World', 'https://specktakel.nl/', '023-5323841', 36, '\\img\\restaurants\\specktakel\\header_specktakel.jpg', '\\img\\restaurants\\specktakel\\restaurant_specktakel.jpg', '\\img\\restaurants\\specktakel\\menu_specktakel.jpg'),
+(4, 'Ratatouille', 'This restaurant is a star in Haarlem. It is one of the few restaurants in this city with a Michelin star. It provides a sophisticated theme with a traditional French decor. Here you can also taste some top of the line seafood with a rich and complex flavor.', 45, 22.5, 4, 'French, European', 'https://ratatouillefoodandwine.nl/', '023 542 7270', 52, '\\img\\restaurants\\ratatouille\\header_ratatouille.jpg', '\\img\\restaurants\\ratatouille\\restauarnt_ratatouille.jpg', '\\img\\restaurants\\ratatouille\\menu_ratatouille.jpg'),
+(5, 'Mr. & Mrs.', 'Restaurant Mr. and Mrs. serves small luxury dishes, with the size of a starter, so you can try a lot of different combinations. You can choose between hot and cold dishes and they always have a matching glass of wine with your dish.', 45, 22.5, 4, 'European', 'https://www.restaurantmrandmrs.nl/', '023 531 5935', 40, '\\img\\restaurants\\MrAndMrs\\header_MrAndMrs.jpg', '\\img\\restaurants\\MrAndMrs\\restaurant_MrAndMRs.jpg', '\\img\\restaurants\\MrAndMrs\\menu_MrAndMrs.png'),
+(6, 'ML', 'Restaurant ML is located in historical Hotel ML. It is a french restaurant with surprising flavor combinations in their dishes, but with the right combination between traditional and new products and flavors.', 45, 22.5, 4, 'International', 'https://www.mlinhaarlem.nl/', '023 5123910', 60, '\\img\\restaurants\\ml\\header_ML.jpg', '\\img\\restaurants\\ml\\restaurant_ML.jpg', '\\img\\restaurants\\ml\\menu_ML.jpg'),
+(7, 'Grand Cafe Brinkmann', 'Grand Cafe Brinkmann has been known since 1879 in Haarlem and surroundings.  Located on the Grote Markt in the center of Haarlem. The various menu has for everyone something to offer, prepared with fresh ingredients. ', 35, 17.5, 4, 'Dutch', 'https://www.grandcafebrinkmann.nl/', '023 532 3111', 100, '\\img\\restaurants\\brinkmann\\header_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\restaurant_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\menu_brinkmann.jpg');
+
+
+ALTER TABLE `Restaurant`
+  ADD PRIMARY KEY (`restaurant_id`);
+
+ALTER TABLE `Restaurant`
+  MODIFY `restaurant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+
+
+DROP TABLE IF EXISTS `Location`;
+
+CREATE TABLE `Location` (
+  `location_id` int(11) NOT NULL,
+  `detail_id` int(11) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `streetname` varchar(128) NOT NULL,
+  `postalcode` varchar(6) NOT NULL,
+  `city` varchar(64) NOT NULL,
+  `housenumber` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `Location` (`location_id`, `detail_id`, `type`, `streetname`, `postalcode`, `city`, `housenumber`) VALUES
+(1, 1, 'Restaurant', 'Oude Groenmarkt', '2011HL', 'Haarlem', '10'),
+(2, 2, 'Restaurant', 'Twijnderslaan', '2021BG', 'Haarlem', '7'),
+(3, 3, 'Restaurant', 'Spekstraat', '2011HM', 'Haarlem', '4'),
+(4, 4, 'Restaurant', 'Spaarne', '2011CL', 'Haarlem', '96'),
+(5, 5, 'Restaurant', 'Lange Veerstraat', '2011DB', 'Haarlem', '4'),
+(6, 6, 'Restaurant', 'Klokhuisplein', '2011HK', 'Haarlem', '9'),
+(7, 7, 'Restaurant', 'Grote Markt', '2011RC', 'Haarlem', '13');
+
+ALTER TABLE `Location`
+  ADD PRIMARY KEY (`location_id`);
+
+ALTER TABLE `Location`
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+
+DROP TABLE IF EXISTS `Session`;
+
+CREATE TABLE `Session` (
+  `session_id` int(11) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  `start_datetime` datetime NOT NULL,
+  `duration` time NOT NULL,
+  `seats_reserved` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `Session` (`session_id`, `restaurant_id`, `start_datetime`, `duration`, `seats_reserved`) VALUES
+(1, 1, '2023-07-27 17:30:00', '01:30:00', 47),
+(2, 1, '2023-07-27 19:00:00', '01:30:00', 48),
+(3, 1, '2023-07-27 20:30:00', '01:30:00', 48),
+(4, 1, '2023-07-28 17:30:00', '01:30:00', 48),
+(5, 1, '2023-07-28 19:00:00', '01:30:00', 48),
+(6, 1, '2023-07-28 20:30:00', '01:30:00', 48),
+(7, 1, '2023-07-29 17:30:00', '01:30:00', 48),
+(8, 1, '2023-07-29 19:00:00', '01:30:00', 48),
+(9, 1, '2023-07-29 20:30:00', '01:30:00', 0),
+(10, 2, '2023-07-27 17:30:00', '01:30:00', 45),
+(11, 2, '2023-07-27 19:00:00', '01:30:00', 45),
+(12, 2, '2023-07-27 20:30:00', '01:30:00', 45),
+(13, 2, '2023-07-28 17:30:00', '01:30:00', 45),
+(14, 2, '2023-07-28 19:00:00', '01:30:00', 45),
+(15, 2, '2023-07-28 20:30:00', '01:30:00', 45),
+(16, 2, '2023-07-29 17:30:00', '01:30:00', 45),
+(17, 2, '2023-07-29 19:00:00', '01:30:00', 45),
+(18, 2, '2023-07-29 20:30:00', '01:30:00', 45),
+(19, 3, '2023-07-27 17:00:00', '01:30:00', 36),
+(20, 3, '2023-07-27 18:30:00', '01:30:00', 36),
+(21, 3, '2023-07-27 20:00:00', '01:30:00', 36),
+(22, 3, '2023-07-28 17:00:00', '01:30:00', 36),
+(23, 3, '2023-07-28 18:30:00', '01:30:00', 36),
+(24, 3, '2023-07-28 20:00:00', '01:30:00', 36),
+(25, 3, '2023-07-29 17:00:00', '01:30:00', 36),
+(26, 3, '2023-07-29 18:30:00', '01:30:00', 36),
+(27, 3, '2023-07-29 20:00:00', '01:30:00', 36),
+(31, 4, '2023-07-27 17:00:00', '02:00:00', 52),
+(32, 4, '2023-07-27 19:00:00', '02:00:00', 52),
+(33, 4, '2023-07-27 21:00:00', '02:00:00', 52),
+(34, 4, '2023-07-28 17:00:00', '02:00:00', 52),
+(35, 4, '2023-07-28 19:00:00', '02:00:00', 52),
+(36, 4, '2023-07-28 21:00:00', '02:00:00', 52),
+(37, 4, '2023-07-29 17:00:00', '02:00:00', 52),
+(38, 4, '2023-07-29 19:00:00', '02:00:00', 52),
+(39, 4, '2023-07-29 21:00:00', '02:00:00', 52),
+(40, 5, '2023-07-27 18:00:00', '01:30:00', 40),
+(41, 5, '2023-07-27 19:30:00', '01:30:00', 40),
+(42, 5, '2023-07-27 21:00:00', '01:30:00', 40),
+(43, 5, '2023-07-28 18:00:00', '01:30:00', 40),
+(44, 5, '2023-07-28 19:30:00', '01:30:00', 40),
+(45, 5, '2023-07-28 21:00:00', '01:30:00', 40),
+(46, 5, '2023-07-29 18:00:00', '01:30:00', 40),
+(47, 5, '2023-07-29 19:30:00', '01:30:00', 40),
+(48, 5, '2023-07-29 21:00:00', '01:30:00', 40),
+(49, 6, '2023-07-27 17:00:00', '02:00:00', 60),
+(50, 6, '2023-07-27 19:00:00', '02:00:00', 60),
+(51, 6, '2023-07-28 17:00:00', '02:00:00', 60),
+(52, 6, '2023-07-28 19:00:00', '02:00:00', 60),
+(53, 6, '2023-07-29 17:00:00', '02:00:00', 60),
+(54, 6, '2023-07-29 19:00:00', '02:00:00', 60),
+(55, 7, '2023-07-27 16:30:00', '01:30:00', 100),
+(56, 7, '2023-07-27 18:00:00', '01:30:00', 100),
+(57, 7, '2023-07-27 19:30:00', '01:30:00', 100),
+(58, 7, '2023-07-28 16:30:00', '01:30:00', 100),
+(59, 7, '2023-07-28 18:00:00', '01:30:00', 100),
+(60, 7, '2023-07-28 19:30:00', '01:30:00', 100),
+(61, 7, '2023-07-29 16:30:00', '01:30:00', 100),
+(62, 7, '2023-07-29 18:00:00', '01:30:00', 100),
+(63, 7, '2023-07-29 19:30:00', '01:30:00', 100);
+
+ALTER TABLE `Session`
+  ADD PRIMARY KEY (`session_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`);
+
+ALTER TABLE `Session`
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+ALTER TABLE `Session`
+  ADD CONSTRAINT `Session_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `Restaurant` (`restaurant_id`);
+
+
+DROP TABLE IF EXISTS `artist`;
+
+
 CREATE TABLE `artist` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
