@@ -19,8 +19,8 @@ require_once __DIR__ . '/../elements/header.php';
                     <td contenteditable="true"><?php echo $venue->getName(); ?></td>
                     <td contenteditable="true"><?php echo $venue->getAddress(); ?></td>
                     <td>
-                        <a href="/admin/artist/edit?id=<?php echo $venue->getId(); ?>" class="btn btn-primary">Edit</a>
-                        <a href="/admin/artist/delete?id=<?php echo $venue->getId(); ?>" class="btn btn-danger">Delete</a>
+                        <a href="/admin/venue/edit?id=<?php echo $venue->getId(); ?>" class="btn btn-primary">Edit</a>
+                        <a href="/admin/venue/delete?id=<?php echo $venue->getId(); ?>" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             <?php } ?>
