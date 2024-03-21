@@ -32,8 +32,6 @@ require_once __DIR__ . '/../../views/elements/header.php';
   </div>
 <div class="container px-4 py-5" id="custom-cards">
     <h2 class="pb-2 border-bottom" style="text-align:center;">Meest populaire evenementen</h2>
-
-
   </div>
 
   <div class="events_area">
@@ -41,25 +39,25 @@ require_once __DIR__ . '/../../views/elements/header.php';
     <div class="row">
     <div class="row">
     <?php foreach ($historic as $h): ?>
-        <div class="col-lg-6 col-md-6">
-            <div class="single_event position-relative">
-                <div class="event_thumb">
-                    <img src="<?= $h['path'] ?>" class="img-fluid" alt="" />
-                </div>
-                <div class="event_details">
-                    <div class="d-flex mb-4">
-                        <div class="date"><span>15/18</span> Jun</div>
-                        <div class="time-location">
-                            <p><span class="ti-time mr-2"></span><?= $h['name'] ?> </p>
-                            <p><span class="ti-location-pin mr-2"></span> </p>
-                        </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="single_event position-relative">
+            <div class="event_thumb">
+                <img src="<?= $h->getPath(); ?>" class="img-fluid" alt="" />
+            </div>
+            <div class="event_details">
+                <div class="d-flex mb-4">
+                    <div class="date"><span>15/18</span> Jun</div>
+                    <div class="time-location">
+                        <p><span class="ti-time mr-2"></span><?= $h->getName(); ?> </p>
+                        <p><span class="ti-location-pin mr-2"></span> </p>
                     </div>
-                    <p><?= $h['description'] ?></p>
-                    <a href="/historic/historicdetail?id=<?= $h['historicevent_id'] ?>" class="btn btn-primary rounded-0 mt-3">View Details</a>
                 </div>
+                <p><?= $h->getDescription();?></p>
+                <a href="/historic/historicdetail?id=<?= $h->getId(); ?>" class="btn btn-primary rounded-0 mt-3">View Details</a>
             </div>
         </div>
-    <?php endforeach; ?>
+    </div>
+<?php endforeach; ?>
 </div>
 
 </div>
