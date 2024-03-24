@@ -34,8 +34,8 @@ require_once __DIR__ . '/../../../views/elements/header.php';
                 </section>
                 <img src="<?= $restaurant->getMenu_image()?>" alt="" class="col-md-4 rounded-3 restaurantMenuInformationImage">
                 <section class="col-md-4">
-                    <p>Rating: <?= $restaurant->getStar_rating() ?></p>
-                    <p>Seats: <?= $restaurant->getTotal_seats() ?></p>
+                    <p>Rating: <?= $restaurant->getStar_rating() ?>/5</p>
+                    <p>Total seats: <?= $restaurant->getTotal_seats() ?></p>
                     <p>Website: <a href="<?= $restaurant->getWebsite() ?>"><?= $restaurant->getWebsite() ?></a></p>
                     <p>Phone number: <a href="<?= $restaurant->getPhonenumber() ?>"> <?= $restaurant->getPhonenumber() ?></a></p>
                     <p>Address: 
@@ -46,13 +46,13 @@ require_once __DIR__ . '/../../../views/elements/header.php';
             </div> 
             <div class="row restaurantMakeReservation">
                 <div class="row restaurantMakeReservation_header">
-                    <h2>Make a reservation</h2>
+                    <h2>Make a reservation for restaurant <?= $restaurant->getName() ?></h2>
                 </div>
                 <form class="container" action="/yummy/restaurant" method="post">
                     <div class="row">
-                        <label class="form-label" for="cars">Select a time:</label>
-                        <select class="form-control" name="sessionsDropdown">
-                            <option value="0">Select a date and time</option>
+                        <label class="form-label" for="cars">Select a date and time:</label>
+                        <select class="form-control" name="sessionsDropdown" required>
+                            <option value="">Nothing selected</option>
                             <?php foreach($sessionsList as $sessions) : ?>
                                 <option value="<?= $sessions->getSession_id() ?>"><?= $sessions->getDate()?></option>
                             <?php endforeach; ?>
@@ -60,7 +60,11 @@ require_once __DIR__ . '/../../../views/elements/header.php';
                     </div>
                     <div class="row">
                         <label class="form-label" for="seats">Seats:</label>
-                        <input class="form-control" type="number" id="seats" name="seats" min="1" max="">
+                        <input class="form-control" type="number" id="seats" name="seats" min="1" max="" required>
+                    </div>
+                    <div class="row">
+                        <label class="form-label" for="comment">Comment: (optional)</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                     </div>
                     <!-- value -->
                     <button type="submit" class="btn detailButton" name="restaurant-reservation" value="">Add reservation to cart</button>
