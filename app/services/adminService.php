@@ -5,10 +5,12 @@ namespace Services;
 class AdminService{
 
     private $adminRepositoy;
+    private $orderRepository;
 
     public function __construct()
     {
         $this->adminRepositoy = new \Repositories\AdminRepository();
+        $this->orderRepository = new \Repositories\OrderRepository();
     }
     public function getAllUsers(){
         return $this->adminRepositoy->getAllUsers();
@@ -42,8 +44,16 @@ class AdminService{
         die();
     }
 
+    public function getAllOrders(){
+        return $this->orderRepository->getAllOrders();
+    }
+
     private function verifyPassword($password, $hashedPassword)
     {
         return password_verify($password, $hashedPassword);
+    }
+
+    public function getOrderById($orderID){
+        return $this->orderRepository->getOrderById($orderID);
     }
 }

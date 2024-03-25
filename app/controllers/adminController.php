@@ -100,11 +100,6 @@ class AdminController
         header('Location:/admin/overviewUsers');
     }
 
-    public function loginPage()
-    {
-        require __DIR__ . '/../views/admin/loginPage.php';
-    }
-
     public function createArtist()
     {
         try {
@@ -249,4 +244,14 @@ class AdminController
         }
         header('Location:/admin/music?id=2');
     }
+
+    public function overviewOrders(){
+        $orders = $this->adminService->getAllOrders();
+        require_once __DIR__ . '/../views/admin/overviewOrders.php';
+    }
+
+    public function loginPage(){
+        require __DIR__ . '/../views/admin/loginPage.php';
+    }
+
 }
