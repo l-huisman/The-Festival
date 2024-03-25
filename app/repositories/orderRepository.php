@@ -38,6 +38,21 @@ class OrderRepository extends Repository{
         return null;
     }
 
+    public function getAllOrders(){
+        $sql = "SELECT orderID, userID, orderDateTime, totalPrice FROM orders";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        $orders = array();
+        if($stmt) {
+            $result = $stmt->fetchAll();
+            foreach($result as $order){
+                $orders[] = new \Models\Order($order['orderID'], $order['userID'], $order['orderDateTime'], $order['totalPrice']);
+            }
+            return $orders;
+        }
+        return null;
+    }
+
     public function getOrderItemsByOrderID($orderID){
         $sql = "SELECT orderItemID, orderID, ticketID, quantity, price FROM orderItems WHERE orderID = :orderID";
         $stmt = $this->connection->prepare($sql);
