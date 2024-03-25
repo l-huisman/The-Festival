@@ -17,15 +17,175 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `developmentdb`
---
+DROP DATABASE IF EXISTS `developmentdb`;
+CREATE DATABASE IF NOT EXISTS `developmentdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `developmentdb`;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `artist`
---
+DROP TABLE IF EXISTS `restaurant_reservations`;
+
+CREATE TABLE `restaurant_reservations` (
+  `ticket_id` int(11) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  `session_id` int(11) NOT NULL,
+  `comments` varchar(500) NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `restaurant_reservations`
+  ADD PRIMARY KEY (`ticket_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`),
+  ADD KEY `session_id` (`session_id`);
+
+
+DROP TABLE IF EXISTS `Restaurant`;
+
+CREATE TABLE `Restaurant` (
+  `restaurant_id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `description` text NOT NULL,
+  `price` float NOT NULL,
+  `price_kids` float NOT NULL,
+  `star_rating` int(11) NOT NULL,
+  `cuisine` varchar(128) NOT NULL,
+  `website` varchar(320) NOT NULL,
+  `phonenumber` varchar(15) NOT NULL,
+  `total_seats` int(11) NOT NULL,
+  `header_image` varchar(255) DEFAULT NULL,
+  `restaurant_image` varchar(255) NOT NULL,
+  `menu_image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `Restaurant` (`restaurant_id`, `name`, `description`, `price`, `price_kids`, `star_rating`, `cuisine`, `website`, `phonenumber`, `total_seats`, `header_image`, `restaurant_image`, `menu_image`) VALUES
+(1, 'Urban Frenchy Bistro Toujours', 'For a cozy and beautiful dinner, Toujours is the place to be. It’s located is the center of Haarlem, right across from the Grote kerk. It’s a french restaurant with two open kitchens and a cozy styled interior. ', 35, 17.5, 4, 'French', 'https://restauranttoujours.nl/', '023 5321699', 48, '\\img\\restaurants\\toujours\\header_toujours.jpg', '\\img\\restaurants\\toujours\\restaurant_toujours.jpg', '\\img\\restaurants\\toujours\\menu_toujours.jpg'),
+(2, 'Fris', 'Fris a modern french restaurant in the city center of Haarlem, by Rick May.  the restaurant has a relaxed atmosphere with high quality dishes, made with fresh seasonal products. Fris received in 2022 a Michelin star. ', 45, 22.5, 4, 'French', 'https://www.restaurantfris.nl/', '023 5310717', 45, '\\img\\restaurants\\fris\\header_fris.jpg', '\\img\\restaurants\\fris\\restaurant_fris.jpg', '\\img\\restaurants\\fris\\menu_fris.jpg'),
+(3, 'Specktakel', 'Specktakel is a unique world restaurant centrally located in the heart of Haarlem. With a special covered courtyard and a terrace with a view of the historic Vleeshal and the centuries-old Bavo church.', 35, 17.5, 3, 'World', 'https://specktakel.nl/', '023-5323841', 36, '\\img\\restaurants\\specktakel\\header_specktakel.jpg', '\\img\\restaurants\\specktakel\\restaurant_specktakel.jpg', '\\img\\restaurants\\specktakel\\menu_specktakel.jpg'),
+(4, 'Ratatouille', 'This restaurant is a star in Haarlem. It is one of the few restaurants in this city with a Michelin star. It provides a sophisticated theme with a traditional French decor. Here you can also taste some top of the line seafood with a rich and complex flavor.', 45, 22.5, 4, 'French, European', 'https://ratatouillefoodandwine.nl/', '023 542 7270', 52, '\\img\\restaurants\\ratatouille\\header_ratatouille.jpg', '\\img\\restaurants\\ratatouille\\restauarnt_ratatouille.jpg', '\\img\\restaurants\\ratatouille\\menu_ratatouille.jpg'),
+(5, 'Mr. & Mrs.', 'Restaurant Mr. and Mrs. serves small luxury dishes, with the size of a starter, so you can try a lot of different combinations. You can choose between hot and cold dishes and they always have a matching glass of wine with your dish.', 45, 22.5, 4, 'European', 'https://www.restaurantmrandmrs.nl/', '023 531 5935', 40, '\\img\\restaurants\\MrAndMrs\\header_MrAndMrs.jpg', '\\img\\restaurants\\MrAndMrs\\restaurant_MrAndMRs.jpg', '\\img\\restaurants\\MrAndMrs\\menu_MrAndMrs.png'),
+(6, 'ML', 'Restaurant ML is located in historical Hotel ML. It is a french restaurant with surprising flavor combinations in their dishes, but with the right combination between traditional and new products and flavors.', 45, 22.5, 4, 'International', 'https://www.mlinhaarlem.nl/', '023 5123910', 60, '\\img\\restaurants\\ml\\header_ML.jpg', '\\img\\restaurants\\ml\\restaurant_ML.jpg', '\\img\\restaurants\\ml\\menu_ML.jpg'),
+(7, 'Grand Cafe Brinkmann', 'Grand Cafe Brinkmann has been known since 1879 in Haarlem and surroundings.  Located on the Grote Markt in the center of Haarlem. The various menu has for everyone something to offer, prepared with fresh ingredients. ', 35, 17.5, 4, 'Dutch', 'https://www.grandcafebrinkmann.nl/', '023 532 3111', 100, '\\img\\restaurants\\brinkmann\\header_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\restaurant_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\menu_brinkmann.jpg');
+
+
+ALTER TABLE `Restaurant`
+  ADD PRIMARY KEY (`restaurant_id`);
+
+ALTER TABLE `Restaurant`
+  MODIFY `restaurant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+
+
+DROP TABLE IF EXISTS `Location`;
+
+CREATE TABLE `Location` (
+  `location_id` int(11) NOT NULL,
+  `detail_id` int(11) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `streetname` varchar(128) NOT NULL,
+  `postalcode` varchar(6) NOT NULL,
+  `city` varchar(64) NOT NULL,
+  `housenumber` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `Location` (`location_id`, `detail_id`, `type`, `streetname`, `postalcode`, `city`, `housenumber`) VALUES
+(1, 1, 'Restaurant', 'Oude Groenmarkt', '2011HL', 'Haarlem', '10'),
+(2, 2, 'Restaurant', 'Twijnderslaan', '2021BG', 'Haarlem', '7'),
+(3, 3, 'Restaurant', 'Spekstraat', '2011HM', 'Haarlem', '4'),
+(4, 4, 'Restaurant', 'Spaarne', '2011CL', 'Haarlem', '96'),
+(5, 5, 'Restaurant', 'Lange Veerstraat', '2011DB', 'Haarlem', '4'),
+(6, 6, 'Restaurant', 'Klokhuisplein', '2011HK', 'Haarlem', '9'),
+(7, 7, 'Restaurant', 'Grote Markt', '2011RC', 'Haarlem', '13');
+
+ALTER TABLE `Location`
+  ADD PRIMARY KEY (`location_id`);
+
+ALTER TABLE `Location`
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+
+DROP TABLE IF EXISTS `Session`;
+
+CREATE TABLE `Session` (
+  `session_id` int(11) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  `start_datetime` datetime NOT NULL,
+  `duration` time NOT NULL,
+  `seats_reserved` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `Session` (`session_id`, `restaurant_id`, `start_datetime`, `duration`, `seats_reserved`) VALUES
+(1, 1, '2023-07-27 17:30:00', '01:30:00', 47),
+(2, 1, '2023-07-27 19:00:00', '01:30:00', 48),
+(3, 1, '2023-07-27 20:30:00', '01:30:00', 48),
+(4, 1, '2023-07-28 17:30:00', '01:30:00', 48),
+(5, 1, '2023-07-28 19:00:00', '01:30:00', 48),
+(6, 1, '2023-07-28 20:30:00', '01:30:00', 48),
+(7, 1, '2023-07-29 17:30:00', '01:30:00', 48),
+(8, 1, '2023-07-29 19:00:00', '01:30:00', 48),
+(9, 1, '2023-07-29 20:30:00', '01:30:00', 0),
+(10, 2, '2023-07-27 17:30:00', '01:30:00', 45),
+(11, 2, '2023-07-27 19:00:00', '01:30:00', 45),
+(12, 2, '2023-07-27 20:30:00', '01:30:00', 45),
+(13, 2, '2023-07-28 17:30:00', '01:30:00', 45),
+(14, 2, '2023-07-28 19:00:00', '01:30:00', 45),
+(15, 2, '2023-07-28 20:30:00', '01:30:00', 45),
+(16, 2, '2023-07-29 17:30:00', '01:30:00', 45),
+(17, 2, '2023-07-29 19:00:00', '01:30:00', 45),
+(18, 2, '2023-07-29 20:30:00', '01:30:00', 45),
+(19, 3, '2023-07-27 17:00:00', '01:30:00', 36),
+(20, 3, '2023-07-27 18:30:00', '01:30:00', 36),
+(21, 3, '2023-07-27 20:00:00', '01:30:00', 36),
+(22, 3, '2023-07-28 17:00:00', '01:30:00', 36),
+(23, 3, '2023-07-28 18:30:00', '01:30:00', 36),
+(24, 3, '2023-07-28 20:00:00', '01:30:00', 36),
+(25, 3, '2023-07-29 17:00:00', '01:30:00', 36),
+(26, 3, '2023-07-29 18:30:00', '01:30:00', 36),
+(27, 3, '2023-07-29 20:00:00', '01:30:00', 36),
+(31, 4, '2023-07-27 17:00:00', '02:00:00', 52),
+(32, 4, '2023-07-27 19:00:00', '02:00:00', 52),
+(33, 4, '2023-07-27 21:00:00', '02:00:00', 52),
+(34, 4, '2023-07-28 17:00:00', '02:00:00', 52),
+(35, 4, '2023-07-28 19:00:00', '02:00:00', 52),
+(36, 4, '2023-07-28 21:00:00', '02:00:00', 52),
+(37, 4, '2023-07-29 17:00:00', '02:00:00', 52),
+(38, 4, '2023-07-29 19:00:00', '02:00:00', 52),
+(39, 4, '2023-07-29 21:00:00', '02:00:00', 52),
+(40, 5, '2023-07-27 18:00:00', '01:30:00', 40),
+(41, 5, '2023-07-27 19:30:00', '01:30:00', 40),
+(42, 5, '2023-07-27 21:00:00', '01:30:00', 40),
+(43, 5, '2023-07-28 18:00:00', '01:30:00', 40),
+(44, 5, '2023-07-28 19:30:00', '01:30:00', 40),
+(45, 5, '2023-07-28 21:00:00', '01:30:00', 40),
+(46, 5, '2023-07-29 18:00:00', '01:30:00', 40),
+(47, 5, '2023-07-29 19:30:00', '01:30:00', 40),
+(48, 5, '2023-07-29 21:00:00', '01:30:00', 40),
+(49, 6, '2023-07-27 17:00:00', '02:00:00', 60),
+(50, 6, '2023-07-27 19:00:00', '02:00:00', 60),
+(51, 6, '2023-07-28 17:00:00', '02:00:00', 60),
+(52, 6, '2023-07-28 19:00:00', '02:00:00', 60),
+(53, 6, '2023-07-29 17:00:00', '02:00:00', 60),
+(54, 6, '2023-07-29 19:00:00', '02:00:00', 60),
+(55, 7, '2023-07-27 16:30:00', '01:30:00', 100),
+(56, 7, '2023-07-27 18:00:00', '01:30:00', 100),
+(57, 7, '2023-07-27 19:30:00', '01:30:00', 100),
+(58, 7, '2023-07-28 16:30:00', '01:30:00', 100),
+(59, 7, '2023-07-28 18:00:00', '01:30:00', 100),
+(60, 7, '2023-07-28 19:30:00', '01:30:00', 100),
+(61, 7, '2023-07-29 16:30:00', '01:30:00', 100),
+(62, 7, '2023-07-29 18:00:00', '01:30:00', 100),
+(63, 7, '2023-07-29 19:30:00', '01:30:00', 100);
+
+ALTER TABLE `Session`
+  ADD PRIMARY KEY (`session_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`);
+
+ALTER TABLE `Session`
+  MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+ALTER TABLE `Session`
+  ADD CONSTRAINT `Session_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `Restaurant` (`restaurant_id`);
+
+
+DROP TABLE IF EXISTS `artist`;
+
 
 CREATE TABLE `artist` (
   `id` int(11) NOT NULL,
@@ -263,6 +423,148 @@ CREATE TABLE `wysiwyg` (
   `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+
+
+
+--
+-- Table structure for table `guide`
+--
+
+CREATE TABLE `guide` (
+  `guide_id` int(20) NOT NULL,
+  `tour_id` int(20) NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `language` enum('Dutch','French','Chinese','English') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `guide`
+--
+
+INSERT INTO `guide` (`guide_id`, `tour_id`, `name`, `language`) VALUES
+(1, 1, 'Jan-Willem', 'Dutch'),
+(2, 1, 'Frederic', 'English'),
+(3, 2, 'Jan-Willem', 'Dutch'),
+(4, 2, 'Frederic', 'English'),
+(5, 3, 'Jan-Willem', 'Dutch'),
+(6, 3, 'Frederic', 'English'),
+(7, 4, 'Annet', 'Dutch'),
+(8, 4, 'Williams', 'English'),
+(9, 5, 'Annet', 'Dutch'),
+(10, 5, 'Williams', 'English'),
+(11, 5, 'Kim', 'Chinese');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `historicevent`
+--
+
+CREATE TABLE `historicevent` (
+  `historicevent_id` int(30) NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `location` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `historicevent`
+--
+
+INSERT INTO `historicevent` (`historicevent_id`, `name`, `description`, `path`, `location`) VALUES
+(1, 'St.Bavo Kerk\r\n', 'De Grote of St.-Bavokerk werd voor het laatst gerestaureerd in 1980-1985. Het is een laat-gotische kruisbasiliek met slanke kruistoren (gerestaureerd 1964-1969).\r\n\r\nMiddenbeuk en koor zijn gedekt door houten gewelven (16de eeuw).\r\n\r\n\r\n\r\n', '/img/historicevents/bavokerk.jpg', 'Grote Markt 22, 2021 RD Haarlem'),
+(2, 'Grote Markt', 'De Hallen Haarlem toont regelmatig solopresentaties van internationaal spraakmakende kunstenaars die nog niet eerder in Nederland hebben geëxposeerd.\r\n', '/img/historicevents/grotemarkt.jpg', 'Grote Markt,\r\n2011 RD Haarlem\r\n'),
+(3, 'De Hallen', 'Hal is een tentoonstellingscomplex van het Frans Hals Museum aan de Grote Markt van Haarlem waar moderne en hedendaagse kunst tentoongesteld wordt in wisselende presentaties.', '/img/historicevents/dehallen.jpeg', 'Grote Markt 16, 2011 RD Haarlem'),
+(4, 'Proveniershof', 'Het Proveniershof is een hofje in Haarlem, gelegen aan de Grote Houtstraat 140, de drukste winkelstraat van Haarlem.', '/img/historicevents/proveniershof.jpg', 'Grote Houtstraat 142D, 2011 SV Haarlem'),
+(5, 'Jopenkerk', 'Het verhaal achter Jopen begint in de veertiende eeuw als Haarlem uitgroeit tot een van de belangrijkste brouwerssteden van Nederland. Brouwerijen draaien op volle toeren en het gerstenat wordt in ‘Jopen’ (vaten van 112 liter) over het Spaarne vervoerd. ', '/img/historicevents/jopenkerk.jpg', 'Gedempte Voldersgracht 2, 2011 WD Haarlem');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `home`
+--
+
+CREATE TABLE `home` (
+  `home_id` int(20) NOT NULL,
+  `img_id` int(20) NOT NULL,
+  `about` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `home`
+--
+
+INSERT INTO `home` (`home_id`, `img_id`, `about`) VALUES
+(1, 1, 'loreisan duasidb nasudiyseb t ruiaewy bfsudiba siudn asdusajnd uiasndausidn asuidn vasdasd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE `images` (
+  `img_id` int(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`img_id`, `name`, `path`) VALUES
+(1, 'Bavokerk', '/img/historicevents/bavokerk.jpg');
+
+--
+-- Table structure for table `tour`
+--
+
+CREATE TABLE `tour` (
+  `tour_id` int(20) NOT NULL,
+  `start_location` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `price` float NOT NULL,
+  `seats` int(20) NOT NULL,
+  `time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tour`
+--
+
+INSERT INTO `tour` (`tour_id`, `start_location`, `price`, `seats`, `time`) VALUES
+(1, 'Bavo Church', 17.5, 12, '2024-07-25 10:00:00'),
+(2, 'Bavo Church', 17.5, 12, '2024-07-25 13:00:00'),
+(3, 'Bavo Church', 17.5, 12, '2024-07-25 16:00:00'),
+(4, 'Bavo Church', 17.5, 12, '2024-07-26 10:00:00'),
+(5, 'Bavo Church', 17.5, 12, '2024-07-26 13:00:00'),
+(6, 'Bavo Church', 17.5, 12, '2024-07-26 16:00:00'),
+(7, 'Bavo Church', 17.5, 12, '2024-07-27 10:00:00'),
+(8, 'Bavo Church', 17.5, 12, '2024-07-27 13:00:00'),
+(9, 'Bavo Church', 17.5, 12, '2024-07-27 16:00:00'),
+(10, 'Bavo Church', 17.5, 12, '2024-07-28 10:00:00'),
+(11, 'Bavo Church', 17.5, 12, '2024-07-28 13:00:00'),
+(12, 'Bavo Church', 17.5, 12, '2024-07-28 16:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `wysiwyg`
+--
+
+INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
+(1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\n<h1>Welcome dsdsdsdsdto this custom made page!</h1>\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\n<p>That is if you are logged in as an administrator!</p>\n<p>&nbsp;</p>\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\n</div>'),
+(2, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
+(3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Loremdsdsds ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
+(4, 'Yummie', '<div class=\"col-sm-12 col-md-4\">\r\n                    <img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n                    <h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n                    <p class=\"me-4\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet\r\n                        tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.\r\n                    </p>\r\n                    <div class=\"custom-link\">\r\n                        <a href=\"#\" class=\"buttons\">Read more ></a>\r\n                    </div>\r\n                </div>'),
+(7, 'sds', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
+(8, 'df', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>');
+
+--
+
+
 --
 -- Indexes for dumped tables
 --
@@ -423,6 +725,29 @@ ALTER TABLE `music_event`
 ALTER TABLE `song`
   ADD CONSTRAINT `FOREIGN` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+--
+
+-- Indexes for table `home`
+--
+ALTER TABLE `home`
+  ADD PRIMARY KEY (`home_id`);
+
+--
+-- Indexes for table `images`
+--
+ALTER TABLE `images`
+  ADD PRIMARY KEY (`img_id`);
+
+  ALTER TABLE `home`
+  MODIFY `home_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `images`
+--
+ALTER TABLE `images`
+  MODIFY `img_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
