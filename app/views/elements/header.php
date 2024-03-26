@@ -8,8 +8,14 @@
     <script src="https://kit.fontawesome.com/ab0aeb45dc.js" crossorigin="anonymous"></script>
     <?php if(isset($_SESSION['user'])) { 
         $user = unserialize($_SESSION['user']);
-        if($user->role == 'admin') { ?>
-        <link type="text/css" rel="stylesheet" href="styles/adminHeader.css">
+        if($user->role == 'admin') { 
+            $url = explode('/', $_SERVER['REQUEST_URI']);
+            if(isset($url[2])){ ?>
+                <link type="text/css" rel="stylesheet" href="../styles/adminHeader.css">
+
+            <?php } else { ?>
+                <link type="text/css" rel="stylesheet" href="./styles/adminHeader.css">
+            <?php } ?>
 
         <?php }} ?>
 </head>
@@ -25,13 +31,13 @@
             <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                <a class="nav-link" href="/yummy">Yummy</a>
+                    <a class="nav-link" href="/yummy">Yummy</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/music">Music</a>
+                    <a class="nav-link" href="/music">Music</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-link" href="/historic">History</a>
+                    <a class="nav-link" href="/historic">History</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="/contact">Info</a>
@@ -94,8 +100,8 @@
                         <a href="#" class="nav_link active"> 
                             <span class="nav_name">other</span> 
                         </a> 
-                        <a href="#" class="nav_link active"> 
-                            <span class="nav_name">other</span> 
+                        <a href="/admin/overviewOrders" class="nav_link active"> 
+                            <span class="nav_name">Orders</span> 
                         </a> 
                     </div>
                 </div> 
