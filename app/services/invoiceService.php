@@ -16,22 +16,27 @@ class InvoiceService{
         $this->invoiceRepository = new InvoiceRepository();
     }
 
-    public function getInvoice(){
-
+    public function getInvoice()
+    {
+        //get data after shopping cart is checked out
     }
 
-    public function calculateVat(){
-
+    public function calculateVat()
+    {
+        //horeca, culturele en recreatieve evenementen vallen allemaal onder het 9% btw-tarief
+        $vatPercentage = 0.09; 
+        
+        //$vat = $totalPrice * $vatPercentage;
     }
 
-    public function createInvoice(){
-        require_once 'dompdf/autoload.inc.php'; 
+    public function createInvoice()
+    {
+        require_once '../vendor/autoload.php'; 
        
         $dompdf = new Dompdf();
         $dompdf->setPaper('A4', 'portrait'); 
-        
-        //moet nog worden getest
-        $html->file_get_contents("..\..\views\invoice\invoice.html"); 
+
+        $html = file_get_contents("../views/invoice/invoice.html"); 
         $dompdf->loadHtml($html);
         
         $dompdf->render();
@@ -40,7 +45,8 @@ class InvoiceService{
         return $pdfAttachment;
     }
 
-    public function sendInvoice(){
+    public function sendInvoice($email)
+    {
         require '../vendor/autoload.php';
         
         $pdfAttachment = $this->createInvoice();
@@ -69,7 +75,7 @@ class InvoiceService{
             $mail->Subject = 'Invoice the Haarlem Festival';
             $mail->Body    = 'Your invoice is attached to this email.';
             $mail->AltBody = 'Your invoice is attached to this email.';
-            $mail->addAttachment($pdfAttachment, 'invoice.pdf');
+            $mail->addStringAttachment($pdfAttachment, 'invoice.pdf');
 
             $mail->send();
 
