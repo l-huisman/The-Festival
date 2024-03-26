@@ -12,6 +12,21 @@ CREATE DATABASE IF NOT EXISTS `developmentdb` DEFAULT CHARACTER SET utf8mb4 COLL
 USE `developmentdb`;
 
 
+DROP TABLE IF EXISTS `restaurant_reservations`;
+
+CREATE TABLE `restaurant_reservations` (
+  `ticket_id` int(11) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  `session_id` int(11) NOT NULL,
+  `comments` varchar(500) NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `restaurant_reservations`
+  ADD PRIMARY KEY (`ticket_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`),
+  ADD KEY `session_id` (`session_id`);
+
 
 DROP TABLE IF EXISTS `Restaurant`;
 
