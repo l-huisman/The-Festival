@@ -3,19 +3,24 @@
 namespace Services;
 
 use Repositories\ArtistRepository;
+use Repositories\EventRepository;
 use Repositories\SongRepository;
+
 use Models\Artist;
+use Models\Event;
 use Models\Song;
 
 class MusicService
 {
-    private $artistRepository;
     private $songRepository;
+    private $eventRepository;
+    private $artistRepository;
 
     public function __construct()
     {
-        $this->artistRepository = new ArtistRepository();
         $this->songRepository = new SongRepository();
+        $this->eventRepository = new EventRepository();
+        $this->artistRepository = new ArtistRepository();
     }
 
     public function getArtists()
@@ -91,5 +96,21 @@ class MusicService
     public function deleteSong($id)
     {
         $this->songRepository->deleteSong($id);
+    }
+
+    public function getEvents()
+    {
+        $data = $this->eventRepository->getEvents();
+        $events = [];
+        foreach ($data as $event) {
+            $events[] = new Event($event["id"], $event['availableTickets'], $event['eventDate'], $event['duration'], $event['price'], $event['artistId'], $event['venueId']);
+        }
+        return $events;
+    }
+
+    public function getEventById($id)
+    {
+        $data = $this->eventRepository->getEventById($id);
+        return new Event($data["id"], $data['availableTickets'], $data['eventDate'], $data['duration'], $data['price'], $data['artistId'], $data['venueId']);
     }
 }

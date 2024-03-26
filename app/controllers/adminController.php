@@ -6,9 +6,6 @@ use Services\AdminService;
 use Services\MusicService;
 use Services\VenueService;
 
-use Models\Artist;
-use Models\Venue;
-
 class AdminController
 {
     private $adminService;
@@ -60,8 +57,9 @@ class AdminController
                 require_once __DIR__ . '/../views/admin/artist.php';
                 break;
             case 2:
-                // TODO: Implement getEvents() method in MusicService
-                // $table_data = $this->musicService->getEvents();
+                $events = $this->musicService->getEvents();
+                $venues = $this->venueService->getVenues();
+                $artists = $this->musicService->getArtists();
                 require_once __DIR__ . '/../views/admin/event.php';
                 break;
             case 3:
@@ -131,11 +129,21 @@ class AdminController
             $artist_banner = "/img/artists/" . $this->transformName($artist_name) . "/banner.jpg";
             $artist_pictogram = "/img/artists/" . $this->transformName($artist_name) . "/pictogram.jpg";
 
+            // Get the files from the form
+            if (isset($_FILES['pictogram'])) {
+                echo "pictogram set";
+                $artist_pictogram_file = $_FILES['pictogram'];
+            }
+            if (isset($_FILES['banner'])) {
+                echo "banner set";
+                $artist_banner_file = $_FILES['banner'];
+            }
+
             // Get the current data of the artist
             $artist = $this->musicService->getArtistById($artist_id);
 
             // If the artist name has changed, update the artist's folder name
-            if ($this->transformName($artist->getName()) != $this->transformName($artist_name)) {
+            if ($artist->getBanner() != null && $artist->getPictogram() && $this->transformName($artist->getName()) != $this->transformName($artist_name)) {
                 $old_folder = __DIR__ . "/../public/img/artists/" . $this->transformName($artist->getName());
                 $new_folder = __DIR__ . "/../public/img/artists/" . $this->transformName($artist_name);
                 rename($old_folder, $new_folder);
@@ -143,25 +151,38 @@ class AdminController
 
             // Update the artist's data
             $this->musicService->updateArtist($artist_id, $artist_name, $artist_description, $artist_banner, $artist_pictogram);
+            if (isset($_FILES['pictogram'])) {
+                $this->saveImage($artist_pictogram_file, __DIR__ . "/../public" . $artist_pictogram);
+            }
+            if (isset($_FILES['banner'])) {
+                $this->saveImage($artist_banner_file, __DIR__ . "/../public" . $artist_banner);
+            }
         } catch (\Exception $e) {
         }
         header('Location:/admin/music?id=1');
     }
 
-    public function transformName($name)
-    {
-        return str_replace(' ', '', strtolower($name));
-    }
-
     public function deleteArtist()
     {
-        print_r($_POST);
         try {
             $artist_id = htmlspecialchars($_POST['id']);
             $this->musicService->deleteArtist($artist_id);
         } catch (\Exception $e) {
         }
         header('Location:/admin/music?id=1');
+    }
+
+    public function saveImage($file, $target_file)
+    {
+        try {
+            move_uploaded_file($file["tmp_name"], $target_file);
+        } catch (\Exception $e) {
+        }
+    }
+
+    public function transformName($name)
+    {
+        return str_replace(' ', '', strtolower($name));
     }
 
     public function createVenue()

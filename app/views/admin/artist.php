@@ -1,4 +1,7 @@
 <?php
+
+use Services\ImageService;
+
 require_once __DIR__ . '/../elements/header.php';
 ?>
 
@@ -42,22 +45,16 @@ require_once __DIR__ . '/../elements/header.php';
                             <textarea id="description" name="description"><?php echo $artist->getDescription(); ?></textarea>
                         </td>
                         <td>
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <label for="banner">
-                                    <img src="<?php echo $artist->getBanner(); ?>" alt="Banner" style="width: 100px; height: 100px;">
-                                </label>
-                                <input type="file" id="banner" name="banner" style="display: none;">
-                                <input type="submit" value="Upload Image" name="submit">
-                            </form>
+                            <label for="banner">
+                                <input type="file" id="banner" name="banner" style="display: none;" onchange="form.submit()">
+                                <img class="w-100" src="<?php echo $artist->getBanner(); ?>" alt="Banner" style="height: 100px;">
+                            </label>
                         </td>
                         <td>
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                                <label for="pictogram">
-                                    <img src="<?php echo $artist->getPictogram(); ?>" alt="Pictogram" style="width: 100px; height: 100px;">
-                                </label>
-                                <input type="file" id="pictogram" name="pictogram" style="display: none;">
-                                <input type="submit" value="Upload Image" name="submit">
-                            </form>
+                            <label for="pictogram">
+                                <input type="file" id="pictogram" name="pictogram" style="display: none;" onchange="form.submit()">
+                                <img src="<?php echo $artist->getPictogram(); ?>" alt="Pictogram" style="width: 100px; height: 100px;">
+                            </label>
                         </td>
                         <td>
                             <input type="hidden" name="id" value="<?php echo $artist->getId(); ?>">
