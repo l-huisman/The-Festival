@@ -2,11 +2,11 @@
 
 namespace Repositories;
 
-class EventRepositorye extends Repository
+class EventRepository extends Repository
 {
     public function getEvents()
     {
-        $sql = "SELECT * FROM event";
+        $sql = "SELECT * FROM music_event";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -14,7 +14,7 @@ class EventRepositorye extends Repository
 
     public function getEventById($id)
     {
-        $sql = "SELECT * FROM event WHERE id = :id";
+        $sql = "SELECT * FROM music_event WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -23,10 +23,10 @@ class EventRepositorye extends Repository
 
     public function createEvent($availableTickets, $eventDate, $duration, $price, $venueId, $artistIds)
     {
-        $sql = "INSERT INTO event (availableTickets, eventDate, duration, price, venueId) VALUES(:available_tickets, :event_date, :duration, :price, :venue_id)";
+        $sql = "INSERT INTO music_event (availableTickets, eventDate, duration, price, venueId) VALUES(:available_tickets, :time, :duration, :price, :venue_id)";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':available_tickets', $availableTickets);
-        $stmt->bindParam(':event_date', $eventDate);
+        $stmt->bindParam(':time', $eventDate);
         $stmt->bindParam(':duration', $duration);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':venue_id', $venueId);

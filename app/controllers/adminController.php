@@ -217,4 +217,19 @@ class AdminController
         }
         header('Location:/admin/music?id=3');
     }
+
+    public function createEvent()
+    {
+        try {
+            $available_tickets = htmlspecialchars($_POST['availableTickets']);
+            $event_date = htmlspecialchars($_POST['eventDateTime']);
+            $duration = htmlspecialchars($_POST['duration']);
+            $price = htmlspecialchars($_POST['price']);
+            $artist_ids = $_POST['artistId'];
+            $venue_id = htmlspecialchars($_POST['venueId']);
+            $this->musicService->createEvent($available_tickets, $event_date, $duration, $price, $artist_ids, $venue_id);
+        } catch (\Exception $e) {
+        }
+        header('Location:/admin/music?id=2');
+    }
 }
