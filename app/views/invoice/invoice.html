@@ -1,0 +1,51 @@
+<html>
+<h1>Your invoice for the Haarlem Festival</h1>
+
+    <p>Invoice number: {order number?}</p>
+    <p>Date: {date of today/order date}</p>
+    <br>
+    <p>Name: {user name}</p>
+    <p>Phone number: {user number}</p>
+    <p>Address: {user address}</p>
+    <p>Emailaddress: {user email}</p>
+    <br>
+
+    <table>
+        <tr>
+            <th>Event</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        <!-- foreach -->
+        <tr>
+            <td>{event}</td>
+            <td>{amount}</td>
+            <td>{price}</td>
+            <td>{total}</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{total - vat}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{vat}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{total + vat}</td>
+        </tr>
+    </table>
+
+    <p>Payment done on {date}</p>
+
+
+</html>
