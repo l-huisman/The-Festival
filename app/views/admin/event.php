@@ -46,7 +46,7 @@ require_once __DIR__ . '/../elements/header.php';
                         <td>
                             <input type="hidden" name="id" value="<?= $event->getId(); ?>">
                             <button type="submit" class="btn btn-primary">Edit</button>
-                            <a href="/admin/deleteEvent?id=<?= $event->getId(); ?>" class="btn btn-danger">Delete</a>
+                            <button type="submit" class="btn btn-danger" formaction="/admin/deleteEvent">Delete</button>
                         </td>
                     </form>
                 </tr>

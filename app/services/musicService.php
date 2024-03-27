@@ -137,4 +137,9 @@ class MusicService
     {
         $this->eventRepository->updateEvent($id, $availableTickets, $eventDate, $duration, $price, $venueId, $artistIds);
     }
+
+    public function deleteEvent($id)
+    {
+        $this->eventRepository->deleteEvent($id);
+    }
 }

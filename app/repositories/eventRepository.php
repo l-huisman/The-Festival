@@ -59,6 +59,19 @@ class EventRepository extends Repository
         $this->updateArtistEvent($id, $artistIds);
     }
 
+    public function deleteEvent($id)
+    {
+        $sql = "DELETE FROM artist_event WHERE event_id = :id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        $sql = "DELETE FROM music_event WHERE id = :id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
     private function updateArtistEvent($event_id, $artist_ids){
         $current_artists = $this->getArtistsByEventId($event_id);
         $current_artist_ids = array_map(function ($artist) { return $artist['id']; }, $current_artists);

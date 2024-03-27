@@ -245,6 +245,17 @@ class AdminController
         header('Location:/admin/music?id=2');
     }
 
+    public function deleteEvent()
+    {
+        try {
+            $event_id = htmlspecialchars($_POST['id']);
+            $this->musicService->deleteEvent($event_id);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        header('Location:/admin/music?id=2');
+    }
+
     public function overviewOrders(){
         $orders = $this->adminService->getAllOrders();
         require_once __DIR__ . '/../views/admin/overviewOrders.php';
