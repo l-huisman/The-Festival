@@ -8,6 +8,7 @@ use Repositories\EventRepository;
 use Repositories\SongRepository;
 
 use Models\Artist;
+use Models\Venue;
 use Models\Event;
 use Models\Song;
 
@@ -106,9 +107,12 @@ class MusicService
         $data = $this->eventRepository->getEvents();
         $events = [];
         foreach ($data as $event) {
-            $venue = $this->venueRepository->getVenueById($event["venue_id"]);
-            $events[] = new Event($event["id"], $event['available_tickets'], $event['time'], $event['duration'], $event['price'], $venue);
-            $artists = $this->eventRepository->getArtistsByEventId($event["id"]);
+            $eventID = $event["id"];
+            $venueID = $event["venue_id"];
+            $venue = $this->venueRepository->getVenueById($venueID);
+            $venue = new Venue($venue["id"], $venue['name'], $venue['address']);
+            $events[] = new Event($eventID, $event['available_tickets'], $event['time'], $event['duration'], $event['price'], $venue);
+            $artists = $this->eventRepository->getArtistsByEventId($eventID);
             foreach ($artists as $artist) {
                 $events[count($events) - 1]->addArtist(new Artist($artist["id"], $artist['name']));
             }

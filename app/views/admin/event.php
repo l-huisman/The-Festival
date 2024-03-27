@@ -27,19 +27,22 @@ require_once __DIR__ . '/../elements/header.php';
                         <td><input type="number" name="price" value="<?= $event->getPrice(); ?>"></td>
                         <td>
                             <select name="artistId[]" size="3" multiple>
-                                <?php 
-                                    $artistIds = $event->getArtists() ? array_map(function($artist) { return $artist->getId(); }, $event->getArtists()) : [];
-                                    foreach ($artists as $artist) { ?>
-                                        <option value="<?php echo $artist->getId(); ?>" <?php if (in_array($artist->getId(), $artistIds)) echo 'selected'; ?>><?php echo $artist->getName(); ?></option>
+                                <?php
+                                $artistIds = $event->getArtists() ? array_map(function ($artist) {
+                                    return $artist->getId();
+                                }, $event->getArtists()) : [];
+                                foreach ($artists as $artist) { ?>
+                                    <option value="<?php echo $artist->getId(); ?>" <?php if (in_array($artist->getId(), $artistIds)) echo 'selected'; ?>><?php echo $artist->getName(); ?></option>
                                 <?php } ?>
                             </select>
                         </td>
                         <td>
                             <select name="venueId">
                                 <?php foreach ($venues as $venue) { ?>
-                                    <option value="<?= $venue->getId(); ?>" <?php if ($venue->getId() == $event->getVenueId()) echo 'selected'; ?>><?= $venue->getName(); ?></option>
+                                    <option value="<?= $venue->getId(); ?>" <?php if ($venue->getId() == $event->getVenue()->getId()) echo 'selected'; ?>><?= $venue->getName(); ?></option>
                                 <?php } ?>
                             </select>
+                        </td>
                         <td>
                             <input type="hidden" name="id" value="<?= $event->getId(); ?>">
                             <button type="submit" class="btn btn-primary">Edit</button>
