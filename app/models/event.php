@@ -9,17 +9,17 @@ class Event
     private $eventDate;
     private $duration;
     private $price;
-    private $venueId;
+    private $venue;
     private $artistIds;
 
-    public function __construct($id, $availableTickets, $eventDate, $duration, $price, $venueId)
+    public function __construct($id, $availableTickets, $eventDate, $duration, $price, $venue)
     {
         $this->id = $id;
         $this->availableTickets = $availableTickets;
         $this->eventDate = $eventDate;
         $this->duration = $duration;
         $this->price = $price;
-        $this->venueId = $venueId;
+        $this->venue = $venue;
     }
 
     public function getId()
@@ -47,9 +47,9 @@ class Event
         return $this->price;
     }
 
-    public function getVenueId()
+    public function getVenue()
     {
-        return $this->venueId;
+        return $this->venue;
     }
 
     public function getArtists()
