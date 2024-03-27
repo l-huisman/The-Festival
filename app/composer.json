@@ -13,9 +13,8 @@
         "bramus/router": "~1.6",
         "firebase/php-jwt": "^6.0",
         "endroid/qr-code-bundle": "^5.0",
-        "phpmailer/phpmailer": "^6.9",
         "stripe/stripe-php": "^13.13",
-        "endroid/qr-code": "^5.0"
+        "phpmailer/phpmailer": "^6.9"
     },
     "config": {
         "allow-plugins": {

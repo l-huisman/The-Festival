@@ -3,19 +3,28 @@
 namespace Services;
 
 use Repositories\ArtistRepository;
+use Repositories\VenueRepository;
+use Repositories\EventRepository;
 use Repositories\SongRepository;
+
 use Models\Artist;
+use Models\Venue;
+use Models\Event;
 use Models\Song;
 
 class MusicService
 {
-    private $artistRepository;
     private $songRepository;
+    private $eventRepository;
+    private $venueRepository;
+    private $artistRepository;
 
     public function __construct()
     {
-        $this->artistRepository = new ArtistRepository();
         $this->songRepository = new SongRepository();
+        $this->eventRepository = new EventRepository();
+        $this->venueRepository = new VenueRepository();
+        $this->artistRepository = new ArtistRepository();
     }
 
     public function getArtists()
@@ -91,5 +100,46 @@ class MusicService
     public function deleteSong($id)
     {
         $this->songRepository->deleteSong($id);
+    }
+
+    public function getEvents()
+    {
+        $data = $this->eventRepository->getEvents();
+        $events = [];
+        foreach ($data as $event) {
+            $eventID = $event["id"];
+            $venueID = $event["venue_id"];
+            $venue = $this->venueRepository->getVenueById($venueID);
+            $venue = new Venue($venue["id"], $venue['name'], $venue['address']);
+            $events[] = new Event($eventID, $event['available_tickets'], $event['time'], $event['duration'], $event['price'], $venue);
+            $artists = $this->eventRepository->getArtistsByEventId($eventID);
+            foreach ($artists as $artist) {
+                $events[count($events) - 1]->addArtist(new Artist($artist["id"], $artist['name']));
+            }
+        }
+
+        return $events;
+    }
+
+    public function getEventById($id)
+    {
+        $data = $this->eventRepository->getEventById($id);
+        $venue = $this->venueRepository->getVenueById($data["venue_id"]);
+        return new Event($data["id"], $data['availableTickets'], $data['eventDate'], $data['duration'], $data['price'], $venue);
+    }
+
+    public function createEvent($availableTickets, $eventDate, $duration, $price, $artistIds, $venueId)
+    {
+        $this->eventRepository->createEvent($availableTickets, $eventDate, $duration, $price, $venueId, $artistIds);
+    }
+
+    public function updateEvent($id, $availableTickets, $eventDate, $duration, $price, $artistIds, $venueId)
+    {
+        $this->eventRepository->updateEvent($id, $availableTickets, $eventDate, $duration, $price, $venueId, $artistIds);
+    }
+
+    public function deleteEvent($id)
+    {
+        $this->eventRepository->deleteEvent($id);
     }
 }

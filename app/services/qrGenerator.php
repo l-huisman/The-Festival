@@ -25,10 +25,10 @@ class QRCodeGenerator
             ->size(300)
             ->margin(10)
             ->roundBlockSizeMode(RoundBlockSizeMode::Margin)
-            ->logoPath(__DIR__ . '/assets/symfony.png')
+            ->logoPath(__DIR__ . '/assets/symfony.png') //TODO: replace with your logo
             ->logoResizeToWidth(50)
             ->logoPunchoutBackground(true)
-            ->labelText('This is the label')
+            ->labelText('This is the label') //TODO: replace with your label
             ->labelFont(new NotoSans(20))
             ->labelAlignment(LabelAlignment::Center)
             ->validateResult(false)
