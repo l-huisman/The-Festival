@@ -1,9 +1,10 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'c3f2bf7f498c4834a1ae2a9d0b378c963c125c2b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
