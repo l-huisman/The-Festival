@@ -108,7 +108,12 @@ class MusicService
         foreach ($data as $event) {
             $venue = $this->venueRepository->getVenueById($event["venue_id"]);
             $events[] = new Event($event["id"], $event['available_tickets'], $event['time'], $event['duration'], $event['price'], $venue);
+            $artists = $this->eventRepository->getArtistsByEventId($event["id"]);
+            foreach ($artists as $artist) {
+                $events[count($events) - 1]->addArtist(new Artist($artist["id"], $artist['name']));
+            }
         }
+
         return $events;
     }
 
@@ -122,5 +127,10 @@ class MusicService
     public function createEvent($availableTickets, $eventDate, $duration, $price, $artistIds, $venueId)
     {
         $this->eventRepository->createEvent($availableTickets, $eventDate, $duration, $price, $venueId, $artistIds);
+    }
+
+    public function updateEvent($id, $availableTickets, $eventDate, $duration, $price, $artistIds, $venueId)
+    {
+        $this->eventRepository->updateEvent($id, $availableTickets, $eventDate, $duration, $price, $venueId, $artistIds);
     }
 }

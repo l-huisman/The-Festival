@@ -52,13 +52,18 @@ class Event
         return $this->venueId;
     }
 
-    public function getArtistIds()
+    public function getArtists()
     {
         return $this->artistIds;
     }
 
-    public function setArtistIds($artistIds)
+    public function setArtists($artistIds)
     {
         $this->artistIds = $artistIds;
+    }
+
+    public function addArtist($artistId)
+    {
+        $this->artistIds[] = $artistId;
     }
 }

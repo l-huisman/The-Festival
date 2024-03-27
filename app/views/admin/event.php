@@ -4,7 +4,7 @@ require_once __DIR__ . '/../elements/header.php';
 
 <div class="container mt-2">
     <h2>Events</h2>
-    <p>Press on the fields to change the values within and press edit to update the fields</p>
+    <p>Press on the fields to change the values within and press edit to update the fields, make sure to hold ctrl for windows when selecting an artist and command for mac</p>
     <table class="table">
         <thead>
             <tr>
@@ -21,26 +21,29 @@ require_once __DIR__ . '/../elements/header.php';
             <?php foreach ($events as $event) { ?>
                 <tr>
                     <form action="/admin/updateEvent" method="post">
-                        <td><input type="number" name="availableTickets" value="<?php echo $event->getAvailableTickets(); ?>"></td>
-                        <td><input type="datetime-local" name="eventDate" value="<?php echo $event->getEventDate(); ?>"></td>
-                        <td><input type="number" name="duration" value="<?php echo $event->getDuration(); ?>"></td>
-                        <td><input type="number" name="price" value="<?php echo $event->getPrice(); ?>"></td>
+                        <td><input type="number" name="availableTickets" value="<?= $event->getAvailableTickets(); ?>"></td>
+                        <td><input type="datetime-local" name="eventDate" value="<?= $event->getEventDate(); ?>"></td>
+                        <td><input type="number" name="duration" value="<?= $event->getDuration(); ?>"></td>
+                        <td><input type="number" name="price" value="<?= $event->getPrice(); ?>"></td>
                         <td>
-                            <select name="artistId[]" size="" multiple>
-                                <?php foreach ($artists as $artist) { ?>
-                                    <option value="<?php echo $artist->getId(); ?>" <?php echo in_array($artist->getId(), $event->getArtistIds()) ? 'selected' : ''; ?>><?php echo $artist->getName(); ?></option>
+                            <select name="artistId[]" size="3" multiple>
+                                <?php 
+                                    $artistIds = $event->getArtists() ? array_map(function($artist) { return $artist->getId(); }, $event->getArtists()) : [];
+                                    foreach ($artists as $artist) { ?>
+                                        <option value="<?php echo $artist->getId(); ?>" <?php if (in_array($artist->getId(), $artistIds)) echo 'selected'; ?>><?php echo $artist->getName(); ?></option>
                                 <?php } ?>
                             </select>
                         </td>
                         <td>
                             <select name="venueId">
-
+                                <?php foreach ($venues as $venue) { ?>
+                                    <option value="<?= $venue->getId(); ?>" <?php if ($venue->getId() == $event->getVenueId()) echo 'selected'; ?>><?= $venue->getName(); ?></option>
+                                <?php } ?>
                             </select>
-                        </td>
                         <td>
-                            <input type="hidden" name="id" value="<?php echo $event->getId(); ?>">
+                            <input type="hidden" name="id" value="<?= $event->getId(); ?>">
                             <button type="submit" class="btn btn-primary">Edit</button>
-                            <a href="/admin/deleteEvent?id=<?php echo $event->getId(); ?>" class="btn btn-danger">Delete</a>
+                            <a href="/admin/deleteEvent?id=<?= $event->getId(); ?>" class="btn btn-danger">Delete</a>
                         </td>
                     </form>
                 </tr>
@@ -52,16 +55,16 @@ require_once __DIR__ . '/../elements/header.php';
                     <td><input type="number" name="duration" min="0"></td>
                     <td><input type="number" name="price" min="0"></td>
                     <td>
-                        <select name="artistId[]" size="" multiple>
+                        <select name="artistId[]" size="3" multiple>
                             <?php foreach ($artists as $artist) { ?>
-                                <option value="<?php echo $artist->getId(); ?>"><?php echo $artist->getName(); ?></option>
+                                <option value="<?= $artist->getId(); ?>"><?= $artist->getName(); ?></option>
                             <?php } ?>
                         </select>
                     </td>
                     <td>
                         <select name="venueId">
                             <?php foreach ($venues as $venue) { ?>
-                                <option value="<?php echo $venue->getId(); ?>"><?php echo $venue->getName(); ?></option>
+                                <option value="<?= $venue->getId(); ?>"><?= $venue->getName(); ?></option>
                             <?php } ?>
                         </select>
                     </td>

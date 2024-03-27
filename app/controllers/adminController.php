@@ -232,4 +232,21 @@ class AdminController
         }
         header('Location:/admin/music?id=2');
     }
+
+    public function updateEvent()
+    {
+        try{
+            $id = htmlspecialchars($_POST['id']);
+            $available_tickets = htmlspecialchars($_POST['availableTickets']);
+            $event_date = htmlspecialchars($_POST['eventDate']);
+            $duration = htmlspecialchars($_POST['duration']);
+            $price = htmlspecialchars($_POST['price']);
+            $artist_ids = $_POST['artistId'];
+            $venue_id = htmlspecialchars($_POST['venueId']);
+            $this->musicService->updateEvent($id, $available_tickets, $event_date, $duration, $price, $artist_ids, $venue_id);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        header('Location:/admin/music?id=2');
+    }
 }
