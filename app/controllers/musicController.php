@@ -16,6 +16,8 @@ class MusicController
     public function index()
     {
         $artists = $this->service->getArtists();
+        $events = $this->service->getEvents();
+
         require_once __DIR__ . '/../views/music/music.php';
     }
 
@@ -23,5 +25,10 @@ class MusicController
     {
         $artist = $this->service->getArtistByID($artist_id);
         require_once __DIR__ . '/../views/music/artist.php';
+    }
+
+    public function event($event_id)
+    {
+        //TODO: Implement this method to buy a ticket for an event
     }
 }
