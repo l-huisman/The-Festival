@@ -22,7 +22,7 @@ class TourService
        
        foreach ($data as $tour) {
            
-            $tours[] = new Tour($tour["tour_id"], $tour['start_location'], $tour['price'], $tour['seats'], $tour['time'], $tour['name'], $tour['language']); 
+            $tours[] = new Tour($tour["tour_id"], $tour['start_location'], $tour['price'], $tour['seats'], $tour['time'], $tour['name'], $tour['language'], $tour['guide_id']); 
             
         }
         
@@ -45,9 +45,43 @@ class TourService
     public function getTourByGuideNameAndTime($name, $time)
     {
         $data = $this->repository->getTourbyGuideNameAndTime($name, $time);
-        $tour = new Tour($data["tour_id"], $data['start_location'], $data['price'], $data['seats'], $data['time'], $data['name'], $data['language']);
+        $tour = new Tour($data["tour_id"], $data['start_location'], $data['price'], $data['seats'], $data['time'], $data['name'], $data['language'], $data['guide_id']);
         return $tour;
     }
+
+    public function addTour($start_location, $price, $seats, $time, $guidename, $language)
+    {
+        
+        return $this->repository->addTour($start_location, $price, $seats, $time, $guidename, $language);
+    }
+
+    public function getTourbyId($tour_id)
+    {
+        $data = $this->repository->getTourById($tour_id);
+      
+        $tour = new Tour($data["tour_id"], $data['start_location'], $data['price'], $data['seats'], $data['time'], $data['name'], $data['language'], $data['guide_id']);
+        return $tour;
+    }
+
+    public function updateTour($tour_id, $guide_id, $start_location, $price, $seats, $time, $name, $language)
+    {
+        return $this->repository->updateTour($tour_id, $guide_id, $start_location, $price, $seats, $time, $name, $language);
+    }
+
+    public function deleteTour($tour_id)
+    {
+        return $this->repository->deleteTour($tour_id);
+    }
+
+    public function decreaseSeats($tour_id)
+    {
+        return $this->repository->decreaseSeats($tour_id);
+    }
+
+    
+    
+
+
 
  
     

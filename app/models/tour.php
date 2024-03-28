@@ -17,10 +17,12 @@ class Tour
 
     private $language;
 
+    private $guide_id;
 
 
 
-    public function __construct($tour_id, $start_location, $price, $seats, $time, $name, $language)
+
+    public function __construct($tour_id, $start_location, $price, $seats, $time, $name, $language, $guide_id)
     {
         $this->tour_id = $tour_id;
         $this->start_location = $start_location;
@@ -29,6 +31,7 @@ class Tour
         $this->time = $time;
         $this->name = $name;
         $this->language = $language;
+        $this->guide_id = $guide_id;
     }
 
     
@@ -61,6 +64,11 @@ class Tour
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    public function getGuideId()
+    {
+        return $this->guide_id;
     }
 
 

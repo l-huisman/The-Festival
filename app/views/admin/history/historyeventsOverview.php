@@ -12,14 +12,7 @@ require_once __DIR__ . '/../../elements/header.php';
                             <h2>Historyevents <b>overview</b></h2>
                         </div>
                         <div class="col-sm-4">
-                        <form method = "POST" action = "">
-                
-                <div class="mb-3">
-                    <label for="nameInput" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="nameInput" name="name">
-                </div>
-                <button type="createpage" class="btn btn-primary" id = "btnCreatePage">Create Page</button>
-            </form>
+                <a href="/historic/addHistoricevent" class="btn btn-primary" id = "btnCreatePage">Add historyevent</a href>
                     </div>
                 </div>
                 <table class="table table-bordered">
@@ -61,8 +54,6 @@ require_once __DIR__ . '/../../elements/header.php';
             </div>
         </div>
     </div>
-
-
 </body>
 <script>
     function confirmDelete(pageName) {

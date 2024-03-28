@@ -26,7 +26,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
         <div class="d-flex">
 
         </div>
-        <form action="/historic/test" method="POST">
+        <form action="/historic/makeTourTicket" method="POST">
 
       
         <div class="form-group me-3">
