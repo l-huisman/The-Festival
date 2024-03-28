@@ -10,6 +10,7 @@ class ShoppingcartController {
     }
 
     public function index(){
+        // unset($_SESSION['Tickets']);
         if (!isset($_SESSION['Tickets']) || !is_array($_SESSION['Tickets'])) {
             $_SESSION['Tickets'] = [];   
         }

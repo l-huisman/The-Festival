@@ -10,6 +10,9 @@ require_once __DIR__ . '/../../views/elements/header.php';
                 $totalPrice = 0;
                 foreach($_SESSION['Tickets'] as $index => $Serialized_ticket) { 
                     $Ticket = unserialize($Serialized_ticket); 
+                    if (!is_object($Ticket)) {
+                        $Ticket = unserialize($Ticket);
+                    }
                     $inputName = "quantity".$index;
                     $itemPrice = $Ticket->price * $Ticket->quantity;
                     $totalPrice += $itemPrice;
