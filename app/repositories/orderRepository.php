@@ -16,6 +16,9 @@ class OrderRepository extends Repository{
 
     public function createOrderItems($orderID, $Tickets){
         foreach($Tickets as $Ticket){
+            if(!is_object($Ticket)){
+                $Ticket = unserialize($Ticket);
+            }
             $sql = "INSERT INTO orderItems (orderID, ticketID, quantity, price) VALUES(:orderID, :ticketID, :quantity, :price)";
             $stmt = $this->connection->prepare($sql);
             $stmt->bindParam(':orderID', $orderID);
