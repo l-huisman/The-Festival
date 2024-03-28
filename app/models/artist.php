@@ -11,7 +11,7 @@ class Artist
     private $pictogram;
     private $songs;
 
-    public function __construct($id, $name, $description, $banner, $pictogram, $songs = [])
+    public function __construct($id, $name, $description = "", $banner = "", $pictogram = "", $songs = [])
     {
         $this->id = $id;
         $this->name = $name;
