@@ -409,15 +409,6 @@ INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
 (7, 'sds', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
 (8, 'df', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>');
 
-
-INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
-(1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\n<h1>Welcome dsdsdsdsdto this custom made page!</h1>\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\n<p>That is if you are logged in as an administrator!</p>\n<p>&nbsp;</p>\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\n</div>'),
-(2, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
-(3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Loremdsdsds ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
-(4, 'Yummie', '<div class=\"col-sm-12 col-md-4\">\r\n                    <img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n                    <h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n                    <p class=\"me-4\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet\r\n                        tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.\r\n                    </p>\r\n                    <div class=\"custom-link\">\r\n                        <a href=\"#\" class=\"buttons\">Read more ></a>\r\n                    </div>\r\n                </div>'),
-(7, 'sds', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
-(8, 'df', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>');
-
 --
 -- Indexes for dumped tables
 --
