@@ -106,9 +106,17 @@
                                     <span class="nav_name">Venue</span>
                                 </a>
                             </div>
-                            <a href="#" class="nav_link active">
-                                <span class="nav_name">other</span>
-                            </a>
+                            <div onclick=toggleDropdown() class="nav_link active" style="cursor:pointer">
+                                <span class="nav_name">Yummy</span>
+                            </div>
+                            <div class="container" id="dropdown-yummy">
+                                <a href="/yummy/restaurantOverview" class="nav_link active">
+                                    <span class="nav_name">Restaurant</span>
+                                </a>
+                                <a href="/yummy/sessionOverview" class="nav_link active">
+                                    <span class="nav_name">Session</span>
+                                </a>
+                            </div>
                             <a href="#" class="nav_link active">
                                 <span class="nav_name">other</span>
                             </a>
@@ -137,6 +145,17 @@
             dropdown.style.display = 'block';
         } else {
             dropdown.style.display = 'none';
+        }
+    }
+
+    var yummyDropdown = document.getElementById('dropdown-yummy');
+    yummyDropdown.style.display = 'none';
+
+    function toggleDropdown() {
+        if (yummyDropdown.style.display === 'none') {
+            yummyDropdown.style.display = 'block';
+        } else {
+            yummyDropdown.style.display = 'none';
         }
     }
 </script>

@@ -14,7 +14,8 @@
         "firebase/php-jwt": "^6.0",
         "endroid/qr-code-bundle": "^5.0",
         "stripe/stripe-php": "^13.13",
-        "phpmailer/phpmailer": "^6.9"
+        "endroid/qr-code": "^5.0",
+        "dompdf/dompdf": "^2.0"
     },
     "config": {
         "allow-plugins": {

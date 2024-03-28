@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 50px;
+            }
+            h1{
+                text-align: center;
+            }
+            table {
+                width: 100%;
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+            }
+            .total_bold{
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <h1>Your invoice for the Haarlem Festival</h1>
+        <br>
+        <p>Invoice number: {order number?}</p>
+        <p>Date: {date of today/order date}</p>
+        <br>
+        <p>Name: {user name}</p>
+        <p>Phone number: {user number}</p>
+        <p>Address: {user address}</p>
+        <p>Email: {user email}</p>
+        <br>
+
+        <table>
+            <tr>
+                <th>Event</th>
+                <th>Amount</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            
+            <!-- foreach -->
+            <tr>
+                <td>een evenement op het haarlem festival dat niet bestaat</td>
+                <td>3x</td>
+                <td>€10</td>
+                <td>€30</td>
+            </tr>
+
+            <tr>
+                <td>Total (without VAT):</td>
+                <td></td>
+                <td></td>
+                <td class="total_bold">€27,30</td>
+            </tr>
+            <tr>
+                <td>VAT:</td>
+                <td></td>
+                <td></td>
+                <td class="total_bold">€2,70</td>
+            </tr>
+            <tr>
+                <td>Total:</td>
+                <td></td>
+                <td></td>
+                <td class="total_bold">€30</td>
+            </tr>
+        </table>
+
+        <br>
+        <small>Payment completed on: {date}</small>
+
+    </body>
+</html>
