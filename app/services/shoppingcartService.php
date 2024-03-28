@@ -107,12 +107,16 @@ class ShoppingcartService{
         else if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
-
-                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
+                $TicketID = $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
+                $Unserialized_Ticket->ticketID = $TicketID;
+                $Serialized_Ticket = serialize($Unserialized_Ticket);
+                $_SESSION['Tickets'][$index] = serialize($Serialized_Ticket);
             }
         }
         else if(isset($dbtickets)){
             $_SESSION['Tickets'] = $dbtickets;
+            print_r('test2');
+            die();
         }
     }
 
@@ -130,15 +134,23 @@ class ShoppingcartService{
         $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
         foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
             $Unserialized_Ticket = unserialize($Serialized_Ticket);
+            if ($this->is_serialized($Unserialized_Ticket)) {
+                $Unserialized_Ticket = unserialize($Unserialized_Ticket);
+            }
+            
             $found = false;
             foreach($dbtickets as $dbTicket){
+                
                 if($Unserialized_Ticket->ticketID == $dbTicket->ticketID){
                     $Unserialized_Ticket->quantity = $dbTicket->quantity;
                     $found = true;
                 }
             }
             if(!$found){
-                $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
+                $TicketID = $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
+                $Unserialized_Ticket->ticketID = $TicketID;
+                $Serialized_Ticket = serialize($Unserialized_Ticket);
+                $_SESSION['Tickets'][$index] = serialize($Serialized_Ticket);
             }
         }
 
@@ -147,6 +159,9 @@ class ShoppingcartService{
             $found = false;
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
+                if ($this->is_serialized($Unserialized_Ticket)) {
+                    $Unserialized_Ticket = unserialize($Unserialized_Ticket);
+                }
                 if($Unserialized_Ticket->ticketID == $dbTicket->ticketID){
                     $Unserialized_Ticket->quantity = $dbTicket->quantity;
                     $found = true;
@@ -187,6 +202,13 @@ class ShoppingcartService{
         else {
             return null;
         }
+    }
+
+    private function is_serialized($object){
+        if(is_object($object)){
+            return false;
+        }
+        return true;
     }
 
     public function processOrder($user){
