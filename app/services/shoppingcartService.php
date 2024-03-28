@@ -185,13 +185,16 @@ class ShoppingcartService{
 
     public function getTicketsByDateAndUser($date){
         $tickets = array();
+        $tickets = array();
         if(isset($_SESSION['user'])){
+            
             
             $user = unserialize($_SESSION['user']);
             $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
             $tickets = $this->ticketRepository->getTicketsByDateAndUser($date, $user->user_id, $shoppingcartID);
             return $tickets;
         }else if(isset($_SESSION['Tickets'])){
+            
             
             $tickets = array();
             foreach($_SESSION['Tickets'] as $index => $Serialized_ticket){
@@ -203,6 +206,12 @@ class ShoppingcartService{
                     $tickets[] = $Ticket;
                 }
             }
+
+            //sort tickets by time
+            usort($tickets, function($a, $b){
+                return strtotime($a->datetime) - strtotime($b->datetime);
+            });
+            
 
             //sort tickets by time
             usort($tickets, function($a, $b){
@@ -252,10 +261,12 @@ class ShoppingcartService{
         $order = $this->orderRepository->getOrderByID($orderID);
         $orderItems = $this->orderRepository->getOrderItemsByOrderID($orderID);
         
+        
         $Tickets = array();
         foreach($orderItems as $orderItem){
             $Tickets[] = $this->ticketRepository->getTicketByID($orderItem->ticketID);
         }
+        
         
         // delete the tickets
         foreach($Tickets as $Ticket){
