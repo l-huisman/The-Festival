@@ -636,3 +636,4 @@ ALTER TABLE `historicevent`
 
 ALTER TABLE `tour`
   MODIFY `tour_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+

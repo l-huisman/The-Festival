@@ -36,7 +36,6 @@ class RegisterRepository extends Repository{
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':user_id', $last_id);
         $stmt->execute();
-
     }
 }
 
