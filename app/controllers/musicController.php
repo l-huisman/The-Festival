@@ -3,14 +3,17 @@
 namespace Controllers;
 
 use Services\MusicService;
+use Services\ShoppingCartService;
 
 class MusicController
 {
-    public $service;
+    private $service;
+    private $shoppingCartService;
 
     public function __construct()
     {
         $this->service = new MusicService();
+        $this->shoppingCartService = new ShoppingCartService();
     }
 
     public function index()
@@ -28,8 +31,19 @@ class MusicController
         require_once __DIR__ . '/../views/music/artist.php';
     }
 
-    public function event($event_id)
+    public function event()
     {
-        //TODO: Implement this method to buy a ticket for an event
+        $event_id = $_POST['event_id'];
+        $event = $this->shoppingCartService->addMusicTicket($event_id);
+        header('Location: /music');
+    }
+
+    public function allAccessEvent()
+    {
+        $date = $_POST['date'];
+        $price = $_POST['price'];
+        $event_id = $_POST['event_id'];
+        $event = $this->shoppingCartService->addAllAccessMusicTicket($event_id, $date, $price);
+        header('Location: /music');
     }
 }

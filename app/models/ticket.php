@@ -28,12 +28,6 @@ class Ticket
         $this->shoppingcartID = $shoppingcartID;
     }
 
-
-    public function __toString()
-    {
-        return "Ticket: [id: $this->id, user_id: $this->user_id, title: $this->title, description: $this->description]";
-    }
-
     public function getTime(){
         return date('H:i', strtotime($this->datetime));
     }

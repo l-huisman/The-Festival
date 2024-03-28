@@ -111,8 +111,7 @@ class MusicService
     public function getEventById($id)
     {
         $data = $this->eventRepository->getEventById($id);
-        $venue = $this->venueRepository->getVenueById($data["venue_id"]);
-        return new Event($data["id"], $data['availableTickets'], $data['eventDate'], $data['duration'], $data['price'], $venue);
+        return $this->setEvents([$data])[0];
     }
 
     public function getEventsByArtistID($artistID)
