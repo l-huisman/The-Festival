@@ -59,6 +59,6 @@ class Artist
     # to string
     public function __toString()
     {
-        return "<div class=container>Artist: $this->name" . " Description: $this->description" . " Banner: $this->banner" . " Pictogram: $this->pictogram</div>";
+        return "<div class=container>ID: $this->id . Artist: $this->name" . " Description: $this->description" . " Banner: $this->banner" . " Pictogram: $this->pictogram</div>";
     }
 }
