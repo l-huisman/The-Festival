@@ -18,7 +18,8 @@ class RegisterService {
     public function validateUser($firstName, $lastName, $email, $dateOfBirth, $address, $phoneNumber, $password, $gender)
     {
         if (empty($firstName) || empty($lastName) || empty($email) || empty($dateOfBirth) || empty($address) || empty($phoneNumber) || empty($password) || empty($gender)) {
-            return false;
+            header('Location:/register/loginView?errorMessage=please fill in all the fields');
+            die();
         }
         $user = $this->getUserByEmail($email);
         if(!$user){
@@ -26,7 +27,7 @@ class RegisterService {
             unset($password);
             $this->registerRepository->createUser($firstName, $lastName, $email, $dateOfBirth, $address, $phoneNumber, $hashedPassword, $gender);
         }else {
-            //user email already exists
+            header('Location:/register/loginView?errorMessage=mail already exists');
         }
     }
 

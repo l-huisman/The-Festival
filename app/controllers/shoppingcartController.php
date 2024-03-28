@@ -16,8 +16,6 @@ class ShoppingcartController {
         if(isset($_SESSION['user'])){
             $user = unserialize($_SESSION['user']);
             $this->shoppingcartService->getUsersTickets($user);
-
-            
         }
         require_once __DIR__ . '/../views/shoppingcart/index.php';
                 

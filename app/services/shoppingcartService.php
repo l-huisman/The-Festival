@@ -24,10 +24,10 @@ class ShoppingcartService{
                 $Ticket = unserialize($Serialized_Ticket);
                 if($Ticket->ticketID == $TicketID){
                     unset($_SESSION['Tickets'][$index]);
-                    $this->ticketRepository->removeTicket($TicketID);
                 }
             }
         }
+        $this->ticketRepository->removeTicket($TicketID);
     }
 
     public function Share($user){
