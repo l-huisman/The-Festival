@@ -1,31 +1,8 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: mysql
--- Generation Time: Mar 28, 2024 at 10:43 AM
--- Server version: 11.2.2-MariaDB-1:11.2.2+maria~ubu2204
--- PHP Version: 8.2.15
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `developmentdb`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `artist`
---
+CREATE DATABASE IF NOT EXISTS `developmentdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `developmentdb`;
 
 CREATE TABLE `artist` (
   `id` int(11) NOT NULL,
@@ -35,10 +12,6 @@ CREATE TABLE `artist` (
   `pictogram` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `artist`
---
-
 INSERT INTO `artist` (`id`, `name`, `description`, `banner`, `pictogram`) VALUES
 (1, 'Hardwell', 'Hardwell is a Dutch DJ, record producer and remixer from Breda, North Brabant. He was voted the World\'s No. 1 DJ on DJ Mag in 2013, and again in 2014. He is also known for his sets at music festivals, including Ultra Music Festival, Sunburn and Tomorrowland.', '/img/artists/hardwell/banner.jpg', '/img/artists/hardwell/pictogram.jpg'),
 (2, 'Martin Garrix', 'Martijn Gerard Garritsen, known professionally as Martin Garrix, is a Dutch DJ and record producer from Amstelveen. His most known singles are \"Animals\", \"In the Name of Love\", and \"Scared to be Lonely\". He was ranked number one on DJ Mag\'s Top 100 DJs list for three consecutive years (2016, 2017, and 2018).', '/img/artists/martingarrix/banner.jpg', '/img/artists/martingarrix/pictogram.jpg'),
@@ -46,31 +19,15 @@ INSERT INTO `artist` (`id`, `name`, `description`, `banner`, `pictogram`) VALUES
 (4, 'Armin van Buuren', 'Armin Jozef Jacobus Daniël van Buuren OON is a Dutch DJ, record producer and remixer from South Holland. Since 2001, he has hosted A State of Trance, a weekly radio show, which is broadcast to nearly 40 million listeners in 84 countries on over 100 FM radio stations.', '/img/artists/arminvanbuuren/banner.jpg', '/img/artists/arminvanbuuren/pictogram.jpg'),
 (5, 'David Guetta', 'Pierre David Guetta is a French DJ, record producer and songwriter. He has sold over nine million albums and 30 million singles worldwide. In 2011, Guetta was voted as the number one DJ in the DJ Mag Top 100 DJs poll.', '/img/artists/davidguetta/banner.jpg', '/img/artists/davidguetta/pictogram.jpg');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `artist_event`
---
-
 CREATE TABLE `artist_event` (
   `artist_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `artist_event`
---
-
 INSERT INTO `artist_event` (`artist_id`, `event_id`) VALUES
 (3, 1),
 (5, 1),
 (1, 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `guide`
---
 
 CREATE TABLE `guide` (
   `guide_id` int(20) NOT NULL,
@@ -78,10 +35,6 @@ CREATE TABLE `guide` (
   `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `language` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `guide`
---
 
 INSERT INTO `guide` (`guide_id`, `tour_id`, `name`, `language`) VALUES
 (1, 1, 'Jan-Willem', 'Dutch'),
@@ -96,12 +49,6 @@ INSERT INTO `guide` (`guide_id`, `tour_id`, `name`, `language`) VALUES
 (10, 5, 'Williams', 'English'),
 (11, 5, 'Kim', 'Chinese');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `historicevent`
---
-
 CREATE TABLE `historicevent` (
   `historicevent_id` int(30) NOT NULL,
   `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
@@ -110,10 +57,6 @@ CREATE TABLE `historicevent` (
   `location` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `historicevent`
---
-
 INSERT INTO `historicevent` (`historicevent_id`, `name`, `description`, `path`, `location`) VALUES
 (1, 'St.Bavo Kerk\r\n', 'De Grote of St.-Bavokerk werd voor het laatst gerestaureerd in 1980-1985. Het is een laat-gotische kruisbasiliek met slanke kruistoren (gerestaureerd 1964-1969).\r\n\r\nMiddenbeuk en koor zijn gedekt door houten gewelven (16de eeuw).\r\n\r\n\r\n\r\n', '/img/historicevents/bavokerk.jpg', 'Grote Markt 22, 2021 RD Haarlem'),
 (2, 'Grote Markt', 'De Hallen Haarlem toont regelmatig solopresentaties van internationaal spraakmakende kunstenaars die nog niet eerder in Nederland hebben geëxposeerd.\r\n', '/img/historicevents/grotemarkt.jpg', 'Grote Markt,\r\n2011 RD Haarlem\r\n'),
@@ -121,30 +64,14 @@ INSERT INTO `historicevent` (`historicevent_id`, `name`, `description`, `path`, 
 (4, 'Proveniershof', 'Het Proveniershof is een hofje in Haarlem, gelegen aan de Grote Houtstraat 140, de drukste winkelstraat van Haarlem.', '/img/historicevents/proveniershof.jpg', 'Grote Houtstraat 142D, 2011 SV Haarlem'),
 (5, 'Jopenkerk', 'Het verhaal achter Jopen begint in de veertiende eeuw als Haarlem uitgroeit tot een van de belangrijkste brouwerssteden van Nederland. Brouwerijen draaien op volle toeren en het gerstenat wordt in ‘Jopen’ (vaten van 112 liter) over het Spaarne vervoerd. ', '/img/historicevents/jopenkerk.jpg', 'Gedempte Voldersgracht 2, 2011 WD Haarlem');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `home`
---
-
 CREATE TABLE `home` (
   `home_id` int(20) NOT NULL,
   `img_id` int(20) NOT NULL,
   `about` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `home`
---
-
 INSERT INTO `home` (`home_id`, `img_id`, `about`) VALUES
 (1, 1, 'loreisan duasidb nasudiyseb t ruiaewy bfsudiba siudn asdusajnd uiasndausidn asuidn vasdasd');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `images`
---
 
 CREATE TABLE `images` (
   `img_id` int(20) NOT NULL,
@@ -152,18 +79,8 @@ CREATE TABLE `images` (
   `path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `images`
---
-
 INSERT INTO `images` (`img_id`, `name`, `path`) VALUES
 (1, 'Bavokerk', '/img/historicevents/bavokerk.jpg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Location`
---
 
 CREATE TABLE `Location` (
   `location_id` int(11) NOT NULL,
@@ -175,10 +92,6 @@ CREATE TABLE `Location` (
   `housenumber` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `Location`
---
-
 INSERT INTO `Location` (`location_id`, `detail_id`, `type`, `streetname`, `postalcode`, `city`, `housenumber`) VALUES
 (1, 1, 'Restaurant', 'Oude Groenmarkt', '2011HL', 'Haarlem', '10'),
 (2, 2, 'Restaurant', 'Twijnderslaan', '2021BG', 'Haarlem', '7'),
@@ -187,12 +100,6 @@ INSERT INTO `Location` (`location_id`, `detail_id`, `type`, `streetname`, `posta
 (5, 5, 'Restaurant', 'Lange Veerstraat', '2011DB', 'Haarlem', '4'),
 (6, 6, 'Restaurant', 'Klokhuisplein', '2011HK', 'Haarlem', '9'),
 (7, 7, 'Restaurant', 'Grote Markt', '2011RC', 'Haarlem', '13');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `music_event`
---
 
 CREATE TABLE `music_event` (
   `id` int(11) NOT NULL,
@@ -203,19 +110,9 @@ CREATE TABLE `music_event` (
   `duration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `music_event`
---
-
 INSERT INTO `music_event` (`id`, `venue_id`, `available_tickets`, `price`, `time`, `duration`) VALUES
 (1, 4, 1500, 75, '2024-07-27 20:00:00', 360),
 (2, 4, 300, 60, '2024-07-27 21:00:00', 120);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orderItems`
---
 
 CREATE TABLE `orderItems` (
   `orderItemID` int(11) NOT NULL,
@@ -224,10 +121,6 @@ CREATE TABLE `orderItems` (
   `quantity` int(11) NOT NULL,
   `price` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `orderItems`
---
 
 INSERT INTO `orderItems` (`orderItemID`, `orderID`, `ticketID`, `quantity`, `price`) VALUES
 (25, 4, 34, 2, 23.5),
@@ -244,12 +137,6 @@ INSERT INTO `orderItems` (`orderItemID`, `orderID`, `ticketID`, `quantity`, `pri
 (40, 6, 37, 2, 23.5),
 (41, 9, 60, 5, 17.5);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
 CREATE TABLE `orders` (
   `orderID` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
@@ -257,22 +144,12 @@ CREATE TABLE `orders` (
   `TotalPrice` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `orders`
---
-
 INSERT INTO `orders` (`orderID`, `userID`, `orderDateTime`, `TotalPrice`) VALUES
 (4, 1, '2024-03-20 18:53:28', 378),
 (6, 2, '2024-03-25 11:59:05', 189),
 (7, 4, '2024-03-28 10:34:07', 0),
 (8, 4, '2024-03-28 10:36:02', 87.5),
 (9, 4, '2024-03-28 10:37:18', 87.5);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Restaurant`
---
 
 CREATE TABLE `Restaurant` (
   `restaurant_id` int(11) NOT NULL,
@@ -290,10 +167,6 @@ CREATE TABLE `Restaurant` (
   `menu_image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `Restaurant`
---
-
 INSERT INTO `Restaurant` (`restaurant_id`, `name`, `description`, `price`, `price_kids`, `star_rating`, `cuisine`, `website`, `phonenumber`, `total_seats`, `header_image`, `restaurant_image`, `menu_image`) VALUES
 (1, 'Urban Frenchy Bistro Toujours', 'For a cozy and beautiful dinner, Toujours is the place to be. It’s located is the center of Haarlem, right across from the Grote kerk. It’s a french restaurant with two open kitchens and a cozy styled interior. ', 35, 17.5, 4, 'French', 'https://restauranttoujours.nl/', '023 5321699', 48, '\\img\\restaurants\\toujours\\header_toujours.jpg', '\\img\\restaurants\\toujours\\restaurant_toujours.jpg', '\\img\\restaurants\\toujours\\menu_toujours.jpg'),
 (2, 'Fris', 'Fris a modern french restaurant in the city center of Haarlem, by Rick May.  the restaurant has a relaxed atmosphere with high quality dishes, made with fresh seasonal products. Fris received in 2022 a Michelin star. ', 45, 22.5, 4, 'French', 'https://www.restaurantfris.nl/', '023 5310717', 45, '\\img\\restaurants\\fris\\header_fris.jpg', '\\img\\restaurants\\fris\\restaurant_fris.jpg', '\\img\\restaurants\\fris\\menu_fris.jpg'),
@@ -303,12 +176,6 @@ INSERT INTO `Restaurant` (`restaurant_id`, `name`, `description`, `price`, `pric
 (6, 'ML', 'Restaurant ML is located in historical Hotel ML. It is a french restaurant with surprising flavor combinations in their dishes, but with the right combination between traditional and new products and flavors.', 45, 22.5, 4, 'International', 'https://www.mlinhaarlem.nl/', '023 5123910', 60, '\\img\\restaurants\\ml\\header_ML.jpg', '\\img\\restaurants\\ml\\restaurant_ML.jpg', '\\img\\restaurants\\ml\\menu_ML.jpg'),
 (7, 'Grand Cafe Brinkmann', 'Grand Cafe Brinkmann has been known since 1879 in Haarlem and surroundings.  Located on the Grote Markt in the center of Haarlem. The various menu has for everyone something to offer, prepared with fresh ingredients. ', 35, 17.5, 4, 'Dutch', 'https://www.grandcafebrinkmann.nl/', '023 532 3111', 100, '\\img\\restaurants\\brinkmann\\header_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\restaurant_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\menu_brinkmann.jpg');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `restaurant_reservations`
---
-
 CREATE TABLE `restaurant_reservations` (
   `ticket_id` int(11) NOT NULL,
   `restaurant_id` int(11) NOT NULL,
@@ -317,12 +184,6 @@ CREATE TABLE `restaurant_reservations` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Session`
---
-
 CREATE TABLE `Session` (
   `session_id` int(11) NOT NULL,
   `restaurant_id` int(11) NOT NULL,
@@ -330,10 +191,6 @@ CREATE TABLE `Session` (
   `duration` time NOT NULL,
   `seats_reserved` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `Session`
---
 
 INSERT INTO `Session` (`session_id`, `restaurant_id`, `start_datetime`, `duration`, `seats_reserved`) VALUES
 (1, 1, '2023-07-27 17:30:00', '01:30:00', 47),
@@ -397,20 +254,10 @@ INSERT INTO `Session` (`session_id`, `restaurant_id`, `start_datetime`, `duratio
 (62, 7, '2023-07-29 18:00:00', '01:30:00', 100),
 (63, 7, '2023-07-29 19:30:00', '01:30:00', 100);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `shoppingcart`
---
-
 CREATE TABLE `shoppingcart` (
   `id` int(11) NOT NULL,
   `userID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `shoppingcart`
---
 
 INSERT INTO `shoppingcart` (`id`, `userID`) VALUES
 (1, 1),
@@ -418,22 +265,12 @@ INSERT INTO `shoppingcart` (`id`, `userID`) VALUES
 (3, 3),
 (4, 4);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `song`
---
-
 CREATE TABLE `song` (
   `id` int(11) NOT NULL,
   `artist_id` int(11) NOT NULL,
   `song` text NOT NULL,
   `cover` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `song`
---
 
 INSERT INTO `song` (`id`, `artist_id`, `song`, `cover`) VALUES
 (1, 1, '/audio/spaceman.mp3', '/audio/spaceman.jpg'),
@@ -452,12 +289,6 @@ INSERT INTO `song` (`id`, `artist_id`, `song`, `cover`) VALUES
 (14, 5, '/audio/lovers.mp3', '/audio/lovers.jpg'),
 (15, 5, '/audio/whenlove.mp3', '/audio/whenlove.jpg');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tickets`
---
-
 CREATE TABLE `tickets` (
   `ticketID` int(11) NOT NULL,
   `userID` int(11) DEFAULT NULL,
@@ -471,10 +302,6 @@ CREATE TABLE `tickets` (
   `paid` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tickets`
---
-
 INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `description`, `quantity`, `price`, `shoppingcartID`, `paid`) VALUES
 (30, 1, 'Concert Ticket ', '2024-03-19 16:18:01', '', ' Admission to the live concert event ', 2, 23.5, 1, 0),
 (31, 1, 'Music Ticket ', '2024-03-20 16:18:11', '', ' Admission to the latest blockbuster movie ', 3, 25, 1, 0),
@@ -487,12 +314,6 @@ INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `d
 (59, 3, 'Historical Tour1', '2024-07-25 10:00:00', 'Bavo Church', '', 1, 17.5, 3, 0),
 (60, 4, 'Historical Tour1', '2024-07-25 13:00:00', 'Bavo Church', '', 5, 17.5, NULL, 1);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tour`
---
-
 CREATE TABLE `tour` (
   `tour_id` int(20) NOT NULL,
   `start_location` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
@@ -500,10 +321,6 @@ CREATE TABLE `tour` (
   `seats` int(20) NOT NULL,
   `time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tour`
---
 
 INSERT INTO `tour` (`tour_id`, `start_location`, `price`, `seats`, `time`) VALUES
 (1, 'Bavo Church', 17.5, 12, '2024-07-25 10:00:00'),
@@ -519,12 +336,6 @@ INSERT INTO `tour` (`tour_id`, `start_location`, `price`, `seats`, `time`) VALUE
 (11, 'Bavo Church', 17.5, 12, '2024-07-28 13:00:00'),
 (12, 'Bavo Church', 17.5, 12, '2024-07-28 16:00:00');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
@@ -538,31 +349,17 @@ CREATE TABLE `user` (
   `role` varchar(30) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `user`
---
-
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `email`, `date_of_birth`, `address`, `phone_number`, `hashed_password`, `gender`, `role`) VALUES
 (1, 'Thijs', 'Moerland', 'Moerland8@gmail.com', '2001-09-05', 'Söderblomstraat', '31681340798 ', '$2y$10$dDdt7stAhaCM2Kl2l738tOFL5yxpSfiqvIiHzYYKy7E3f01PkKL56', 'male', 'admin'),
 (2, 'Luke', 'Huisman', 'luke.huisman@yahoo.nl', '2003-04-06', 'Julianaweg 2a', '31637662718', '$2y$10$NI.bOubSIq1tDUVSw8wgMuxOMxgBSdznoaaoFLFZtlYxfqxA510MG', 'male', 'admin'),
 (3, 'test', 'test', 'test@test.com', '2024-02-29', '123456712', '0681340798', '$2y$10$9zsk.zf9MNEtSVKEqPPP5.8GamKwHTfH8Q5Ypkcmi/h3zczfDGAY6', 'male', ' user '),
 (4, 'Thijs', 'Moerland', 'henkiebla@gmail.com', '2024-03-05', 'Söderblomstraat 53', '0681340798', '$2y$10$JOz079GVwwdFiZH6XczCfe5BMNL6WYu3D0RTo/Br4ZNONTFKPgZ5i', 'male', 'user');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `venue`
---
-
 CREATE TABLE `venue` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `venue`
---
 
 INSERT INTO `venue` (`id`, `name`, `address`) VALUES
 (1, 'Club Stalker', 'Kromme Elleboogsteeg 20, 2011 TS Haarlem'),
@@ -572,21 +369,11 @@ INSERT INTO `venue` (`id`, `name`, `address`) VALUES
 (5, 'Club Ruis', 'Smedestraat 31, 2011 RE Haarlem'),
 (6, 'XO the Club', 'Grote Markt 8, 2011 RD Haarlem');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `wysiwyg`
---
-
 CREATE TABLE `wysiwyg` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `wysiwyg`
---
 
 INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
 (1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\r\n<h1><img src=\"https://us.123rf.com/450wm/senk/senk1101/senk110100053/8551686-green-frog.jpg\" alt=\"\" width=\"450\" height=\"300\">Welcome dsdsdsdsdto this custom made page!</h1>\r\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\r\n<p>That is if you are logged in as an administrator!</p>\r\n<p>&nbsp;</p>\r\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\r\n</div>'),
@@ -595,278 +382,139 @@ INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
 (4, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n<p class=\"me-4\">Laat je betoveren door de onvergetelijke klanken van jazz op ons sprankelende evenement! Ontdek de magie van live optredens, swingende ritmes en de bruisende sfeer. Mis deze unieke gelegenheid niet en beleef een avond vol muzikale verrassingen in Haarlem!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
 (5, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">History</h2>\r\n<p class=\"me-4\">Stap binnen in de betoverende wereld van Haarlem \'s geschiedenis tijdens ons unieke historisch festival! Laat je meevoeren door fascinerende verhalen, ontdek verborgen schatten en geniet van levendige optredens. Een onvergetelijke ervaring wacht op jou - kom en ontdek het zelf!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>');
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `artist`
---
 ALTER TABLE `artist`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `artist_event`
---
 ALTER TABLE `artist_event`
   ADD PRIMARY KEY (`artist_id`,`event_id`),
   ADD KEY `event_id` (`event_id`);
 
---
--- Indexes for table `guide`
---
 ALTER TABLE `guide`
   ADD PRIMARY KEY (`guide_id`);
 
---
--- Indexes for table `historicevent`
---
 ALTER TABLE `historicevent`
   ADD PRIMARY KEY (`historicevent_id`);
 
---
--- Indexes for table `home`
---
 ALTER TABLE `home`
   ADD PRIMARY KEY (`home_id`);
 
---
--- Indexes for table `images`
---
 ALTER TABLE `images`
   ADD PRIMARY KEY (`img_id`);
 
---
--- Indexes for table `Location`
---
 ALTER TABLE `Location`
   ADD PRIMARY KEY (`location_id`);
 
---
--- Indexes for table `music_event`
---
 ALTER TABLE `music_event`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_venue_id` (`venue_id`);
 
---
--- Indexes for table `orderItems`
---
 ALTER TABLE `orderItems`
   ADD PRIMARY KEY (`orderItemID`);
 
---
--- Indexes for table `orders`
---
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`orderID`);
 
---
--- Indexes for table `Restaurant`
---
 ALTER TABLE `Restaurant`
   ADD PRIMARY KEY (`restaurant_id`);
 
---
--- Indexes for table `restaurant_reservations`
---
 ALTER TABLE `restaurant_reservations`
   ADD PRIMARY KEY (`ticket_id`),
   ADD KEY `restaurant_id` (`restaurant_id`),
   ADD KEY `session_id` (`session_id`);
 
---
--- Indexes for table `Session`
---
 ALTER TABLE `Session`
   ADD PRIMARY KEY (`session_id`),
   ADD KEY `restaurant_id` (`restaurant_id`);
 
---
--- Indexes for table `shoppingcart`
---
 ALTER TABLE `shoppingcart`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `song`
---
 ALTER TABLE `song`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FOREIGN` (`artist_id`);
 
---
--- Indexes for table `tickets`
---
 ALTER TABLE `tickets`
   ADD PRIMARY KEY (`ticketID`);
 
---
--- Indexes for table `tour`
---
 ALTER TABLE `tour`
   ADD PRIMARY KEY (`tour_id`);
 
---
--- Indexes for table `user`
---
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
---
--- Indexes for table `venue`
---
 ALTER TABLE `venue`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `wysiwyg`
---
 ALTER TABLE `wysiwyg`
   ADD PRIMARY KEY (`id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `artist`
---
 ALTER TABLE `artist`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
--- AUTO_INCREMENT for table `guide`
---
 ALTER TABLE `guide`
   MODIFY `guide_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
---
--- AUTO_INCREMENT for table `historicevent`
---
 ALTER TABLE `historicevent`
   MODIFY `historicevent_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
---
--- AUTO_INCREMENT for table `home`
---
 ALTER TABLE `home`
   MODIFY `home_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT for table `images`
---
 ALTER TABLE `images`
   MODIFY `img_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT for table `Location`
---
 ALTER TABLE `Location`
   MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
---
--- AUTO_INCREMENT for table `music_event`
---
 ALTER TABLE `music_event`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- AUTO_INCREMENT for table `orderItems`
---
 ALTER TABLE `orderItems`
   MODIFY `orderItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
---
--- AUTO_INCREMENT for table `orders`
---
 ALTER TABLE `orders`
   MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
---
--- AUTO_INCREMENT for table `Restaurant`
---
 ALTER TABLE `Restaurant`
   MODIFY `restaurant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
---
--- AUTO_INCREMENT for table `Session`
---
 ALTER TABLE `Session`
   MODIFY `session_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
---
--- AUTO_INCREMENT for table `shoppingcart`
---
 ALTER TABLE `shoppingcart`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
---
--- AUTO_INCREMENT for table `song`
---
 ALTER TABLE `song`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
---
--- AUTO_INCREMENT for table `tickets`
---
 ALTER TABLE `tickets`
   MODIFY `ticketID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
---
--- AUTO_INCREMENT for table `tour`
---
 ALTER TABLE `tour`
   MODIFY `tour_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
---
--- AUTO_INCREMENT for table `user`
---
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
---
--- AUTO_INCREMENT for table `venue`
---
 ALTER TABLE `venue`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
---
--- AUTO_INCREMENT for table `wysiwyg`
---
 ALTER TABLE `wysiwyg`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `artist_event`
---
 ALTER TABLE `artist_event`
   ADD CONSTRAINT `artist_event_ibfk_1` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`),
   ADD CONSTRAINT `artist_event_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `music_event` (`id`);
 
---
--- Constraints for table `music_event`
---
 ALTER TABLE `music_event`
   ADD CONSTRAINT `fk_venue_id` FOREIGN KEY (`venue_id`) REFERENCES `venue` (`id`);
 
---
--- Constraints for table `Session`
---
 ALTER TABLE `Session`
   ADD CONSTRAINT `Session_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `Restaurant` (`restaurant_id`);
 
---
--- Constraints for table `song`
---
 ALTER TABLE `song`
   ADD CONSTRAINT `FOREIGN` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
