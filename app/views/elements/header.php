@@ -117,11 +117,19 @@
                                     <span class="nav_name">Session</span>
                                 </a>
                             </div>
-                            <a href="#" class="nav_link active">
-                                <span class="nav_name">other</span>
-                            </a>
-                            <a href="#" class="nav_link active">
-                                <span class="nav_name">other</span>
+                            <div onclick=toggleDropdownHistory() class="nav_link active" style="cursor:pointer">
+                                <span class="nav_name">History</span>
+                            </div>
+                            <div class="container" id="dropdown-history">
+                                <a href="/historic/historyOverview" class="nav_link active">
+                                    <span class="nav_name">HistoryEvent</span>
+                                </a>
+                                <a href="/historic/tourOverview" class="nav_link active">
+                                    <span class="nav_name">Tour</span>
+                                </a>
+                            </div>
+                            <a href="/custom" class="nav_link active">
+                                <span class="nav_name">Custom</span>
                             </a>
                             <a href="/admin/overviewOrders" class="nav_link active">
                                 <span class="nav_name">Orders</span>
@@ -158,6 +166,19 @@
             yummyDropdown.style.display = 'none';
         }
     }
+
+    var historyDropdown = document.getElementById('dropdown-history');
+    historyDropdown.style.display = 'none';
+
+    function toggleDropdownHistory() {
+        if (historyDropdown.style.display === 'none') {
+            historyDropdown.style.display = 'block';
+        } else {
+            historyDropdown.style.display = 'none';
+        }
+    }
+
+
 </script>
 
 </html>
