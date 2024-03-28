@@ -22,7 +22,7 @@ class EventRepository extends Repository
     }
     public function getArtistsByEventId($event_id)
     {
-        $sql = "SELECT artist.id, artist.name FROM artist_event JOIN artist ON artist.id = artist_event.artist_id WHERE artist_event.event_id = :event_id";
+        $sql = "SELECT artist.id, artist.name, artist.description, artist.banner, artist.pictogram FROM artist_event JOIN artist ON artist_event.artist_id = artist.id WHERE artist_event.event_id = :event_id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':event_id', $event_id);
         $stmt->execute();

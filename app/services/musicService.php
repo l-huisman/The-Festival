@@ -105,7 +105,7 @@ class MusicService
     public function getEvents()
     {
         $data = $this->eventRepository->getEvents();
-        return $this->setEvent($data);
+        return $this->setEvents($data);
     }
 
     public function getEventById($id)
@@ -118,10 +118,10 @@ class MusicService
     public function getEventsByArtistID($artistID)
     {
         $data = $this->eventRepository->getEventsByArtistID($artistID);
-        return $this->setEvent($data);
+        return $this->setEvents($data);
     }
 
-    public function setEvent($data){
+    public function setEvents($data){
         $events = [];
         foreach ($data as $event) {
             $eventID = $event["id"];
@@ -131,7 +131,7 @@ class MusicService
             $events[] = new Event($eventID, $event['available_tickets'], $event['time'], $event['duration'], $event['price'], $venue);
             $artists = $this->eventRepository->getArtistsByEventId($eventID);
             foreach ($artists as $artist) {
-                $events[count($events) - 1]->addArtist(new Artist($artist["id"], $artist['name']));
+                $events[count($events) - 1]->addArtist(new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner'], $artist['pictogram']));
             }
         }
         return $events;

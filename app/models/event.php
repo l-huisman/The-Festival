@@ -64,6 +64,6 @@ class Event
 
     public function addArtist($artist)
     {
-        $this->artists = $artist;
+        $this->artists[] = $artist;
     }
 }
