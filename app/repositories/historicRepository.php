@@ -22,7 +22,6 @@ class HistoricRepository extends Repository
         return $stmt->fetch();
     }
 
-
     public function updateHistoricEvent($id, $name, $description, $path, $location)
     {
 
@@ -41,6 +40,17 @@ class HistoricRepository extends Repository
         $sql = "DELETE FROM historicevent WHERE historicevent_id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
+
+    public function addHistoricEvent($name, $description, $path, $location)
+    {
+        $sql = "INSERT INTO historicevent (name, description, path, location) VALUES (:name, :description, :path, :location)";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':path', $path);
+        $stmt->bindParam(':location', $location);
         $stmt->execute();
     }
 

@@ -21,9 +21,21 @@ CREATE TABLE `artist` (
   `pictogram` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `artist`
---
+DROP TABLE IF EXISTS `restaurant_reservations`;
+
+CREATE TABLE `restaurant_reservations` (
+  `ticket_id` int(11) NOT NULL,
+  `restaurant_id` int(11) NOT NULL,
+  `session_id` int(11) NOT NULL,
+  `comments` varchar(500) NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `restaurant_reservations`
+  ADD PRIMARY KEY (`ticket_id`),
+  ADD KEY `restaurant_id` (`restaurant_id`),
+  ADD KEY `session_id` (`session_id`);
+
 
 INSERT INTO `artist` (`id`, `name`, `description`, `banner`, `pictogram`) VALUES
 (1, 'Hardwell', 'Hardwell is a Dutch DJ, record producer and remixer from Breda, North Brabant. He was voted the World\'s No. 1 DJ on DJ Mag in 2013, and again in 2014. He is also known for his sets at music festivals, including Ultra Music Festival, Sunburn and Tomorrowland.', '/img/artists/hardwell/banner.jpg', '/img/artists/hardwell/pictogram.jpg'),
@@ -52,7 +64,7 @@ CREATE TABLE `guide` (
   `guide_id` int(20) NOT NULL,
   `tour_id` int(20) NOT NULL,
   `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `language` enum('Dutch','French','Chinese','English') NOT NULL
+  `language` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `guide` (`guide_id`, `tour_id`, `name`, `language`) VALUES
@@ -191,14 +203,6 @@ INSERT INTO `Restaurant` (`restaurant_id`, `name`, `description`, `price`, `pric
 (6, 'ML', 'Restaurant ML is located in historical Hotel ML. It is a french restaurant with surprising flavor combinations in their dishes, but with the right combination between traditional and new products and flavors.', 45, 22.5, 4, 'International', 'https://www.mlinhaarlem.nl/', '023 5123910', 60, '\\img\\restaurants\\ml\\header_ML.jpg', '\\img\\restaurants\\ml\\restaurant_ML.jpg', '\\img\\restaurants\\ml\\menu_ML.jpg'),
 (7, 'Grand Cafe Brinkmann', 'Grand Cafe Brinkmann has been known since 1879 in Haarlem and surroundings.  Located on the Grote Markt in the center of Haarlem. The various menu has for everyone something to offer, prepared with fresh ingredients. ', 35, 17.5, 4, 'Dutch', 'https://www.grandcafebrinkmann.nl/', '023 532 3111', 100, '\\img\\restaurants\\brinkmann\\header_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\restaurant_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\menu_brinkmann.jpg');
 
-CREATE TABLE `restaurant_reservations` (
-  `ticket_id` int(11) NOT NULL,
-  `restaurant_id` int(11) NOT NULL,
-  `session_id` int(11) NOT NULL,
-  `comments` varchar(500) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 CREATE TABLE `Session` (
   `session_id` int(11) NOT NULL,
   `restaurant_id` int(11) NOT NULL,
@@ -329,9 +333,11 @@ CREATE TABLE `tickets` (
   `paid` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `description`, `quantity`, `price`, `shoppingcartID`, `paid`) VALUES
-(28, 1, 'test', '2024-03-24 12:12:12', '', 'testDescr', 2, 23.5, 1, 0),
-(29, 1, 'test1', '2024-03-24 10:12:12', '', 'testDescr2', 1, 25, 1, 0),
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `description`, `quantity`, `price`, `shoppingcartID`,`paid`) VALUES
 (30, 1, 'Concert Ticket ', '2024-03-19 16:18:01', '', ' Admission to the live concert event ', 2, 23.5, 1, 0),
 (31, 1, 'Music Ticket ', '2024-03-20 16:18:11', '', ' Admission to the latest blockbuster movie ', 3, 25, 1, 0),
 (32, 1, 'Yummy Reservation ', '2024-03-21 16:50:17', '', ' Admission to the championship game ', 1, 20, 1, 0),
@@ -340,6 +346,12 @@ INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `d
 (35, 2, 'Music Ticket', '2024-03-20 16:18:00', ' ', 'Admission to the latest blockbuster movie', 3, 25, NULL, 1),
 (36, 2, 'Yummy Reservation', '2024-03-21 16:50:00', ' ', 'Admission to the championship game', 1, 20, NULL, 1),
 (37, 2, 'Historical Tour', '2024-03-18 16:18:00', ' ', 'This is a Historical Tour around Haarlem', 2, 23.5, NULL, 1);
+
+-- -------------------------------------------------------
+
+--
+-- Table structure for table `tour`
+--
 
 CREATE TABLE `tour` (
   `tour_id` int(20) NOT NULL,
@@ -402,12 +414,11 @@ CREATE TABLE `wysiwyg` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
-(1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\n<h1>Welcome dsdsdsdsdto this custom made page!</h1>\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\n<p>That is if you are logged in as an administrator!</p>\n<p>&nbsp;</p>\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\n</div>'),
+(1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\r\n<h1><img src=\"https://us.123rf.com/450wm/senk/senk1101/senk110100053/8551686-green-frog.jpg\" alt=\"\" width=\"450\" height=\"300\">Welcome dsdsdsdsdto this custom made page!</h1>\r\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\r\n<p>That is if you are logged in as an administrator!</p>\r\n<p>&nbsp;</p>\r\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\r\n</div>'),
 (2, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
-(3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Loremdsdsds ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
-(4, 'Yummie', '<div class=\"col-sm-12 col-md-4\">\r\n                    <img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n                    <h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n                    <p class=\"me-4\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet\r\n                        tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.\r\n                    </p>\r\n                    <div class=\"custom-link\">\r\n                        <a href=\"#\" class=\"buttons\">Read more ></a>\r\n                    </div>\r\n                </div>'),
-(7, 'sds', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
-(8, 'df', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>');
+(3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Ontdek de culinaire hoogstandjes van Haarlem op ons smaakvolle food event! Laat je zintuigen prikkelen door een overvloed aan heerlijke gerechten, verrukkelijke smaken en lokale lekkernijen. Kom en geniet van een onvergetelijke gastronomische ervaring die je smaakpapillen zal verwennen. Mis het niet!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
+(4, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n<p class=\"me-4\">Laat je betoveren door de onvergetelijke klanken van jazz op ons sprankelende evenement! Ontdek de magie van live optredens, swingende ritmes en de bruisende sfeer. Mis deze unieke gelegenheid niet en beleef een avond vol muzikale verrassingen in Haarlem!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
+(5, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">History</h2>\r\n<p class=\"me-4\">Stap binnen in de betoverende wereld van Haarlem \'s geschiedenis tijdens ons unieke historisch festival! Laat je meevoeren door fascinerende verhalen, ontdek verborgen schatten en geniet van levendige optredens. Een onvergetelijke ervaring wacht op jou - kom en ontdek het zelf!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>');
 
 --
 -- Indexes for dumped tables
@@ -447,11 +458,6 @@ ALTER TABLE `orders`
 
 ALTER TABLE `Restaurant`
   ADD PRIMARY KEY (`restaurant_id`);
-
-ALTER TABLE `restaurant_reservations`
-  ADD PRIMARY KEY (`ticket_id`),
-  ADD KEY `restaurant_id` (`restaurant_id`),
-  ADD KEY `session_id` (`session_id`);
 
 ALTER TABLE `Session`
   ADD PRIMARY KEY (`session_id`),
@@ -605,3 +611,29 @@ ALTER TABLE `Session`
 ALTER TABLE `song`
   ADD CONSTRAINT `FOREIGN` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
+--
+
+
+--
+-- AUTO_INCREMENT for table `images`
+--
+
+  ALTER TABLE `guide`
+  ADD PRIMARY KEY (`guide_id`);
+
+  ALTER TABLE `historicevent`
+  ADD PRIMARY KEY (`historicevent_id`);
+
+  ALTER TABLE `tour`
+  ADD PRIMARY KEY (`tour_id`);
+
+
+ALTER TABLE `guide`
+  MODIFY `guide_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+ALTER TABLE `historicevent`
+  MODIFY `historicevent_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+ALTER TABLE `tour`
+  MODIFY `tour_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+

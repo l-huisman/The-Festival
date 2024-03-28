@@ -30,6 +30,9 @@ class TicketRepository extends Repository{
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':shoppingcartID', $shoppingcartID);
         $stmt->execute();
+
+        // return last inserted id 
+        return $this->connection->lastInsertId();
     }
 
     public function updateTicketQuantity($ticketID, $quantity){
