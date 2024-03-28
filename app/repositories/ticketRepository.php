@@ -68,6 +68,12 @@ class TicketRepository extends Repository{
         }
         return null;
     }
+    public function setTicketToPaid($ticketID){
+        $sql = "UPDATE tickets SET shoppingcartID = NULL, paid = 1 WHERE ticketID = :ticketID";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':ticketID', $ticketID);
+        $stmt->execute();
+    }
 
     public function getTicketByID($ticketID){
         $sql = "SELECT ticketID, userID, title, datetime, location, description, quantity, price, shoppingcartID FROM tickets WHERE ticketID = :ticketID";

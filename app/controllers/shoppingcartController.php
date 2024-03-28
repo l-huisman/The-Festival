@@ -57,6 +57,7 @@ class ShoppingcartController {
             header('Location:/register/loginview?errorMessage=You need to be logged in to process your shoppingcart');
         }
     }
+<<<<<<< Updated upstream
     
     public function test(){
 
@@ -120,6 +121,8 @@ class ShoppingcartController {
         }
         exit;
     }
+=======
+>>>>>>> Stashed changes
 
     public function exportOrderInformation(){
         $orderID = htmlspecialchars($_GET['orderID']);

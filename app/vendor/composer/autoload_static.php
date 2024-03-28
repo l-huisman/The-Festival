@@ -50,8 +50,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
             'Symfony\\Bundle\\TwigBundle\\' => 26,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bridge\\Twig\\' => 20,
+            'Svg\\' => 4,
             'Stripe\\' => 7,
             'Services\\' => 9,
+            'Sabberworm\\CSS\\' => 15,
         ),
         'R' => 
         array (
@@ -69,9 +71,11 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'M' => 
         array (
             'Models\\' => 7,
+            'Masterminds\\' => 12,
         ),
         'F' => 
         array (
+            'FontLib\\' => 8,
             'Firebase\\JWT\\' => 13,
         ),
         'E' => 
@@ -82,6 +86,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         ),
         'D' => 
         array (
+            'Dompdf\\' => 7,
             'DASPRiD\\Enum\\' => 13,
         ),
         'C' => 
@@ -199,6 +204,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         array (
             0 => __DIR__ . '/..' . '/symfony/twig-bridge',
         ),
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
         'Stripe\\' => 
         array (
             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
@@ -206,6 +215,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'Services\\' => 
         array (
             0 => __DIR__ . '/../..' . '/services',
+        ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
         ),
         'Routers\\' => 
         array (
@@ -239,6 +252,14 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         array (
             0 => __DIR__ . '/../..' . '/models',
         ),
+        'Masterminds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
+        ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
@@ -254,6 +275,10 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'Endroid\\Installer\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/installer/src',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
         'DASPRiD\\Enum\\' => 
         array (
@@ -291,6 +316,7 @@ class ComposerStaticInit2a5b000460c064a9c32fe6ac415cfb09
         'DateMalformedStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedStringException.php',
         'DateObjectError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateObjectError.php',
         'DateRangeError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateRangeError.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'SQLite3Exception' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/SQLite3Exception.php',

@@ -66,7 +66,6 @@ class ShoppingcartService{
         ]);
         header("HTTP/1.1 303 See Other");
         header("Location: " . $checkout_session->url);
-        // header('Location:https://buy.stripe.com/cN2159cg8bpFfRu6oo');
     }
 
     public function cancel(){
@@ -176,19 +175,28 @@ class ShoppingcartService{
 
 
     public function getTicketsByDateAndUser($date){
+        $tickets = array();
         if(isset($_SESSION['user'])){
+            
             $user = unserialize($_SESSION['user']);
             $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
             $tickets = $this->ticketRepository->getTicketsByDateAndUser($date, $user->user_id, $shoppingcartID);
             return $tickets;
         }else if(isset($_SESSION['Tickets'])){
+            
             $tickets = array();
             foreach($_SESSION['Tickets'] as $index => $Serialized_ticket){
                 $Ticket = unserialize($Serialized_ticket);
-                if($Ticket->date == $date){
+                if($Ticket->getDate() == $date){
                     $tickets[] = $Ticket;
                 }
             }
+
+            //sort tickets by time
+            usort($tickets, function($a, $b){
+                return strtotime($a->datetime) - strtotime($b->datetime);
+            });
+            
             return $tickets;
         }
         else {
@@ -231,24 +239,28 @@ class ShoppingcartService{
     public function exportOrderInformation($orderID){
         $order = $this->orderRepository->getOrderByID($orderID);
         $orderItems = $this->orderRepository->getOrderItemsByOrderID($orderID);
+        
         $Tickets = array();
         foreach($orderItems as $orderItem){
             $Tickets[] = $this->ticketRepository->getTicketByID($orderItem->ticketID);
         }
-
+        
         // delete the tickets
         foreach($Tickets as $Ticket){
-            $this->ticketRepository->removeTicket($Ticket->ticketID);
-            //remove tickets from session
-            if(isset($_SESSION['Tickets'])){
-                foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
-                    $Unserialized_Ticket = unserialize($Serialized_Ticket);
-                    if($Unserialized_Ticket->ticketID == $Ticket->ticketID){
-                        unset($_SESSION['Tickets'][$index]);
+            if(isset($Ticket)){
+                $this->ticketRepository->setTicketToPaid($Ticket->ticketID);
+                
+                // $this->ticketRepository->removeTicket($Ticket->ticketID);
+                //remove tickets from session
+                if(isset($_SESSION['Tickets'])){
+                    foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
+                        $Unserialized_Ticket = unserialize($Serialized_Ticket);
+                        if($Unserialized_Ticket->ticketID == $Ticket->ticketID){
+                            unset($_SESSION['Tickets'][$index]);
+                        }
                     }
                 }
             }
-
         }
 
         // change the Order variablie into an array
