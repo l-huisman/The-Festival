@@ -303,7 +303,7 @@ CREATE TABLE `guide` (
   `guide_id` int(20) NOT NULL,
   `tour_id` int(20) NOT NULL,
   `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `language` enum('Dutch','French','Chinese','English') NOT NULL
+  `language` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -423,12 +423,11 @@ INSERT INTO `tour` (`tour_id`, `start_location`, `price`, `seats`, `time`) VALUE
 --
 
 INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
-(1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\n<h1>Welcome dsdsdsdsdto this custom made page!</h1>\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\n<p>That is if you are logged in as an administrator!</p>\n<p>&nbsp;</p>\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\n</div>'),
+(1, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\">\r\n<h1><img src=\"https://us.123rf.com/450wm/senk/senk1101/senk110100053/8551686-green-frog.jpg\" alt=\"\" width=\"450\" height=\"300\">Welcome dsdsdsdsdto this custom made page!</h1>\r\n<h2>You can edit the content of this page by using the wysiwyg editor below.</h2>\r\n<p>That is if you are logged in as an administrator!</p>\r\n<p>&nbsp;</p>\r\n<p><strong>dsddfdfdfdfdfddfdfdf</strong></p>\r\n</div>'),
 (2, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
-(3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Loremdsdsds ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
-(4, 'Yummie', '<div class=\"col-sm-12 col-md-4\">\r\n                    <img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n                    <h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n                    <p class=\"me-4\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nibh sem, ultricies sit amet\r\n                        tellus ut, iaculis interdum ante. Quisque at nibh ac diam faucibus congue.\r\n                    </p>\r\n                    <div class=\"custom-link\">\r\n                        <a href=\"#\" class=\"buttons\">Read more ></a>\r\n                    </div>\r\n                </div>'),
-(7, 'sds', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
-(8, 'df', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>');
+(3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Ontdek de culinaire hoogstandjes van Haarlem op ons smaakvolle food event! Laat je zintuigen prikkelen door een overvloed aan heerlijke gerechten, verrukkelijke smaken en lokale lekkernijen. Kom en geniet van een onvergetelijke gastronomische ervaring die je smaakpapillen zal verwennen. Mis het niet!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
+(4, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n<p class=\"me-4\">Laat je betoveren door de onvergetelijke klanken van jazz op ons sprankelende evenement! Ontdek de magie van live optredens, swingende ritmes en de bruisende sfeer. Mis deze unieke gelegenheid niet en beleef een avond vol muzikale verrassingen in Haarlem!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
+(5, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">History</h2>\r\n<p class=\"me-4\">Stap binnen in de betoverende wereld van Haarlem\'s geschiedenis tijdens ons unieke historisch festival! Laat je meevoeren door fascinerende verhalen, ontdek verborgen schatten en geniet van levendige optredens. Een onvergetelijke ervaring wacht op jou - kom en ontdek het zelf!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>');
 
 --
 
@@ -522,7 +521,27 @@ ALTER TABLE `images`
 ALTER TABLE `images`
   MODIFY `img_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
+  ALTER TABLE `guide`
+  ADD PRIMARY KEY (`guide_id`);
 
+  ALTER TABLE `historicevent`
+  ADD PRIMARY KEY (`historicevent_id`);
+
+  ALTER TABLE `tour`
+  ADD PRIMARY KEY (`tour_id`);
+
+
+ALTER TABLE `guide`
+  MODIFY `guide_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+ALTER TABLE `historicevent`
+  MODIFY `historicevent_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+ALTER TABLE `home`
+  MODIFY `home_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+ALTER TABLE `tour`
+  MODIFY `tour_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

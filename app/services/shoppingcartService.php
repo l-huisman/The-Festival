@@ -4,11 +4,15 @@ namespace Services;
 //require_once '../vendor/autoload.php';
 require_once '../vendor/stripe/stripe-php/init.php';
 
+use Models\Ticket;
+
 
 
 class ShoppingcartService{
     private $shoppingcartRepository;
     private $ticketRepository;
+
+    private $tourService;
 
     private $orderRepository;
 
@@ -16,6 +20,7 @@ class ShoppingcartService{
         $this->shoppingcartRepository = new \Repositories\ShoppingcartRepository();
         $this->ticketRepository = new \Repositories\TicketRepository();
         $this->orderRepository = new \Repositories\OrderRepository();
+        $this->tourService = new \Services\TourService();
     }
 
     public function remove($TicketID){
@@ -286,6 +291,21 @@ class ShoppingcartService{
             $totalPrice += $Ticket->price * $Ticket->quantity;
         }
         return $totalPrice;
+    }
+
+    public function saveTourinTicketSession($tour_id)
+    {
+       
+        $tour = $this->tourService->getTourbyId($tour_id);
+        $ticket = new Ticket(null, unserialize($_SESSION['user'])->user_id, "Historical Tour1", $tour->getTime(), $tour->getStartLocation(), "", 1, $tour->getPrice(), unserialize($_SESSION["Tickets"][0])->shoppingcartID );
+        
+        if(isset($_SESSION['Tickets'])){
+            $_SESSION['Tickets'][] = serialize($ticket);
+        }else{
+            $_SESSION['Tickets'] = array();
+            $_SESSION['Tickets'][] = serialize($ticket);
+        }
+
     }
 
 }

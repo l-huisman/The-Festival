@@ -56,7 +56,7 @@ class ShoppingcartController {
             header('Location:/register/loginview?errorMessage=You need to be logged in to process your shoppingcart');
         }
     }
-
+    
     public function test(){
 
         $customers_data = array(
@@ -257,4 +257,8 @@ class ShoppingcartController {
         }
         return $calendar;
     }
+
+
+
+
 }

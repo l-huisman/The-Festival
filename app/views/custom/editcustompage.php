@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../elements/header.php';
+?>
 
-
+    <?php
 if (isset ($customPage)) {
     echo $customPage->getContent();
     $user = unserialize($_SESSION['user']);
@@ -10,7 +11,7 @@ if (isset ($customPage)) {
         $action = '/custom/update';
         $data = $customPage->getContent();
         ?>
-        <div class="container">
+        <div class="container" style= "max">
 
             <?php require_once __DIR__ . '/../wysiwyg/index.php'; ?>
         </div>

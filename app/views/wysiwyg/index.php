@@ -12,4 +12,3 @@
     <button type="submit" class="btn btn-primary mt-3">Submit</button>
     <button type="submit" class="btn btn-danger mt-3" formaction="/custom/delete">Delete</button>
 </form>
-];|
