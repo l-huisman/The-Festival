@@ -27,6 +27,9 @@ class ShoppingcartService{
         if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Ticket = unserialize($Serialized_Ticket);
+                if($this->is_serialized($Ticket)){
+                    $Ticket = unserialize($Ticket);
+                }
                 if($Ticket->ticketID == $TicketID){
                     unset($_SESSION['Tickets'][$index]);
                     $this->ticketRepository->removeTicket($TicketID);
@@ -89,6 +92,9 @@ class ShoppingcartService{
         if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Ticket = unserialize($Serialized_Ticket);
+                if($this->is_serialized($Ticket)){
+                    $Ticket = unserialize($Ticket);
+                }
                 if($Ticket->ticketID == $TicketID){
                     $Ticket->quantity = $Quantity;
                     $_SESSION['Tickets'][$index] = serialize($Ticket);
@@ -107,6 +113,9 @@ class ShoppingcartService{
         else if(isset($_SESSION['Tickets'])){
             foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                 $Unserialized_Ticket = unserialize($Serialized_Ticket);
+                if($this->is_serialized($Unserialized_Ticket)){
+                    $Unserialized_Ticket = unserialize($Unserialized_Ticket);
+                }
                 $TicketID = $this->ticketRepository->addTicket($user->user_id, $Unserialized_Ticket->title, $Unserialized_Ticket->datetime, $Unserialized_Ticket->location, $Unserialized_Ticket->description, $Unserialized_Ticket->quantity, $Unserialized_Ticket->price, $shoppingcartID);
                 $Unserialized_Ticket->ticketID = $TicketID;
                 $Serialized_Ticket = serialize($Unserialized_Ticket);
@@ -187,6 +196,9 @@ class ShoppingcartService{
             $tickets = array();
             foreach($_SESSION['Tickets'] as $index => $Serialized_ticket){
                 $Ticket = unserialize($Serialized_ticket);
+                if($this->is_serialized($Ticket)){
+                    $Ticket = unserialize($Ticket);
+                }
                 if($Ticket->getDate() == $date){
                     $tickets[] = $Ticket;
                 }
@@ -255,6 +267,9 @@ class ShoppingcartService{
                 if(isset($_SESSION['Tickets'])){
                     foreach($_SESSION['Tickets'] as $index => $Serialized_Ticket){
                         $Unserialized_Ticket = unserialize($Serialized_Ticket);
+                        if($this->is_serialized($Unserialized_Ticket)){
+                            $Unserialized_Ticket = unserialize($Unserialized_Ticket);
+                        }
                         if($Unserialized_Ticket->ticketID == $Ticket->ticketID){
                             unset($_SESSION['Tickets'][$index]);
                         }
@@ -309,7 +324,6 @@ class ShoppingcartService{
             echo implode("\t", array_values($row)) . "\n";
         }
         exit;
-        header('Location:/');
     }
 
     function filterCustomerData(&$str) {
@@ -322,6 +336,9 @@ class ShoppingcartService{
     private function calculateTotalPrice($Tickets){
         $totalPrice = 0;
         foreach($Tickets as $Ticket){
+            if($this->is_serialized($Ticket)){
+                $Ticket = unserialize($Ticket);
+            }
             $totalPrice += $Ticket->price * $Ticket->quantity;
         }
         return $totalPrice;
@@ -331,12 +348,29 @@ class ShoppingcartService{
     {
        
         $tour = $this->tourService->getTourbyId($tour_id);
-        $ticket = new Ticket(null, unserialize($_SESSION['user'])->user_id, "Historical Tour1", $tour->getTime(), $tour->getStartLocation(), "", 1, $tour->getPrice(), unserialize($_SESSION["Tickets"][0])->shoppingcartID );
         
         if(isset($_SESSION['Tickets'])){
+            //check if user is logged in
+            if(isset($_SESSION['user'])){
+                $user = unserialize($_SESSION['user']);
+                //get users shoppincart id
+                $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
+                //insert ticket with shoppingcart id
+                $ticket = new Ticket(null, unserialize($_SESSION['user'])->user_id, "Historical Tour1", $tour->getTime(), $tour->getStartLocation(), "", 1, $tour->getPrice(), $shoppingcartID );
+            }else {
+                //without
+                $ticket = new Ticket(null, unserialize($_SESSION['user'])->user_id, "Historical Tour1", $tour->getTime(), $tour->getStartLocation(), "", 1, $tour->getPrice(), null );
+            }
             $_SESSION['Tickets'][] = serialize($ticket);
         }else{
             $_SESSION['Tickets'] = array();
+            if(isset($_SESSION['user'])){
+                $user = unserialize($_SESSION['user']);
+                $shoppingcartID = $this->shoppingcartRepository->getUsersShoppingCartID($user->user_id);
+                $ticket = new Ticket(null, unserialize($_SESSION['user'])->user_id, "Historical Tour1", $tour->getTime(), $tour->getStartLocation(), "", 1, $tour->getPrice(), $shoppingcartID );
+            }else {
+                $ticket = new Ticket(null, unserialize($_SESSION['user'])->user_id, "Historical Tour1", $tour->getTime(), $tour->getStartLocation(), "", 1, $tour->getPrice(), null );
+            }
             $_SESSION['Tickets'][] = serialize($ticket);
         }
 
