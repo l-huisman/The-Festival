@@ -17,7 +17,8 @@
                 <link type="text/css" rel="stylesheet" href="./styles/adminHeader.css">
             <?php } ?>
 
-        <?php }} ?>
+    <?php }
+    } ?>
 </head>
 
 <body>
@@ -42,78 +43,121 @@
                 <li class="nav-item">
                 <a class="nav-link" href="/contact">Info</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/contact">Info</a>
+                </li>
             </ul>
             <ul class="navbar-nav">
                 <?php 
 
-                if(isset($_SESSION['user'])) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/register/logout">Logout</a>
-                    </li>
-                <?php } else { ?>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/register/loginview">Login</a>
-                    </li>
-                <?php } ?>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="/shoppingcart">Shopping cart</a>
-                </li>
-                <li class="nav-item my-auto">
-                    <a class="nav-link" href="/admin/loginPage">Admin</a>
-                </li>
-                <li class="nav-item my-auto">
-                    <a class="nav-link" href="/user/manageAccount"><i class="fa-regular fa-user"></i></a>
-                </li>
-            </ul>
+                        if (isset($_SESSION['user'])) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register/logout">Logout</a>
+                            </li>
+                        <?php } else { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register/loginview">Login</a>
+                            </li>
+                        <?php } ?>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/shoppingcart">Shopping cart</a>
+                        </li>
+                        <li class="nav-item my-auto">
+                            <a class="nav-link" href="/admin/loginPage">Admin</a>
+                        </li>
+                        <li class="nav-item my-auto">
+                            <a class="nav-link" href="/user/manageAccount"><i class="fa-regular fa-user"></i></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     </div>
 
 
     <!-- create a sidebar -->
     <!-- check if admin user is logged in -->
-    <?php if(isset($_SESSION['user'])) { 
+    <?php if (isset($_SESSION['user'])) {
         $user = unserialize($_SESSION['user']);
-        if($user->role == 'admin') { ?>
-        <div class="l-navbar" id="nav-bar">
-            <nav class="nav">
-                <div> 
-                    <a href="/home" class="nav_logo"> 
-                        <i class='bx bx-layer nav_logo-icon'></i> 
-                        <span class="nav_logo-name">Home</span> 
-                    </a>
-                    <div class="nav_list"> 
-                        <a href="/admin/overviewUsers" class="nav_link active"> 
-                            <span class="nav_name">Users</span> 
-                        </a> 
-                        <a href="#" class="nav_link active"> 
-                            <span class="nav_name">other</span> 
-                        </a> 
-                        <a href="#" class="nav_link active">
-                            <span class="nav_name">other</span> 
-                        </a> 
-                        <a href="#" class="nav_link active"> 
-                            <span class="nav_name">other</span> 
-                        </a> 
-                        <a href="#" class="nav_link active"> 
-                            <span class="nav_name">other</span> 
-                        </a> 
-                        <a href="/admin/overviewOrders" class="nav_link active"> 
-                            <span class="nav_name">Orders</span> 
-                        </a> 
+        if ($user->role == 'admin') { ?>
+            <div class="l-navbar" id="nav-bar">
+                <nav class="nav">
+                    <div>
+                        <a href="/home" class="nav_logo">
+                            <i class='bx bx-layer nav_logo-icon'></i>
+                            <span class="nav_logo-name">Home</span>
+                        </a>
+                        <div class="nav_list">
+                            <a href="/admin/overviewUsers" class="nav_link active">
+                                <span class="nav_name">Users</span>
+                            </a>
+                            <div onclick=toggleDropdown() class="nav_link active" style="cursor:pointer">
+                                <span class="nav_name">Music</span>
+                            </div>
+                            <div class="container" id="dropdown-music">
+                                <a href="/admin/music?id=1" class="nav_link active">
+                                    <span class="nav_name">Artist</span>
+                                </a>
+                                <a href="/admin/music?id=2" class="nav_link active">
+                                    <span class="nav_name">Event</span>
+                                </a>
+                                <a href="/admin/music?id=3" class="nav_link active">
+                                    <span class="nav_name">Venue</span>
+                                </a>
+                            </div>
+                            <div onclick=toggleDropdown() class="nav_link active" style="cursor:pointer">
+                                <span class="nav_name">Yummy</span>
+                            </div>
+                            <div class="container" id="dropdown-yummy">
+                                <a href="/yummy/restaurantOverview" class="nav_link active">
+                                    <span class="nav_name">Restaurant</span>
+                                </a>
+                                <a href="/yummy/sessionOverview" class="nav_link active">
+                                    <span class="nav_name">Session</span>
+                                </a>
+                            </div>
+                            <a href="#" class="nav_link active">
+                                <span class="nav_name">other</span>
+                            </a>
+                            <a href="#" class="nav_link active">
+                                <span class="nav_name">other</span>
+                            </a>
+                            <a href="/admin/overviewOrders" class="nav_link active">
+                                <span class="nav_name">Orders</span>
+                            </a>
+                        </div>
                     </div>
-                </div> 
-                <!-- <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a> -->
-            </nav>
-        </div>
-        
-    <?php }} ?>
+                    <!-- <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a> -->
+                </nav>
+            </div>
 
-    
-    
-
-
+    <?php }
+    } ?>
 </body>
+
+<script>
+    var dropdown = document.getElementById('dropdown-music');
+    dropdown.style.display = 'none';
+
+    function toggleDropdown() {
+        if (dropdown.style.display === 'none') {
+            dropdown.style.display = 'block';
+        } else {
+            dropdown.style.display = 'none';
+        }
+    }
+
+    var yummyDropdown = document.getElementById('dropdown-yummy');
+    yummyDropdown.style.display = 'none';
+
+    function toggleDropdown() {
+        if (yummyDropdown.style.display === 'none') {
+            yummyDropdown.style.display = 'block';
+        } else {
+            yummyDropdown.style.display = 'none';
+        }
+    }
+</script>
+
 </html>

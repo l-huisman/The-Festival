@@ -1,4 +1,6 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<?php
+require_once __DIR__ . '/../../elements/header.php';
+?>
 
 <body>
   <h1 class = "d-flex justify-content-center">Edit Restaurant</h1>
@@ -17,11 +19,11 @@
         </div>
         <div class="mb-3">
           <label for="number" class="form-label">Price adults</label>
-          <input type="number" min="1" class="form-control" id="price" name="price" value="<?= $editRestaurant->getPrice(); ?>" required>
+          <input type="number" step="0.01" min="1" class="form-control" id="price" name="price" value="<?= $editRestaurant->getPrice(); ?>" required>
         </div>
         <div class="mb-3">
           <label for="number" class="form-label">Price kids</label>
-          <input type="number" min="1" class="form-control" id="price" name="price_kids" value="<?= $editRestaurant->getPrice_kids(); ?>" required>
+          <input type="number" step="0.01" min="1" class="form-control" id="price" name="price_kids" value="<?= $editRestaurant->getPrice_kids(); ?>" required>
         </div>
         <div class="mb-3">
           <label for="role" class="form-label">Star rating</label>

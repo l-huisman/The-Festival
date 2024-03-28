@@ -6,7 +6,7 @@ class VenueRepository extends Repository
 {
     public function getVenues()
     {
-        $sql = "SELECT * FROM venue";
+        $sql = "SELECT id, name, address FROM venue";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -21,19 +21,21 @@ class VenueRepository extends Repository
         return $stmt->fetch();
     }
 
-    public function createVenue($address)
+    public function createVenue($name, $address)
     {
-        $sql = "INSERT INTO venue (address) VALUES(:address)";
+        $sql = "INSERT INTO venue (name, address) VALUES (:name, :address)";
         $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(':name', $name);
         $stmt->bindParam(':address', $address);
         $stmt->execute();
     }
 
-    public function updateVenue($id, $address)
+    public function updateVenue($id, $name, $address)
     {
-        $sql = "UPDATE venue SET address = :address WHERE id = :id";
+        $sql = "UPDATE venue SET name = :name, address = :address WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
         $stmt->bindParam(':address', $address);
         $stmt->execute();
     }
