@@ -203,4 +203,3 @@ class ShoppingcartController
         }
         return $calendar;
     }
-}
