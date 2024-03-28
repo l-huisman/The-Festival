@@ -21,7 +21,6 @@ CREATE TABLE `artist` (
   `pictogram` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-<<<<<<< Updated upstream
 DROP TABLE IF EXISTS `restaurant_reservations`;
 
 CREATE TABLE `restaurant_reservations` (
@@ -37,11 +36,6 @@ ALTER TABLE `restaurant_reservations`
   ADD KEY `restaurant_id` (`restaurant_id`),
   ADD KEY `session_id` (`session_id`);
 
-=======
---
--- Dumping data for table `artist`
---
->>>>>>> Stashed changes
 
 INSERT INTO `artist` (`id`, `name`, `description`, `banner`, `pictogram`) VALUES
 (1, 'Hardwell', 'Hardwell is a Dutch DJ, record producer and remixer from Breda, North Brabant. He was voted the World\'s No. 1 DJ on DJ Mag in 2013, and again in 2014. He is also known for his sets at music festivals, including Ultra Music Festival, Sunburn and Tomorrowland.', '/img/artists/hardwell/banner.jpg', '/img/artists/hardwell/pictogram.jpg'),
@@ -70,7 +64,7 @@ CREATE TABLE `guide` (
   `guide_id` int(20) NOT NULL,
   `tour_id` int(20) NOT NULL,
   `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `language` enum('Dutch','French','Chinese','English') NOT NULL
+  `language` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `guide` (`guide_id`, `tour_id`, `name`, `language`) VALUES
@@ -209,14 +203,6 @@ INSERT INTO `Restaurant` (`restaurant_id`, `name`, `description`, `price`, `pric
 (6, 'ML', 'Restaurant ML is located in historical Hotel ML. It is a french restaurant with surprising flavor combinations in their dishes, but with the right combination between traditional and new products and flavors.', 45, 22.5, 4, 'International', 'https://www.mlinhaarlem.nl/', '023 5123910', 60, '\\img\\restaurants\\ml\\header_ML.jpg', '\\img\\restaurants\\ml\\restaurant_ML.jpg', '\\img\\restaurants\\ml\\menu_ML.jpg'),
 (7, 'Grand Cafe Brinkmann', 'Grand Cafe Brinkmann has been known since 1879 in Haarlem and surroundings.  Located on the Grote Markt in the center of Haarlem. The various menu has for everyone something to offer, prepared with fresh ingredients. ', 35, 17.5, 4, 'Dutch', 'https://www.grandcafebrinkmann.nl/', '023 532 3111', 100, '\\img\\restaurants\\brinkmann\\header_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\restaurant_brinkmann.jpg', '\\img\\restaurants\\brinkmann\\menu_brinkmann.jpg');
 
-CREATE TABLE `restaurant_reservations` (
-  `ticket_id` int(11) NOT NULL,
-  `restaurant_id` int(11) NOT NULL,
-  `session_id` int(11) NOT NULL,
-  `comments` varchar(500) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 CREATE TABLE `Session` (
   `session_id` int(11) NOT NULL,
   `restaurant_id` int(11) NOT NULL,
@@ -347,151 +333,11 @@ CREATE TABLE `tickets` (
   `paid` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-<<<<<<< Updated upstream
 --
 -- Dumping data for table `tickets`
 --
 
-INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `description`, `quantity`, `price`, `shoppingcartID`) VALUES
-(1, 1, ' Concert Ticket ', '0000-00-00 00:00:00', '', ' Admission to the live concert event ', 1, 23.5, 1),
-(2, 1, ' Movie Ticket ', '0000-00-00 00:00:00', '', ' Admission to the latest blockbuster movie ', 2, 25, 1),
-(3, 1, ' Sports Ticket ', '0000-00-00 00:00:00', '', ' Admission to the championship game ', 1, 20, 1),
-(4, 1, ' Historical Tour ', '0000-00-00 00:00:00', '', ' This is a Historical Tour around Haarlem ', 1, 23.5, 1);
-
-CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL,
-  `first_name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `date_of_birth` date DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `phone_number` varchar(20) DEFAULT NULL,
-  `hashed_password` varchar(255) DEFAULT NULL,
-  `gender` varchar(255) DEFAULT NULL,
-  `role` varchar(30) NOT NULL DEFAULT ' user '
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `email`, `date_of_birth`, `address`, `phone_number`, `hashed_password`, `gender`, `role`) VALUES
-(1, ' Thijs', ' Moerland ', 'Moerland8@gmail.com', '2001-09-05', 'Söderblomstraat', '31681340798 ', '$2y$10$dDdt7stAhaCM2Kl2l738tOFL5yxpSfiqvIiHzYYKy7E3f01PkKL56', 'male', 'admin');
-
-CREATE TABLE `venue` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE `wysiwyg` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `content` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-
-
-
---
--- Table structure for table `guide`
---
-
-CREATE TABLE `guide` (
-  `guide_id` int(20) NOT NULL,
-  `tour_id` int(20) NOT NULL,
-  `name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `language` varchar(120) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `guide`
---
-
-INSERT INTO `guide` (`guide_id`, `tour_id`, `name`, `language`) VALUES
-(1, 1, 'Jan-Willem', 'Dutch'),
-(2, 1, 'Frederic', 'English'),
-(3, 2, 'Jan-Willem', 'Dutch'),
-(4, 2, 'Frederic', 'English'),
-(5, 3, 'Jan-Willem', 'Dutch'),
-(6, 3, 'Frederic', 'English'),
-(7, 4, 'Annet', 'Dutch'),
-(8, 4, 'Williams', 'English'),
-(9, 5, 'Annet', 'Dutch'),
-(10, 5, 'Williams', 'English'),
-(11, 5, 'Kim', 'Chinese');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `historicevent`
---
-
-CREATE TABLE `historicevent` (
-  `historicevent_id` int(30) NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `path` varchar(255) NOT NULL,
-  `location` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `historicevent`
---
-
-INSERT INTO `historicevent` (`historicevent_id`, `name`, `description`, `path`, `location`) VALUES
-(1, 'St.Bavo Kerk\r\n', 'De Grote of St.-Bavokerk werd voor het laatst gerestaureerd in 1980-1985. Het is een laat-gotische kruisbasiliek met slanke kruistoren (gerestaureerd 1964-1969).\r\n\r\nMiddenbeuk en koor zijn gedekt door houten gewelven (16de eeuw).\r\n\r\n\r\n\r\n', '/img/historicevents/bavokerk.jpg', 'Grote Markt 22, 2021 RD Haarlem'),
-(2, 'Grote Markt', 'De Hallen Haarlem toont regelmatig solopresentaties van internationaal spraakmakende kunstenaars die nog niet eerder in Nederland hebben geëxposeerd.\r\n', '/img/historicevents/grotemarkt.jpg', 'Grote Markt,\r\n2011 RD Haarlem\r\n'),
-(3, 'De Hallen', 'Hal is een tentoonstellingscomplex van het Frans Hals Museum aan de Grote Markt van Haarlem waar moderne en hedendaagse kunst tentoongesteld wordt in wisselende presentaties.', '/img/historicevents/dehallen.jpeg', 'Grote Markt 16, 2011 RD Haarlem'),
-(4, 'Proveniershof', 'Het Proveniershof is een hofje in Haarlem, gelegen aan de Grote Houtstraat 140, de drukste winkelstraat van Haarlem.', '/img/historicevents/proveniershof.jpg', 'Grote Houtstraat 142D, 2011 SV Haarlem'),
-(5, 'Jopenkerk', 'Het verhaal achter Jopen begint in de veertiende eeuw als Haarlem uitgroeit tot een van de belangrijkste brouwerssteden van Nederland. Brouwerijen draaien op volle toeren en het gerstenat wordt in ‘Jopen’ (vaten van 112 liter) over het Spaarne vervoerd. ', '/img/historicevents/jopenkerk.jpg', 'Gedempte Voldersgracht 2, 2011 WD Haarlem');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `home`
---
-
-CREATE TABLE `home` (
-  `home_id` int(20) NOT NULL,
-  `img_id` int(20) NOT NULL,
-  `about` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `home`
---
-
-INSERT INTO `home` (`home_id`, `img_id`, `about`) VALUES
-(1, 1, 'loreisan duasidb nasudiyseb t ruiaewy bfsudiba siudn asdusajnd uiasndausidn asuidn vasdasd');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `images`
---
-
-CREATE TABLE `images` (
-  `img_id` int(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `path` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `images`
---
-
-INSERT INTO `images` (`img_id`, `name`, `path`) VALUES
-(1, 'Bavokerk', '/img/historicevents/bavokerk.jpg');
-
---
--- Table structure for table `tour`
---
-=======
-INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `description`, `quantity`, `price`, `shoppingcartID`, `paid`) VALUES
-(28, 1, 'test', '2024-03-24 12:12:12', '', 'testDescr', 2, 23.5, 1, 0),
-(29, 1, 'test1', '2024-03-24 10:12:12', '', 'testDescr2', 1, 25, 1, 0),
+INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `description`, `quantity`, `price`, `shoppingcartID`,`paid`) VALUES
 (30, 1, 'Concert Ticket ', '2024-03-19 16:18:01', '', ' Admission to the live concert event ', 2, 23.5, 1, 0),
 (31, 1, 'Music Ticket ', '2024-03-20 16:18:11', '', ' Admission to the latest blockbuster movie ', 3, 25, 1, 0),
 (32, 1, 'Yummy Reservation ', '2024-03-21 16:50:17', '', ' Admission to the championship game ', 1, 20, 1, 0),
@@ -500,7 +346,12 @@ INSERT INTO `tickets` (`ticketID`, `userID`, `title`, `datetime`, `location`, `d
 (35, 2, 'Music Ticket', '2024-03-20 16:18:00', ' ', 'Admission to the latest blockbuster movie', 3, 25, NULL, 1),
 (36, 2, 'Yummy Reservation', '2024-03-21 16:50:00', ' ', 'Admission to the championship game', 1, 20, NULL, 1),
 (37, 2, 'Historical Tour', '2024-03-18 16:18:00', ' ', 'This is a Historical Tour around Haarlem', 2, 23.5, NULL, 1);
->>>>>>> Stashed changes
+
+-- -------------------------------------------------------
+
+--
+-- Table structure for table `tour`
+--
 
 CREATE TABLE `tour` (
   `tour_id` int(20) NOT NULL,
@@ -567,7 +418,7 @@ INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
 (2, 'Custom Page', '<div class=\"container d-flex flex-column align-items-center\"><h1>Welcome to this custom made page!</h1><h2>You can edit the content of this page by using the wysiwyg editor below.</h2><p>That is if you are logged in as an administrator!</p></div>'),
 (3, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://d22ngpx8edtvxq.cloudfront.net/webuploads/_blockImage/93584/Foodhal-borrel-Enschede-2021-Liggend-LR-2-klein.webp\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Food4</h2>\r\n<p class=\"me-4\">Ontdek de culinaire hoogstandjes van Haarlem op ons smaakvolle food event! Laat je zintuigen prikkelen door een overvloed aan heerlijke gerechten, verrukkelijke smaken en lokale lekkernijen. Kom en geniet van een onvergetelijke gastronomische ervaring die je smaakpapillen zal verwennen. Mis het niet!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
 (4, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n<p class=\"me-4\">Laat je betoveren door de onvergetelijke klanken van jazz op ons sprankelende evenement! Ontdek de magie van live optredens, swingende ritmes en de bruisende sfeer. Mis deze unieke gelegenheid niet en beleef een avond vol muzikale verrassingen in Haarlem!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
-(5, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">History</h2>\r\n<p class=\"me-4\">Stap binnen in de betoverende wereld van Haarlem\'s geschiedenis tijdens ons unieke historisch festival! Laat je meevoeren door fascinerende verhalen, ontdek verborgen schatten en geniet van levendige optredens. Een onvergetelijke ervaring wacht op jou - kom en ontdek het zelf!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>');
+(5, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">History</h2>\r\n<p class=\"me-4\">Stap binnen in de betoverende wereld van Haarlem \'s geschiedenis tijdens ons unieke historisch festival! Laat je meevoeren door fascinerende verhalen, ontdek verborgen schatten en geniet van levendige optredens. Een onvergetelijke ervaring wacht op jou - kom en ontdek het zelf!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>');
 
 --
 -- Indexes for dumped tables
@@ -607,11 +458,6 @@ ALTER TABLE `orders`
 
 ALTER TABLE `Restaurant`
   ADD PRIMARY KEY (`restaurant_id`);
-
-ALTER TABLE `restaurant_reservations`
-  ADD PRIMARY KEY (`ticket_id`),
-  ADD KEY `restaurant_id` (`restaurant_id`),
-  ADD KEY `session_id` (`session_id`);
 
 ALTER TABLE `Session`
   ADD PRIMARY KEY (`session_id`),
@@ -765,28 +611,12 @@ ALTER TABLE `Session`
 ALTER TABLE `song`
   ADD CONSTRAINT `FOREIGN` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-<<<<<<< Updated upstream
 --
 
--- Indexes for table `home`
---
-ALTER TABLE `home`
-  ADD PRIMARY KEY (`home_id`);
-
---
--- Indexes for table `images`
---
-ALTER TABLE `images`
-  ADD PRIMARY KEY (`img_id`);
-
-  ALTER TABLE `home`
-  MODIFY `home_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
-ALTER TABLE `images`
-  MODIFY `img_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
   ALTER TABLE `guide`
   ADD PRIMARY KEY (`guide_id`);
@@ -804,14 +634,6 @@ ALTER TABLE `guide`
 ALTER TABLE `historicevent`
   MODIFY `historicevent_id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
-ALTER TABLE `home`
-  MODIFY `home_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 ALTER TABLE `tour`
   MODIFY `tour_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-=======
->>>>>>> Stashed changes
