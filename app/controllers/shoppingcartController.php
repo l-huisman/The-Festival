@@ -12,8 +12,7 @@ class ShoppingcartController
         $this->shoppingcartService = new \Services\ShoppingcartService();
     }
 
-    public function index()
-    {
+    public function index(){
         if (!isset($_SESSION['Tickets']) || !is_array($_SESSION['Tickets'])) {
             $_SESSION['Tickets'] = [];
         }
@@ -60,9 +59,8 @@ class ShoppingcartController
             header('Location:/register/loginview?errorMessage=You need to be logged in to process your shoppingcart');
         }
     }
-    
-    public function exportOrderInformation()
-    {
+
+    public function exportOrderInformation(){
         $orderID = htmlspecialchars($_GET['orderID']);
         $this->shoppingcartService->exportOrderInformation($orderID);
     }
