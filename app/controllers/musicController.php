@@ -24,6 +24,7 @@ class MusicController
     public function artist($artist_id)
     {
         $artist = $this->service->getArtistByID($artist_id);
+        $artist_events = $this->service->getEventsByArtistID($artist_id);
         require_once __DIR__ . '/../views/music/artist.php';
     }
 
