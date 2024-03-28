@@ -382,7 +382,6 @@ INSERT INTO `wysiwyg` (`id`, `name`, `content`) VALUES
 (4, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.classicstogo.nl/files/2016/06/Top-10-Jazz-RH.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">Jazz</h2>\r\n<p class=\"me-4\">Laat je betoveren door de onvergetelijke klanken van jazz op ons sprankelende evenement! Ontdek de magie van live optredens, swingende ritmes en de bruisende sfeer. Mis deze unieke gelegenheid niet en beleef een avond vol muzikale verrassingen in Haarlem!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>'),
 (5, 'Custom Page', '<div class=\"col-sm-12 col-md-4\"><img src=\"https://www.euroschoolindia.com/wp-content/uploads/2023/07/importance-of-history-scaled-1.jpg\" alt=\"1\">\r\n<h2 class=\"mt-3 mb-3\">History</h2>\r\n<p class=\"me-4\">Stap binnen in de betoverende wereld van Haarlem \'s geschiedenis tijdens ons unieke historisch festival! Laat je meevoeren door fascinerende verhalen, ontdek verborgen schatten en geniet van levendige optredens. Een onvergetelijke ervaring wacht op jou - kom en ontdek het zelf!</p>\r\n<div class=\"custom-link\"><a class=\"buttons\" href=\"#\">Read more &gt;</a></div>\r\n</div>');
 
-
 ALTER TABLE `artist`
   ADD PRIMARY KEY (`id`);
 
