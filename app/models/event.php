@@ -10,7 +10,7 @@ class Event
     private $duration;
     private $price;
     private $venue;
-    private $artistIds;
+    private $artists;
 
     public function __construct($id, $availableTickets, $eventDate, $duration, $price, $venue)
     {
@@ -54,16 +54,16 @@ class Event
 
     public function getArtists()
     {
-        return $this->artistIds;
+        return $this->artists;
     }
 
-    public function setArtists($artistIds)
+    public function setArtists($artists)
     {
-        $this->artistIds = $artistIds;
+        $this->artists = $artists;
     }
 
-    public function addArtist($artistId)
+    public function addArtist($artist)
     {
-        $this->artistIds[] = $artistId;
+        $this->artists[] = $artist;
     }
 }

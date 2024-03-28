@@ -28,12 +28,18 @@ require_once __DIR__ . '/../elements/header.php';
                         <td>
                             <select name="artistId[]" size="3" multiple>
                                 <?php
-                                $artistIds = $event->getArtists() ? array_map(function ($artist) {
-                                    return $artist->getId();
-                                }, $event->getArtists()) : [];
-                                foreach ($artists as $artist) { ?>
-                                    <option value="<?php echo $artist->getId(); ?>" <?php if (in_array($artist->getId(), $artistIds)) echo 'selected'; ?>><?php echo $artist->getName(); ?></option>
-                                <?php } ?>
+                                foreach ($artists as $artist) {
+                                    $selected = '';
+                                    foreach ($event->getArtists() as $eventArtist) {
+                                        if ($artist->getId() == $eventArtist->getId()) {
+                                            $selected = 'selected';
+                                        }
+                                    }
+                                ?>
+                                    <option value="<?= $artist->getId(); ?>" <?= $selected; ?>><?= $artist->getName(); ?></option>
+                                <?php
+                                }
+                                ?>
                             </select>
                         </td>
                         <td>

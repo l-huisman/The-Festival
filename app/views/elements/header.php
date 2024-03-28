@@ -106,7 +106,7 @@
                                     <span class="nav_name">Venue</span>
                                 </a>
                             </div>
-                            <div onclick=toggleDropdown() class="nav_link active" style="cursor:pointer">
+                            <div onclick=toggleYummyDropdown() class="nav_link active" style="cursor:pointer">
                                 <span class="nav_name">Yummy</span>
                             </div>
                             <div class="container" id="dropdown-yummy">
@@ -159,7 +159,7 @@
     var yummyDropdown = document.getElementById('dropdown-yummy');
     yummyDropdown.style.display = 'none';
 
-    function toggleDropdown() {
+    function toggleYummyDropdown() {
         if (yummyDropdown.style.display === 'none') {
             yummyDropdown.style.display = 'block';
         } else {

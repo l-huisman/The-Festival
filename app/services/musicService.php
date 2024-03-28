@@ -105,6 +105,23 @@ class MusicService
     public function getEvents()
     {
         $data = $this->eventRepository->getEvents();
+        return $this->setEvents($data);
+    }
+
+    public function getEventById($id)
+    {
+        $data = $this->eventRepository->getEventById($id);
+        $venue = $this->venueRepository->getVenueById($data["venue_id"]);
+        return new Event($data["id"], $data['availableTickets'], $data['eventDate'], $data['duration'], $data['price'], $venue);
+    }
+
+    public function getEventsByArtistID($artistID)
+    {
+        $data = $this->eventRepository->getEventsByArtistID($artistID);
+        return $this->setEvents($data);
+    }
+
+    public function setEvents($data){
         $events = [];
         foreach ($data as $event) {
             $eventID = $event["id"];
@@ -114,18 +131,10 @@ class MusicService
             $events[] = new Event($eventID, $event['available_tickets'], $event['time'], $event['duration'], $event['price'], $venue);
             $artists = $this->eventRepository->getArtistsByEventId($eventID);
             foreach ($artists as $artist) {
-                $events[count($events) - 1]->addArtist(new Artist($artist["id"], $artist['name']));
+                $events[count($events) - 1]->addArtist(new Artist($artist["id"], $artist['name'], $artist['description'], $artist['banner'], $artist['pictogram']));
             }
         }
-
         return $events;
-    }
-
-    public function getEventById($id)
-    {
-        $data = $this->eventRepository->getEventById($id);
-        $venue = $this->venueRepository->getVenueById($data["venue_id"]);
-        return new Event($data["id"], $data['availableTickets'], $data['eventDate'], $data['duration'], $data['price'], $venue);
     }
 
     public function createEvent($availableTickets, $eventDate, $duration, $price, $artistIds, $venueId)

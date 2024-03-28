@@ -124,8 +124,6 @@ class ShoppingcartService{
         }
         else if(isset($dbtickets)){
             $_SESSION['Tickets'] = $dbtickets;
-            print_r('test2');
-            die();
         }
     }
 
@@ -212,11 +210,6 @@ class ShoppingcartService{
                 return strtotime($a->datetime) - strtotime($b->datetime);
             });
             
-
-            //sort tickets by time
-            usort($tickets, function($a, $b){
-                return strtotime($a->datetime) - strtotime($b->datetime);
-            });
             
             return $tickets;
         }

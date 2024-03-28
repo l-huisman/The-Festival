@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
 
 <head>
     <title>Music</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClqONdpYoR8Ly8fZd3e0AiPZstN6pE3kg&callback=initMap&libraries=&v=weekly" async></script>
 </head>
 
 <body>
@@ -65,6 +66,7 @@ require_once __DIR__ . '/../../views/elements/header.php';
         <div class="container mt-3">
             <div class="row">
                 <?php
+                shuffle($artists);
                 $counter = 0;
                 foreach ($artists as $artist) {
                     if ($counter == 3) {
@@ -90,54 +92,138 @@ require_once __DIR__ . '/../../views/elements/header.php';
 
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading fw-normal lh-1">First featurette heading. <span class="text-body-secondary">It’ll blow your mind.</span></h2>
-                    <p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+                    <h2 class="featurette-heading fw-normal lh-1">Venues <span class="text-body-secondary"> to dance the night away.</span></h2>
+                    <p class="lead">We have selected the best venues in town for you to enjoy the music of your favorite artists.</p>
+                    <div class="container">
+                        <?php
+                        $i = 0;
+                        foreach ($events as $event) {
+                            if ($i % 2 == 0) {
+                                echo '<div class="row">';
+                            }
+                        ?>
+                            <div class="col-md-6">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $event->getVenue()->getName() ?></h5>
+                                        <p class="card-text"><?= $event->getVenue()->getAddress() ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                            if ($i % 2 == 1) {
+                                echo '</div>';
+                            }
+                            $i++;
+                        }
+                        if ($i % 2 != 0) {
+                            echo '</div>';
+                        }
+                        ?>
+                    </div>
                 </div>
-                <div class="col-md-5">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text>
-                    </svg>
+
+                <div id="map" class="col-md-5" style="height: 30rem" ;>
+
                 </div>
             </div>
 
             <hr class="featurette-divider">
 
-            <div class="row featurette">
-                <div class="col-md-7 order-md-2">
-                    <h2 class="featurette-heading fw-normal lh-1">Oh yeah, it's that good. <span class="text-body-secondary">See for yourself.</span></h2>
-                    <p class="lead">Another featurette? Of course. More placeholder
-                        content here to give you an idea of how this layout would work with some
-                        actual real-world content in place.</p>
-                </div>
-                <div class="col-md-5 order-md-1">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text>
-                    </svg>
-                </div>
-            </div>
-
-            <hr class="featurette-divider">
-
-            <div class="row featurette">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading fw-normal lh-1">And lastly, this one. <span class="text-body-secondary">Checkmate.</span></h2>
-                    <p class="lead">And yes, this is the last block of
-                        representative placeholder content. Again, not really intended to be
-                        actually read, simply here to give you a better view of what this would
-                        look like with some actual content. Your content.</p>
-                </div>
-                <div class="col-md-5">
-                    <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text>
-                    </svg>
-                </div>
+            <div class="row featurette" id="events">
+                <?php
+                $dates = ["2024-07-27", "2024-07-28", "2024-07-29", "2024-07-30"];
+                foreach ($dates as $date) {
+                ?>
+                    <div class="col-md-3 justify-content-center">
+                        <h5 class="text-center"><?= date('d-m-Y', strtotime($date)) ?></h5>
+                        <?php
+                        foreach ($events as $event) {
+                            if (date('Y-m-d', strtotime($event->getEventDate())) == $date) {
+                        ?>
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title
+                                        "><?= $event->getVenue()->getName() ?></h5>
+                                        <p class="card-text">Start time: <?= date('H:i', strtotime($event->getEventDate())) ?></p>
+                                        <p class="card-text"><?= $event->getDuration() ?> minutes</p>
+                                        <p class="card-text">&euro; <?= $event->getPrice() ?>&comma;&dash;</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a href="/music/event?id=<?= $event->getId() ?>" class="btn btn-sm btn-outline-secondary">Buy Ticket</a>
+                                            </div>
+                                            <small class="text-muted
+                                        "><?= $event->getAvailableTickets() ?> tickets available</small>
+                                        </div>
+                                    </div>
+                                </div>
+                        <?php
+                            }
+                        }
+                        ?>
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">All Access</h5>
+                                <a href="/music/event?id=<?= $event->getId() ?>" class="btn btn-sm btn-outline-secondary disabled">Buy Ticket</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </main>
 </body>
+<script>
+    var map;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: {
+                lat: 52.387388,
+                lng: 4.646219
+            },
+            disableDefaultUI: true
+        });
+
+        var geocoder = new google.maps.Geocoder();
+
+        var venues = {
+            <?php
+            foreach ($events as $event) {
+                echo json_encode($event->getVenue()->getName()) . ": " . json_encode($event->getVenue()->getAddress()) . ",";
+            }
+            ?>
+        };
+
+        for (var venue in venues) {
+            if (venues.hasOwnProperty(venue)) {
+                geocodeAddress(geocoder, map, venues[venue], venue);
+            }
+        }
+
+        function geocodeAddress(geocoder, resultsMap, address, label) {
+            geocoder.geocode({
+                'address': address
+            }, function(results, status) {
+                if (status === 'OK') {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location,
+                        label: label
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    }
+
+    initMap();
+</script>
 
 </html>
 <?php
